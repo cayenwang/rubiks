@@ -5,7 +5,7 @@ rootDirectory = os.path.abspath("../backend")
 sys.path.append(rootDirectory)
 print(os.path.exists(rootDirectory))
 
-import "backend/cube.py"
+import cube
 
 
 # Test square initialisation
