@@ -48,7 +48,6 @@ class cube:
                 colorCode = state[stateIndex]
                 color = getColourFromCode[colorCode]
                 self.squares.append(square( [j,-1,i], [0,-1,0], color ) )
-                state = state[:-1]
 
         #left
         for i in [1,0,-1]: # i is the row / y index
@@ -57,7 +56,6 @@ class cube:
                 colorCode = state[stateIndex]
                 color = getColourFromCode[colorCode]
                 self.squares.append(square( [-1,i,j], [-1,0,0], color ) )
-                state = state[:-1]
 
         #front
         for i in [-1,0,1]: # i is the row / y index
@@ -66,16 +64,14 @@ class cube:
                 colorCode = state[stateIndex]
                 color = getColourFromCode[colorCode]
                 self.squares.append(square( [j,i,-1], [0,0,-1], color ) )
-                state = state[:-1]
 
         #right
         for i in [1,0,-1]: # i is the row / y index
-            for j in [-1,0,-1]: # j is the column / z index
+            for j in [-1,0,1]: # j is the column / z index
                 stateIndex += 1
                 colorCode = state[stateIndex]
                 color = getColourFromCode[colorCode]
                 self.squares.append(square( [1,i,j], [1,0,0], color ) )
-                state = state[:-1]
 
         #back
         for i in [-1,0,1]: # i is the row / y index
@@ -84,7 +80,6 @@ class cube:
                 colorCode = state[stateIndex]
                 color = getColourFromCode[colorCode]
                 self.squares.append(square( [j,i,1], [0,0,1], color ) )
-                state = state[:-1]
 
         #bottom
         for i in [-1,0,1]: # i is the row / z index
@@ -93,7 +88,6 @@ class cube:
                 colorCode = state[stateIndex]
                 color = getColourFromCode[colorCode]
                 self.squares.append(square( [j,1,i], [0,1,0], color ) )
-                state = state[:-1]
     
     def toDict(self):
         attributes = {

@@ -1,8 +1,14 @@
-import pytest
+#import pytest
+import sys,os
+
+rootDirectory = os.path.abspath("../backend")
+sys.path.append(rootDirectory)
+print(os.path.exists(rootDirectory))
+
+import "backend/cube.py"
+
 
 # Test square initialisation
-import cube
-
 def test_squareInit():
     # Given:
     testSquare = cube.square([0,0,0], [0,1,0], "red")
