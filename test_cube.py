@@ -1,7 +1,7 @@
 import pytest
 
-# Test Class: Square initialisation
-from backend import cube
+# Test square initialisation
+import cube
 
 def test_squareInit():
     # Given:
@@ -15,3 +15,13 @@ def test_squareInit():
 
     # Then:
     assert testSquare.toDict() == expectedDictionary
+
+
+# Test cube initialisation
+def test_cubeInit():
+    # Given:
+    testCube = cube.cube()
+    testCube.buildCube("wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyyyy")
+    print(testCube.toDict())
+    
+test_cubeInit()
