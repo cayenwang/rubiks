@@ -1,9 +1,12 @@
 import cube
+import pprint
+
 
 class printColors:
     PASS = "\033[90m"
     FAIL = "\033[95m"
     RESET = "\033[0m"
+
 
 '''
 # Test template
@@ -23,93 +26,155 @@ def test_function():
 '''
 
 # Test square initialisation
+
+
 def test_squareInit():
     # Given:
-    testSquare = cube.square([0,0,0], [0,1,0], "red")
+    testSquare = cube.square([0, 0, 0], [0, 1, 0], "red")
     expectedDictionary = {
-            "position": [0,0,0],
-            "rotation": [0,1,0],
-            "color": "red"
-        }
+        "position": [0, 0, 0],
+        "rotation": [0, 1, 0],
+        "color": "red"
+    }
     # When:
 
     # Then:
     if testSquare.toDict() == expectedDictionary:
-        print("Test square initialisation: " + printColors.PASS + "passed" + printColors.RESET)
+        print("Test square initialisation: " +
+              printColors.PASS + "passed" + printColors.RESET)
     else:
-        print("Test square initialisation: " + printColors.FAIL + "failed" + printColors.RESET)
+        print("Test square initialisation: " +
+              printColors.FAIL + "failed" + printColors.RESET)
+
 
 # Test cube initialisation
 def test_cubeInit():
     # Given:
     testCube = cube.cube()
-    testCube.buildCube("yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor")
+    testCube.buildCube(
+        "yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor")
     expectedDictionary = {
-        'squares': [{'position': [-1, -1, 1], 'rotation': [0, -1, 0], 'color': 'yellow'}, 
-                    {'position': [0, -1, 1], 'rotation': [0, -1, 0], 'color': 'yellow'}, 
-                    {'position': [1, -1, 1], 'rotation': [0, -1, 0], 'color': 'blue'}, 
-                    {'position': [-1, -1, 0], 'rotation': [0, -1, 0], 'color': 'green'}, 
-                    {'position': [0, -1, 0], 'rotation': [0, -1, 0], 'color': 'white'}, 
-                    {'position': [1, -1, 0], 'rotation': [0, -1, 0], 'color': 'white'}, 
-                    {'position': [-1, -1, -1], 'rotation': [0, -1, 0], 'color': 'orange'}, 
-                    {'position': [0, -1, -1], 'rotation': [0, -1, 0], 'color': 'green'}, 
-                    {'position': [1, -1, -1], 'rotation': [0, -1, 0], 'color': 'red'}, 
-                    {'position': [-1, -1, 1], 'rotation': [-1, 0, 0], 'color': 'orange'}, 
-                    {'position': [-1, -1, 0], 'rotation': [-1, 0, 0], 'color': 'red'}, 
-                    {'position': [-1, -1, -1], 'rotation': [-1, 0, 0], 'color': 'blue'}, 
-                    {'position': [-1, 0, 1], 'rotation': [-1, 0, 0], 'color': 'red'}, 
-                    {'position': [-1, 0, 0], 'rotation': [-1, 0, 0], 'color': 'orange'}, 
-                    {'position': [-1, 0, -1], 'rotation': [-1, 0, 0], 'color': 'yellow'}, 
-                    {'position': [-1, 1, 1], 'rotation': [-1, 0, 0], 'color': 'blue'}, 
-                    {'position': [-1, 1, 0], 'rotation': [-1, 0, 0], 'color': 'blue'}, 
-                    {'position': [-1, 1, -1], 'rotation': [-1, 0, 0], 'color': 'green'}, 
-                    {'position': [-1, -1, -1], 'rotation': [0, 0, -1], 'color': 'yellow'}, 
-                    {'position': [0, -1, -1], 'rotation': [0, 0, -1], 'color': 'orange'}, 
-                    {'position': [1, -1, -1], 'rotation': [0, 0, -1], 'color': 'green'}, 
-                    {'position': [-1, 0, -1], 'rotation': [0, 0, -1], 'color': 'orange'}, 
-                    {'position': [0, 0, -1], 'rotation': [0, 0, -1], 'color': 'green'}, 
-                    {'position': [1, 0, -1], 'rotation': [0, 0, -1], 'color': 'white'}, 
-                    {'position': [-1, 1, -1], 'rotation': [0, 0, -1], 'color': 'orange'}, 
-                    {'position': [0, 1, -1], 'rotation': [0, 0, -1], 'color': 'yellow'}, 
-                    {'position': [1, 1, -1], 'rotation': [0, 0, -1], 'color': 'green'}, 
-                    {'position': [1, -1, -1], 'rotation': [1, 0, 0], 'color': 'yellow'}, 
-                    {'position': [1, -1, 0], 'rotation': [1, 0, 0], 'color': 'orange'}, 
-                    {'position': [1, -1, 1], 'rotation': [1, 0, 0], 'color': 'orange'}, 
-                    {'position': [1, 0, -1], 'rotation': [1, 0, 0], 'color': 'green'}, 
-                    {'position': [1, 0, 0], 'rotation': [1, 0, 0], 'color': 'red'}, 
-                    {'position': [1, 0, 1], 'rotation': [1, 0, 0], 'color': 'green'}, 
-                    {'position': [1, 1, -1], 'rotation': [1, 0, 0], 'color': 'white'}, 
-                    {'position': [1, 1, 0], 'rotation': [1, 0, 0], 'color': 'blue'}, 
-                    {'position': [1, 1, 1], 'rotation': [1, 0, 0], 'color': 'white'}, 
-                    {'position': [1, -1, 1], 'rotation': [0, 0, 1], 'color': 'white'}, 
-                    {'position': [0, -1, 1], 'rotation': [0, 0, 1], 'color': 'blue'}, 
-                    {'position': [-1, -1, 1], 'rotation': [0, 0, 1], 'color': 'green'}, 
-                    {'position': [1, 0, 1], 'rotation': [0, 0, 1], 'color': 'yellow'}, 
-                    {'position': [0, 0, 1], 'rotation': [0, 0, 1], 'color': 'blue'}, 
-                    {'position': [-1, 0, 1], 'rotation': [0, 0, 1], 'color': 'white'}, 
-                    {'position': [1, 1, 1], 'rotation': [0, 0, 1], 'color': 'blue'}, 
-                    {'position': [0, 1, 1], 'rotation': [0, 0, 1], 'color': 'blue'}, 
-                    {'position': [-1, 1, 1], 'rotation': [0, 0, 1], 'color': 'red'}, 
-                    {'position': [-1, 1, -1], 'rotation': [0, 1, 0], 'color': 'white'}, 
-                    {'position': [0, 1, -1], 'rotation': [0, 1, 0], 'color': 'red'}, 
-                    {'position': [1, 1, -1], 'rotation': [0, 1, 0], 'color': 'red'}, 
-                    {'position': [-1, 1, 0], 'rotation': [0, 1, 0], 'color': 'white'}, 
-                    {'position': [0, 1, 0], 'rotation': [0, 1, 0], 'color': 'yellow'}, 
-                    {'position': [1, 1, 0], 'rotation': [0, 1, 0], 'color': 'red'}, 
-                    {'position': [-1, 1, 1], 'rotation': [0, 1, 0], 'color': 'yellow'}, 
-                    {'position': [0, 1, 1], 'rotation': [0, 1, 0], 'color': 'orange'}, 
+        'squares': [{'position': [-1, -1, 1], 'rotation': [0, -1, 0], 'color': 'yellow'},
+                    {'position': [0, -1, 1],
+                        'rotation': [0, -1, 0], 'color': 'yellow'},
+                    {'position': [1, -1, 1],
+                        'rotation': [0, -1, 0], 'color': 'blue'},
+                    {'position': [-1, -1, 0],
+                        'rotation': [0, -1, 0], 'color': 'green'},
+                    {'position': [0, -1, 0],
+                        'rotation': [0, -1, 0], 'color': 'white'},
+                    {'position': [1, -1, 0],
+                        'rotation': [0, -1, 0], 'color': 'white'},
+                    {'position': [-1, -1, -1],
+                        'rotation': [0, -1, 0], 'color': 'orange'},
+                    {'position': [0, -1, -1],
+                        'rotation': [0, -1, 0], 'color': 'green'},
+                    {'position': [1, -1, -1],
+                        'rotation': [0, -1, 0], 'color': 'red'},
+                    {'position': [-1, -1, 1],
+                        'rotation': [-1, 0, 0], 'color': 'orange'},
+                    {'position': [-1, -1, 0],
+                        'rotation': [-1, 0, 0], 'color': 'red'},
+                    {'position': [-1, -1, -1],
+                        'rotation': [-1, 0, 0], 'color': 'blue'},
+                    {'position': [-1, 0, 1],
+                        'rotation': [-1, 0, 0], 'color': 'red'},
+                    {'position': [-1, 0, 0],
+                        'rotation': [-1, 0, 0], 'color': 'orange'},
+                    {'position': [-1, 0, -1],
+                        'rotation': [-1, 0, 0], 'color': 'yellow'},
+                    {'position': [-1, 1, 1],
+                        'rotation': [-1, 0, 0], 'color': 'blue'},
+                    {'position': [-1, 1, 0],
+                        'rotation': [-1, 0, 0], 'color': 'blue'},
+                    {'position': [-1, 1, -1],
+                        'rotation': [-1, 0, 0], 'color': 'green'},
+                    {'position': [-1, -1, -1],
+                        'rotation': [0, 0, -1], 'color': 'yellow'},
+                    {'position': [0, -1, -1],
+                        'rotation': [0, 0, -1], 'color': 'orange'},
+                    {'position': [1, -1, -1],
+                        'rotation': [0, 0, -1], 'color': 'green'},
+                    {'position': [-1, 0, -1],
+                        'rotation': [0, 0, -1], 'color': 'orange'},
+                    {'position': [0, 0, -1],
+                        'rotation': [0, 0, -1], 'color': 'green'},
+                    {'position': [1, 0, -1],
+                        'rotation': [0, 0, -1], 'color': 'white'},
+                    {'position': [-1, 1, -1],
+                        'rotation': [0, 0, -1], 'color': 'orange'},
+                    {'position': [0, 1, -1],
+                        'rotation': [0, 0, -1], 'color': 'yellow'},
+                    {'position': [1, 1, -1],
+                        'rotation': [0, 0, -1], 'color': 'green'},
+                    {'position': [1, -1, -1],
+                        'rotation': [1, 0, 0], 'color': 'yellow'},
+                    {'position': [1, -1, 0],
+                        'rotation': [1, 0, 0], 'color': 'orange'},
+                    {'position': [1, -1, 1],
+                        'rotation': [1, 0, 0], 'color': 'orange'},
+                    {'position': [1, 0, -1],
+                        'rotation': [1, 0, 0], 'color': 'green'},
+                    {'position': [1, 0, 0], 'rotation': [
+                        1, 0, 0], 'color': 'red'},
+                    {'position': [1, 0, 1], 'rotation': [
+                        1, 0, 0], 'color': 'green'},
+                    {'position': [1, 1, -1],
+                        'rotation': [1, 0, 0], 'color': 'white'},
+                    {'position': [1, 1, 0], 'rotation': [
+                        1, 0, 0], 'color': 'blue'},
+                    {'position': [1, 1, 1], 'rotation': [
+                        1, 0, 0], 'color': 'white'},
+                    {'position': [1, -1, 1],
+                        'rotation': [0, 0, 1], 'color': 'white'},
+                    {'position': [0, -1, 1],
+                        'rotation': [0, 0, 1], 'color': 'blue'},
+                    {'position': [-1, -1, 1],
+                        'rotation': [0, 0, 1], 'color': 'green'},
+                    {'position': [1, 0, 1], 'rotation': [
+                        0, 0, 1], 'color': 'yellow'},
+                    {'position': [0, 0, 1], 'rotation': [
+                        0, 0, 1], 'color': 'blue'},
+                    {'position': [-1, 0, 1],
+                        'rotation': [0, 0, 1], 'color': 'white'},
+                    {'position': [1, 1, 1], 'rotation': [
+                        0, 0, 1], 'color': 'blue'},
+                    {'position': [0, 1, 1], 'rotation': [
+                        0, 0, 1], 'color': 'blue'},
+                    {'position': [-1, 1, 1],
+                        'rotation': [0, 0, 1], 'color': 'red'},
+                    {'position': [-1, 1, -1],
+                        'rotation': [0, 1, 0], 'color': 'white'},
+                    {'position': [0, 1, -1],
+                        'rotation': [0, 1, 0], 'color': 'red'},
+                    {'position': [1, 1, -1],
+                        'rotation': [0, 1, 0], 'color': 'red'},
+                    {'position': [-1, 1, 0],
+                        'rotation': [0, 1, 0], 'color': 'white'},
+                    {'position': [0, 1, 0], 'rotation': [
+                        0, 1, 0], 'color': 'yellow'},
+                    {'position': [1, 1, 0], 'rotation': [
+                        0, 1, 0], 'color': 'red'},
+                    {'position': [-1, 1, 1],
+                        'rotation': [0, 1, 0], 'color': 'yellow'},
+                    {'position': [0, 1, 1], 'rotation': [
+                        0, 1, 0], 'color': 'orange'},
                     {'position': [1, 1, 1], 'rotation': [0, 1, 0], 'color': 'red'}]
     }
     # When:
 
     # Then:
     if testCube.toDict() == expectedDictionary:
-        print("Test cube initialisation: " + printColors.PASS + "passed" + printColors.RESET)
+        print("Test cube initialisation: " +
+              printColors.PASS + "passed" + printColors.RESET)
     else:
-        print("Test cube initialisation: " + printColors.FAIL + "failed" + printColors.RESET)
+        print("Test cube initialisation: " +
+              printColors.FAIL + "failed" + printColors.RESET)
     return testCube
 
 # Test getting squares on face
+
+
 def test_getSquaresOnFace():
     # Given:
     testFace = "U"
@@ -122,53 +187,213 @@ def test_getSquaresOnFace():
         resultSquaresDict["squares"].append(square.toDict())
 
     expectedDictionary = {
-        'squares': [{'position': [-1, -1, 1], 'rotation': [0, -1, 0], 'color': 'yellow'}, 
-                    {'position': [0, -1, 1], 'rotation': [0, -1, 0], 'color': 'yellow'}, 
-                    {'position': [1, -1, 1], 'rotation': [0, -1, 0], 'color': 'blue'}, 
-                    {'position': [-1, -1, 0], 'rotation': [0, -1, 0], 'color': 'green'}, 
-                    {'position': [0, -1, 0], 'rotation': [0, -1, 0], 'color': 'white'}, 
-                    {'position': [1, -1, 0], 'rotation': [0, -1, 0], 'color': 'white'}, 
-                    {'position': [-1, -1, -1], 'rotation': [0, -1, 0], 'color': 'orange'}, 
-                    {'position': [0, -1, -1], 'rotation': [0, -1, 0], 'color': 'green'}, 
-                    {'position': [1, -1, -1], 'rotation': [0, -1, 0], 'color': 'red'}, 
-                    {'position': [-1, -1, 1], 'rotation': [-1, 0, 0], 'color': 'orange'}, 
-                    {'position': [-1, -1, 0], 'rotation': [-1, 0, 0], 'color': 'red'}, 
-                    {'position': [-1, -1, -1], 'rotation': [-1, 0, 0], 'color': 'blue'}, 
-                    {'position': [-1, -1, -1], 'rotation': [0, 0, -1], 'color': 'yellow'}, 
-                    {'position': [0, -1, -1], 'rotation': [0, 0, -1], 'color': 'orange'}, 
-                    {'position': [1, -1, -1], 'rotation': [0, 0, -1], 'color': 'green'}, 
-                    {'position': [1, -1, -1], 'rotation': [1, 0, 0], 'color': 'yellow'}, 
-                    {'position': [1, -1, 0], 'rotation': [1, 0, 0], 'color': 'orange'}, 
-                    {'position': [1, -1, 1], 'rotation': [1, 0, 0], 'color': 'orange'}, 
-                    {'position': [1, -1, 1], 'rotation': [0, 0, 1], 'color': 'white'}, 
-                    {'position': [0, -1, 1], 'rotation': [0, 0, 1], 'color': 'blue'}, 
+        'squares': [{'position': [-1, -1, 1], 'rotation': [0, -1, 0], 'color': 'yellow'},
+                    {'position': [0, -1, 1],
+                        'rotation': [0, -1, 0], 'color': 'yellow'},
+                    {'position': [1, -1, 1],
+                        'rotation': [0, -1, 0], 'color': 'blue'},
+                    {'position': [-1, -1, 0],
+                        'rotation': [0, -1, 0], 'color': 'green'},
+                    {'position': [0, -1, 0],
+                        'rotation': [0, -1, 0], 'color': 'white'},
+                    {'position': [1, -1, 0],
+                        'rotation': [0, -1, 0], 'color': 'white'},
+                    {'position': [-1, -1, -1],
+                        'rotation': [0, -1, 0], 'color': 'orange'},
+                    {'position': [0, -1, -1],
+                        'rotation': [0, -1, 0], 'color': 'green'},
+                    {'position': [1, -1, -1],
+                        'rotation': [0, -1, 0], 'color': 'red'},
+                    {'position': [-1, -1, 1],
+                        'rotation': [-1, 0, 0], 'color': 'orange'},
+                    {'position': [-1, -1, 0],
+                        'rotation': [-1, 0, 0], 'color': 'red'},
+                    {'position': [-1, -1, -1],
+                        'rotation': [-1, 0, 0], 'color': 'blue'},
+                    {'position': [-1, -1, -1],
+                        'rotation': [0, 0, -1], 'color': 'yellow'},
+                    {'position': [0, -1, -1],
+                        'rotation': [0, 0, -1], 'color': 'orange'},
+                    {'position': [1, -1, -1],
+                        'rotation': [0, 0, -1], 'color': 'green'},
+                    {'position': [1, -1, -1],
+                        'rotation': [1, 0, 0], 'color': 'yellow'},
+                    {'position': [1, -1, 0],
+                        'rotation': [1, 0, 0], 'color': 'orange'},
+                    {'position': [1, -1, 1],
+                        'rotation': [1, 0, 0], 'color': 'orange'},
+                    {'position': [1, -1, 1],
+                        'rotation': [0, 0, 1], 'color': 'white'},
+                    {'position': [0, -1, 1],
+                        'rotation': [0, 0, 1], 'color': 'blue'},
                     {'position': [-1, -1, 1], 'rotation': [0, 0, 1], 'color': 'green'}]
     }
     # When:
 
     # Then:
     if resultSquaresDict == expectedDictionary:
-        print("Test getting squares on face: " + printColors.PASS + "passed" + printColors.RESET)
+        print("Test getting squares on face: " +
+              printColors.PASS + "passed" + printColors.RESET)
     else:
-        print("Test getting squares on face: " + printColors.FAIL + "failed" + printColors.RESET)
+        print("Test getting squares on face: " +
+              printColors.FAIL + "failed" + printColors.RESET)
 
 # Test rotation matrix
+
+
 def test_getRotationMatrix():
     # Given:
     testAxis = "Y"
     testAngle = 2
-    expectedMatrix = [[-1,0,0],[0,1,0],[0,0,-1]]
+    expectedMatrix = [[-1, 0, 0], [0, 1, 0], [0, 0, -1]]
     # When:
 
     # Then:
-    if cube.cube.getRotationMatrix(testAxis,testAngle) == expectedMatrix:
-        print("Test getting rotation matrix: " + printColors.PASS + "passed" + printColors.RESET)
+    if cube.cube.getRotationMatrix(testAxis, testAngle) == expectedMatrix:
+        print("Test getting rotation matrix: " +
+              printColors.PASS + "passed" + printColors.RESET)
     else:
-        print("Test getting rotation matrix: " + printColors.FAIL + "failed" + printColors.RESET)
+        print("Test getting rotation matrix: " +
+              printColors.FAIL + "failed" + printColors.RESET)
+
+
+# Test move
+def test_doMove():
+    # Given:
+    testMove = "B'"
+    testCube = test_cubeInit()
+    testCube.doMove(testMove)
+    expectedDictionary = {'squares': [{'color': 'yellow', 'position': [1, -1, 1], 'rotation': [1, 0, 0]},
+                                      {'color': 'yellow', 'position': [
+                                          1, 0, 1], 'rotation': [1, 0, 0]},
+                                      {'color': 'blue', 'position': [
+                                          1, 1, 1], 'rotation': [1, 0, 0]},
+                                      {'color': 'green', 'position': [
+                                          1, -1, 0], 'rotation': [1, 0, 0]},
+                                      {'color': 'white', 'position': [
+                                          1, 0, 0], 'rotation': [1, 0, 0]},
+                                      {'color': 'white', 'position': [
+                                          1, 1, 0], 'rotation': [1, 0, 0]},
+                                      {'color': 'orange',
+                                       'position': [1, -1, -1],
+                                       'rotation': [1, 0, 0]},
+                                      {'color': 'green', 'position': [
+                                          1, 0, -1], 'rotation': [1, 0, 0]},
+                                      {'color': 'red', 'position': [
+                                          1, 1, -1], 'rotation': [1, 0, 0]},
+                                      {'color': 'orange',
+                                       'position': [1, -1, 1],
+                                       'rotation': [0, -1, 0]},
+                                      {'color': 'red', 'position': [
+                                          1, -1, 0], 'rotation': [0, -1, 0]},
+                                      {'color': 'blue', 'position': [
+                                          1, -1, -1], 'rotation': [0, -1, 0]},
+                                      {'color': 'red', 'position': [
+                                          0, -1, 1], 'rotation': [0, -1, 0]},
+                                      {'color': 'orange',
+                                       'position': [0, -1, 0],
+                                       'rotation': [0, -1, 0]},
+                                      {'color': 'yellow',
+                                       'position': [0, -1, -1],
+                                       'rotation': [0, -1, 0]},
+                                      {'color': 'blue',
+                                          'position': [-1, -1, 1], 'rotation': [0, -1, 0]},
+                                      {'color': 'blue',
+                                          'position': [-1, -1, 0], 'rotation': [0, -1, 0]},
+                                      {'color': 'green',
+                                       'position': [-1, -1, -1],
+                                       'rotation': [0, -1, 0]},
+                                      {'color': 'yellow',
+                                       'position': [1, -1, -1],
+                                       'rotation': [0, 0, -1]},
+                                      {'color': 'orange',
+                                       'position': [1, 0, -1],
+                                       'rotation': [0, 0, -1]},
+                                      {'color': 'green', 'position': [
+                                          1, 1, -1], 'rotation': [0, 0, -1]},
+                                      {'color': 'orange',
+                                       'position': [-1, 0, -1],
+                                       'rotation': [0, 0, -1]},
+                                      {'color': 'green', 'position': [
+                                          0, 0, -1], 'rotation': [0, 0, -1]},
+                                      {'color': 'white', 'position': [
+                                          1, 0, -1], 'rotation': [0, 0, -1]},
+                                      {'color': 'orange',
+                                       'position': [-1, 1, -1],
+                                       'rotation': [0, 0, -1]},
+                                      {'color': 'yellow',
+                                       'position': [0, 1, -1],
+                                       'rotation': [0, 0, -1]},
+                                      {'color': 'green', 'position': [
+                                          1, 1, -1], 'rotation': [0, 0, -1]},
+                                      {'color': 'yellow',
+                                       'position': [1, -1, -1],
+                                       'rotation': [1, 0, 0]},
+                                      {'color': 'orange', 'position': [
+                                          1, -1, 0], 'rotation': [1, 0, 0]},
+                                      {'color': 'orange', 'position': [
+                                          1, -1, 1], 'rotation': [1, 0, 0]},
+                                      {'color': 'green', 'position': [
+                                          1, 0, -1], 'rotation': [1, 0, 0]},
+                                      {'color': 'red', 'position': [
+                                          1, 0, 0], 'rotation': [1, 0, 0]},
+                                      {'color': 'green', 'position': [
+                                          1, 0, 1], 'rotation': [1, 0, 0]},
+                                      {'color': 'white', 'position': [
+                                          1, 1, -1], 'rotation': [1, 0, 0]},
+                                      {'color': 'blue', 'position': [
+                                          1, 1, 0], 'rotation': [1, 0, 0]},
+                                      {'color': 'white', 'position': [
+                                          1, 1, 1], 'rotation': [1, 0, 0]},
+                                      {'color': 'white', 'position': [
+                                          1, -1, 1], 'rotation': [0, 0, 1]},
+                                      {'color': 'blue', 'position': [
+                                          0, -1, 1], 'rotation': [0, 0, 1]},
+                                      {'color': 'green',
+                                          'position': [-1, -1, 1], 'rotation': [0, 0, 1]},
+                                      {'color': 'yellow', 'position': [
+                                          1, 0, 1], 'rotation': [0, 0, 1]},
+                                      {'color': 'blue', 'position': [
+                                          0, 0, 1], 'rotation': [0, 0, 1]},
+                                      {'color': 'white',
+                                          'position': [-1, 0, 1], 'rotation': [0, 0, 1]},
+                                      {'color': 'blue', 'position': [
+                                          1, 1, 1], 'rotation': [0, 0, 1]},
+                                      {'color': 'blue', 'position': [
+                                          0, 1, 1], 'rotation': [0, 0, 1]},
+                                      {'color': 'red',
+                                          'position': [-1, 1, 1], 'rotation': [0, 0, 1]},
+                                      {'color': 'white',
+                                          'position': [-1, 1, -1], 'rotation': [0, 1, 0]},
+                                      {'color': 'red', 'position': [
+                                          0, 1, -1], 'rotation': [0, 1, 0]},
+                                      {'color': 'red', 'position': [
+                                          1, 1, -1], 'rotation': [0, 1, 0]},
+                                      {'color': 'white',
+                                          'position': [-1, 1, 0], 'rotation': [0, 1, 0]},
+                                      {'color': 'yellow', 'position': [
+                                          0, 1, 0], 'rotation': [0, 1, 0]},
+                                      {'color': 'red', 'position': [
+                                          1, 1, 0], 'rotation': [0, 1, 0]},
+                                      {'color': 'yellow',
+                                          'position': [-1, 1, 1], 'rotation': [0, 1, 0]},
+                                      {'color': 'orange', 'position': [
+                                          0, 1, 1], 'rotation': [0, 1, 0]},
+                                      {'color': 'red', 'position': [1, 1, 1], 'rotation': [0, 1, 0]}]}
+
+    # When:
+
+    # Then:
+    if testCube.toDict() == expectedDictionary:
+        print("Test move: " + printColors.PASS + "passed" + printColors.RESET)
+    else:
+        print("Test move: " + printColors.FAIL + "failed" + printColors.RESET)
+
 
 print("======================================== TESTING ========================================")
-test_squareInit()
-test_cubeInit()
-test_getSquaresOnFace()
-test_getRotationMatrix()
+# test_squareInit()
+# test_cubeInit()
+# test_getSquaresOnFace()
+# test_getRotationMatrix()
+test_doMove()
 print("=========================================================================================")
