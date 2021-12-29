@@ -178,8 +178,8 @@ class cube:
         return attributes
 
 
-'''
-cube = cube()
-cube.buildCube("yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor")
-cube.doMove("D2")
-'''
+if __name__ == "__main__":
+    cube = cube()
+    cube.buildCube("yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor")
+    cube.doMove("D2")
+    print(cube.toDict())
