@@ -1,4 +1,4 @@
-import numpy as np
+#import numpy as np
 
 class square:
     def __init__(self, pos, rot, color): 
@@ -88,6 +88,24 @@ class cube:
                 colorCode = state[stateIndex]
                 color = getColourFromCode[colorCode]
                 self.squares.append(square( [j,1,i], [0,1,0], color ) )
+
+    def getSquaresOnFace(self, face): #face: U D L R F B
+        rotationOfFace = {
+            "R": [1, 0, 0],
+            "L": [-1, 0, 0],
+            "D": [0, 1, 0],
+            "U": [0, -1, 0],
+            "B": [0, 0, 1],
+            "F": [0, 0, -1]
+        }
+        correctLayer = rotationOfFace[face]
+        for i in [0,1,2]:
+            if abs(correctLayer[i]) == 1: layerIndex = i
+        resultSquares = []
+        for square in self.squares:
+            if square.pos[layerIndex] == correctLayer[layerIndex]:
+                resultSquares.append(square)
+        return resultSquares
     
     def toDict(self):
         attributes = {
