@@ -1,5 +1,3 @@
-#import pytest
-
 import cube
 
 class printColors:
@@ -19,9 +17,9 @@ def test_function():
 
     # Then:
     if ___ == expectedDictionary:
-        print("Test square initialisation: " + printColors.PASS + "passed" + printColors.RESET)
+        print("Test ___: " + printColors.PASS + "passed" + printColors.RESET)
     else:
-        print("Test square initialisation: " + printColors.FAIL + "failed" + printColors.RESET)
+        print("Test ___: " + printColors.FAIL + "failed" + printColors.RESET)
 '''
 
 # Test square initialisation

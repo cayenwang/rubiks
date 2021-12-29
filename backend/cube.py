@@ -1,4 +1,4 @@
-#import numpy as np
+import numpy as np
 
 class square:
     def __init__(self, pos, rot, color): 
