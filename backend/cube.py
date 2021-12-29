@@ -50,7 +50,7 @@ class cube:
                 self.squares.append(square( [j,-1,i], [0,-1,0], color ) )
 
         #left
-        for i in [1,0,-1]: # i is the row / y index
+        for i in [-1,0,1]: # i is the row / y index
             for j in [1,0,-1]: # j is the column / z index
                 stateIndex += 1
                 colorCode = state[stateIndex]
@@ -66,7 +66,7 @@ class cube:
                 self.squares.append(square( [j,i,-1], [0,0,-1], color ) )
 
         #right
-        for i in [1,0,-1]: # i is the row / y index
+        for i in [-1,0,1]: # i is the row / y index
             for j in [-1,0,1]: # j is the column / z index
                 stateIndex += 1
                 colorCode = state[stateIndex]
