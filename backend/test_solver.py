@@ -212,6 +212,24 @@ def test_rotateToUF():
         print("Test rotate to UF: " +
               printColors.FAIL + "failed" + printColors.RESET)
 
+# Test getting the cross solution
+
+
+def test_getWhiteEdgeSolution():
+    # Given:
+    testCurrentPosition = [1, 1, 0]
+    testCurrentRotation = [0, 1, 0]
+    expectedResult = ["D'", "F2"]
+    # When:
+
+    # Then:
+    if solver.getWhiteEdgeSolution(testCurrentPosition, testCurrentRotation) == expectedResult:
+        print("Test getting the cross solution: " +
+              printColors.PASS + "passed" + printColors.RESET)
+    else:
+        print("Test getting the cross solution: " +
+              printColors.FAIL + "failed" + printColors.RESET)
+
 
 print("======================================== TESTING ========================================")
 test_getWhiteEdges()
@@ -219,4 +237,6 @@ print("---")
 test_getOtherColor()
 print("---")
 test_rotateToUF()
+print("---")
+test_getWhiteEdgeSolution()
 print("=========================================================================================")

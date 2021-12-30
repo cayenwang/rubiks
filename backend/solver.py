@@ -1,5 +1,6 @@
 import test_cube
 import numpy as np
+import cross_solutions
 
 # Function that gets all white edges:
 
@@ -59,25 +60,12 @@ def rotateToUF(cube, correctPosition, currentPosition, currentRotation):  # test
     return currentPosition, currentRotation, extraCubeRotations
 
 
-'''
 # Function that calculates the correct sequence of moves to solve a given white edge piece:
-def getWhiteEdgeSolution(currentPosition, currentOrientation):
-    resultSolution = []
-    correctPosition = [0, -1,-1]
-    correctOrientation = [0, -1,0]
-    if CurrentPosition = CorrectPosition
-       if CurrentOrientation = CorrectOrientation
-           ResultSolution.append()
-        else
-
-ResultSolution.append(“F”+“U’”+“R”+“U”)
-
-   ...	// other cases of where the white edge piece could be and appending the corresponding sequence of moves to ResultSolution
-
-    return ResultSolution
-'''
+def getWhiteEdgeSolution(currentPosition, currentRotation):
+    current = str(tuple((currentPosition, currentRotation)))
+    crossSolution = cross_solutions.crossSolution[current]
+    return crossSolution
 
 
 if __name__ == "__main__":
-    testCube = test_cube.test_cubeInit()
-    print(getWhiteEdges(testCube))
+    getWhiteEdgeSolution([-1, -1, 0], [-1, -1, 0])
