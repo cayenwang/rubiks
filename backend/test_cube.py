@@ -30,11 +30,11 @@ def test_function():
 
 def test_squareInit():
     # Given:
-    testSquare = cube.square([0, 0, 0], [0, 1, 0], "red")
+    testSquare = cube.square([1, -1, 0], [0, -1, 0], "white")
     expectedDictionary = {
-        "position": [0, 0, 0],
-        "rotation": [0, 1, 0],
-        "color": "red"
+        "position": [1, -1, 0],
+        "rotation": [0, -1, 0],
+        "color": "white"
     }
     # When:
 
@@ -45,6 +45,8 @@ def test_squareInit():
     else:
         print("Test square initialisation: " +
               printColors.FAIL + "failed" + printColors.RESET)
+
+    return testSquare
 
 
 # Test cube initialisation
@@ -170,6 +172,7 @@ def test_cubeInit():
     else:
         print("Test cube initialisation: " +
               printColors.FAIL + "failed" + printColors.RESET)
+
     return testCube
 
 # Test getting squares on face

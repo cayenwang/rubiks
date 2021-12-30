@@ -1,3 +1,4 @@
+
 import solver
 import pprint
 import test_cube
@@ -56,7 +57,25 @@ def test_getWhiteEdges():
         print("Test getting white edges: " +
               printColors.FAIL + "failed" + printColors.RESET)
 
+# Test getting other color
+
+
+def test_getOtherColor():
+    # Given:
+    testPiece = test_cube.test_squareInit()
+    expectedColor = "orange"
+    # When:
+
+    # Then:
+    if solver.getOtherColor(testPiece, testCube) == expectedColor:
+        print("Test getting other color: " +
+              printColors.PASS + "passed" + printColors.RESET)
+    else:
+        print("Test getting other color: " +
+              printColors.FAIL + "failed" + printColors.RESET)
+
 
 print("======================================== TESTING ========================================")
-test_getWhiteEdges()
+# test_getWhiteEdges()
+test_getOtherColor()
 print("=========================================================================================")

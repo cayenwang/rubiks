@@ -3,7 +3,7 @@ import test_cube
 # Function that gets all white edges:
 
 
-def getWhiteEdges(cube):
+def getWhiteEdges(cube):  # tested
     ResultWhiteEdges = []
     for square in cube.squares:
         if 0 in square.pos:
@@ -11,6 +11,15 @@ def getWhiteEdges(cube):
             if (square.pos != square.rot) and (square.color == "white"):
                 ResultWhiteEdges.append(square)
     return ResultWhiteEdges
+
+
+def getOtherColor(piece, cube):
+    ResultColor = ""
+    for square in cube.squares:
+        if square.pos == piece.pos:
+            if square != piece:
+                ResultColor = square.color
+    return ResultColor
 
 
 if __name__ == "__main__":
