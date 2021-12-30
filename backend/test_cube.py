@@ -30,10 +30,10 @@ def test_function():
 
 def test_squareInit():
     # Given:
-    testSquare = cube.square([1, -1, 0], [0, -1, 0], "white")
+    testSquare = cube.square([-1, 1, 0], [0, 1, 0], "white")
     expectedDictionary = {
-        "position": [1, -1, 0],
-        "rotation": [0, -1, 0],
+        "position": [-1, 1, 0],
+        "rotation": [0, 1, 0],
         "color": "white"
     }
     # When:
@@ -394,9 +394,13 @@ def test_doMove():
 
 
 print("======================================== TESTING ========================================")
-# test_squareInit()
-# test_cubeInit()
-# test_getSquaresOnFace()
-# test_getRotationMatrix()
-# test_doMove()
+test_squareInit()
+print("---")
+test_cubeInit()
+print("---")
+test_getSquaresOnFace()
+print("---")
+test_getRotationMatrix()
+print("---")
+test_doMove()
 print("=========================================================================================")

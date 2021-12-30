@@ -19,6 +19,8 @@ class square:  # tested
 class cube:
     def __init__(self):
         self.squares = []
+        # how many cube rotations in each axis the cube is from white up, green front
+        self.offsetFromOriginal = [0, 0, 0]
 
     def buildCube(self, state):  # tested
         # "state" is a string with all the colours on the cube, where:
@@ -148,7 +150,10 @@ class cube:
             "D": ["Y", -1],
             "U": ["Y", 1],
             "B": ["Z", -1],
-            "F": ["Z", 1]
+            "F": ["Z", 1],
+            "X": ["X", -1],
+            "Y": ["Y", 1],
+            "Z": ["Z", 1]
         }
 
         # in order to rotate the desired face, which axis must squares be rotated about
@@ -163,11 +168,18 @@ class cube:
 
         rotationMatrix = self.getRotationMatrix(axis, angle)
 
-        for i in range(len(self.getSquaresOnFace(moveFace))):
-            self.squares[i].pos = list(np.dot(
-                rotationMatrix, self.squares[i].pos))
-            self.squares[i].rot = list(np.dot(
-                rotationMatrix, self.squares[i].rot))
+        if moveFace in ["R", "L", "D", "U", "B", "F"]:
+            for i in range(len(self.getSquaresOnFace(moveFace))):
+                self.squares[i].pos = list(np.dot(
+                    rotationMatrix, self.squares[i].pos))
+                self.squares[i].rot = list(np.dot(
+                    rotationMatrix, self.squares[i].rot))
+        elif moveFace in ["X", "Y", "Z"]:
+            for i in range(len(self.squares)):
+                self.squares[i].pos = list(np.dot(
+                    rotationMatrix, self.squares[i].pos))
+                self.squares[i].rot = list(np.dot(
+                    rotationMatrix, self.squares[i].rot))
 
     def toDict(self):  # tested
         attributes = {
