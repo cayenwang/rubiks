@@ -1,9 +1,11 @@
 import rubiks
 
+
 class printColors:
     PASS = "\033[90m"
     FAIL = "\033[95m"
     RESET = "\033[0m"
+
 
 '''
 # Test template
@@ -21,4 +23,4 @@ def test_function():
     else:
         print("Test square initialisation: " + printColors.FAIL + "failed" + printColors.RESET)
 '''
-
+ 

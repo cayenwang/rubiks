@@ -395,5 +395,5 @@ print("======================================== TESTING ========================
 # test_cubeInit()
 # test_getSquaresOnFace()
 # test_getRotationMatrix()
-test_doMove()
+# test_doMove()
 print("=========================================================================================")

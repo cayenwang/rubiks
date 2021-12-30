@@ -4,3 +4,7 @@ __pycache__
 .DS_Store
 .vscode
 fiddletest.py
+cube.pyc 
+solver.pyc 
+test_cube.pyc 
+test_solver.pyc 
