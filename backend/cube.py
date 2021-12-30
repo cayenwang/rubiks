@@ -131,7 +131,7 @@ class cube:
                               [0, 0, 1]]
         return RotationMatrix
 
-    def doMove(self, move):  # tested
+    def moveToRotationMatrix(self, move):
         # extracting the face that should be turned in the inputted move
         moveFace = move[0]
 
@@ -167,6 +167,11 @@ class cube:
             angle = moveAngle
 
         rotationMatrix = self.getRotationMatrix(axis, angle)
+
+        return moveFace, rotationMatrix
+
+    def doMove(self, move):  # tested
+        moveFace, rotationMatrix = self.moveToRotationMatrix(move)
 
         if moveFace in ["R", "L", "D", "U", "B", "F"]:
             for i in range(len(self.getSquaresOnFace(moveFace))):
