@@ -1,4 +1,5 @@
 import test_cube
+import numpy as np
 
 # Function that gets all white edges:
 
@@ -33,24 +34,48 @@ correctPositionWhiteEdge = {
 # Function that rotates the cube until it has the correct position for the white edge in the UF position:
 
 
-def rotateToUF(cube, correctPosition):  # tested
+def rotateToUF(cube, correctPosition, currentPosition, currentRotation):  # tested
     extraCubeRotations = []
     if correctPosition == [-1, -1, 0]:
-        cube.doMove("Y'")
+        move = "Y'"
         cube.offsetFromOriginal[1] = (cube.offsetFromOriginal[1]-1) % 4
-        extraCubeRotations.append("Y'")
-
     if correctPosition == [0, -1, 1]:
-        cube.doMove("Y2")
+        move = "Y2"
         cube.offsetFromOriginal[1] = (cube.offsetFromOriginal[1]+2) % 4
-        extraCubeRotations.append("Y2")
 
     if correctPosition == [1, -1, 0]:
-        cube.doMove("Y")
+        move = "Y"
         cube.offsetFromOriginal[1] = (cube.offsetFromOriginal[1]+1) % 4
-        extraCubeRotations.append("Y")
 
-    return extraCubeRotations
+    moveFace, rotationMatrix = cube.moveToRotationMatrix(move)
+    cube.doMove(move)
+    extraCubeRotations.append(move)
+
+    currentPosition = list(np.dot(
+        rotationMatrix, currentPosition))
+    currentRotation = list(np.dot(
+        rotationMatrix, currentRotation))
+
+    return currentPosition, currentRotation, extraCubeRotations
+
+
+'''
+# Function that calculates the correct sequence of moves to solve a given white edge piece:
+def getWhiteEdgeSolution(currentPosition, currentOrientation):
+    resultSolution = []
+    correctPosition = [0, -1,-1]
+    correctOrientation = [0, -1,0]
+    if CurrentPosition = CorrectPosition
+       if CurrentOrientation = CorrectOrientation
+           ResultSolution.append()
+        else
+
+ResultSolution.append(“F”+“U’”+“R”+“U”)
+
+   ...	// other cases of where the white edge piece could be and appending the corresponding sequence of moves to ResultSolution
+
+    return ResultSolution
+'''
 
 
 if __name__ == "__main__":

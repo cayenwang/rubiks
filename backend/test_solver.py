@@ -200,11 +200,12 @@ def test_rotateToUF():
                                       {'color': 'orange', 'position': [
                                           0, 1, -1], 'rotation': [0, 1, 0]},
                                       {'color': 'red', 'position': [-1, 1, -1], 'rotation': [0, 1, 0]}]}
-    extraCubeRotations = solver.rotateToUF(testCube, [0, -1, 1])
+    currentPosition, currentRotation, extraCubeRotations = solver.rotateToUF(
+        testCube, [0, -1, 1], [-1, 1, 0], [0, 1, 0])
     # When:
 
     # Then:
-    if testCube.toDict() == expectedDictionary and extraCubeRotations == ["Y2"]:
+    if testCube.toDict() == expectedDictionary and extraCubeRotations == ["Y2"] and currentPosition == [1, 1, 0] and currentRotation == [0, 1, 0]:
         print("Test rotate to UF: " +
               printColors.PASS + "passed" + printColors.RESET)
     else:
