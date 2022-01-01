@@ -119,15 +119,15 @@ class cube:
         theta = angle * np.pi / 2
         if axis == "X":
             RotationMatrix = [[1, 0, 0],
-                              [0, int(np.cos(theta)), -int(np.sin(theta))],
-                              [0, int(np.sin(theta)), int(np.cos(theta))]]
+                              [0, round(np.cos(theta)), -round(np.sin(theta))],
+                              [0, round(np.sin(theta)), round(np.cos(theta))]]
         if axis == "Y":
-            RotationMatrix = [[int(np.cos(theta)), 0, int(np.sin(theta))],
+            RotationMatrix = [[round(np.cos(theta)), 0, round(np.sin(theta))],
                               [0, 1, 0],
-                              [-int(np.sin(theta)), 0, int(np.cos(theta))]]
+                              [-round(np.sin(theta)), 0, round(np.cos(theta))]]
         if axis == "Z":
-            RotationMatrix = [[int(np.cos(theta)), -int(np.sin(theta)), 0],
-                              [int(np.sin(theta)), int(np.cos(theta)), 0],
+            RotationMatrix = [[round(np.cos(theta)), -round(np.sin(theta)), 0],
+                              [round(np.sin(theta)), round(np.cos(theta)), 0],
                               [0, 0, 1]]
         return RotationMatrix
 
@@ -136,12 +136,11 @@ class cube:
         moveFace = move[0]
 
         # seeing how far the face should be turned
-        move = move[1:]
-        if move == "":
+        if len(move) == 1:
             moveAngle = 1
-        elif move == "'":
+        elif move[1] == "'":
             moveAngle = -1
-        else:
+        elif move[1] == "2":
             moveAngle = 2
 
         moveToAxisAndAngle = {
@@ -174,13 +173,16 @@ class cube:
         moveFace, rotationMatrix = self.moveToRotationMatrix(move)
 
         if moveFace in ["R", "L", "D", "U", "B", "F"]:
-            for i in range(len(self.getSquaresOnFace(moveFace))):
-                self.squares[i].pos = list(np.dot(
-                    rotationMatrix, self.squares[i].pos))
-                self.squares[i].rot = list(np.dot(
-                    rotationMatrix, self.squares[i].rot))
+            for square in self.getSquaresOnFace(moveFace):
+                for i in range(54):
+                    if square == self.squares[i]:
+                        self.squares[i].pos = list(np.dot(
+                            rotationMatrix, self.squares[i].pos))
+                        self.squares[i].rot = list(np.dot(
+                            rotationMatrix, self.squares[i].rot))
+
         elif moveFace in ["X", "Y", "Z"]:
-            for i in range(len(self.squares)):
+            for i in range(54):
                 self.squares[i].pos = list(np.dot(
                     rotationMatrix, self.squares[i].pos))
                 self.squares[i].rot = list(np.dot(
@@ -198,5 +200,8 @@ class cube:
 if __name__ == "__main__":
     cube = cube()
     cube.buildCube("yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor")
-    cube.doMove("D2")
-    print(cube.toDict())
+    for i in [19, 20, 21]:
+        print(cube.toDict()["squares"][i])
+    cube.doMove("F2")
+    for i in [19, 20, 21]:
+        print(cube.toDict()["squares"][i])
