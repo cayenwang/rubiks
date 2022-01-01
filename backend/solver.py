@@ -60,12 +60,23 @@ def rotateToUF(cube, correctPosition, currentPosition, currentRotation):  # test
     return currentPosition, currentRotation, extraCubeRotations
 
 
-# Function that calculates the correct sequence of moves to solve a given white edge piece:
+# Function that calculates the correct sequence of moves to solve a given white edge piece: #tested
 def getWhiteEdgeSolution(currentPosition, currentRotation):
     current = str(tuple((currentPosition, currentRotation)))
     crossSolution = cross_solutions.crossSolution[current]
     return crossSolution
 
+# Procedure that carries out an inputted sequence of moves, in the format of an array, on the cube in memory:
+
+
+def doSequenceOfMoves(cube, sequence):
+    for move in sequence:
+        print("before:", repr(move), cube.toDict()["squares"][0])
+        print('----------')
+        cube.doMove(move)
+        print("after:", repr(move), cube.toDict()["squares"][0])
+        print('----------')
+
 
 if __name__ == "__main__":
-    getWhiteEdgeSolution([-1, -1, 0], [-1, -1, 0])
+    print('Hi')
