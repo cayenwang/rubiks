@@ -63,9 +63,9 @@ def test_getWhiteEdges():
 def test_getOtherColor():
     # Given:
     testPiece = test_cube.test_squareInit()
-    expectedColor = "blue"
+    expectedColor = ["green", "red"]
     # When:
-
+    print(solver.getOtherColor(testPiece, testCube))
     # Then:
     if solver.getOtherColor(testPiece, testCube) == expectedColor:
         print("Test getting other color: " +
@@ -512,7 +512,6 @@ def test_rotateToOriginal():  # tested given rotateToUF and doSequenceOfMoves ha
 # Test solving white cross
 def test_solveWhiteCross():
     # Given:
-    testCube = test_cube.test_cubeInit()
     solver.solveWhiteCross(testCube)
     expectedDictionary = {'squares': [{'color': 'yellow', 'position': [1, 1, -1], 'rotation': [1, 0, 0]},
                                       {'color': 'yellow',
@@ -648,8 +647,32 @@ def test_solveWhiteCross():
               printColors.FAIL + "failed" + printColors.RESET)
 
 
+'''
+=========================================================================================
+End of White Cross Testing
+=========================================================================================
+'''
+
+# Test getting the correct position of white corners
+
+
+def test_getCorrectPositionWhiteCorner():
+    # Given:
+    testSquare = test_cube.test_squareInit()
+    otherColors = solver.getOtherColor(testSquare, testCube)
+    expectedResult = [1, -1, -1]
+    # When:
+    # Then:
+    if solver.getCorrectPositionWhiteCorner(otherColors) == expectedResult:
+        print("Test getting the correct position of white corners: " + printColors.PASS + "passed" + printColors.RESET)
+    else:
+        print("Test getting the correct position of white corners: " + printColors.FAIL + "failed" + printColors.RESET)
+
+
 print("======================================== TESTING ========================================")
 '''
+# White Cross Testing
+
 test_getWhiteEdges()
 print("---")
 test_getOtherColor()
@@ -661,7 +684,11 @@ print("---")
 test_doSequenceOfMoves()
 print("---")
 test_rotateToOriginal()
-'''
 print("---")
 test_solveWhiteCross()
+print("---")
+'''
+test_getCorrectPositionWhiteCorner()
+
+
 print("=========================================================================================")

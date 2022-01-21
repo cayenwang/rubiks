@@ -3,15 +3,22 @@ import numpy as np
 import cross_solutions
 import pprint
 
+'''
+=========================================================================================
+Communal Subroutines 
+=========================================================================================
+'''
+
 # Function that gets the colour on the other side of the piece:
 
 
 def getOtherColor(piece, cube):  # tested
+    resultColor = []
     for square in cube.squares:
         if square.pos == piece.pos:
             if square.color != piece.color:
-                ResultColor = square.color
-    return ResultColor
+                resultColor.append(square.color)
+    return resultColor
 
 # Procedure that carries out an inputted sequence of moves, in the format of an array, on the cube in memory:
 
@@ -59,7 +66,7 @@ def getInverse(sequence):
 
 '''
 =========================================================================================
-Subroutines that are only for solving the white cross
+White Cross Subroutines
 =========================================================================================
 '''
 
@@ -67,13 +74,13 @@ Subroutines that are only for solving the white cross
 
 
 def getWhiteEdges(cube):  # tested
-    ResultWhiteEdges = []
+    resultWhiteEdges = []
     for square in cube.squares:
         if 0 in square.pos:
             # making sure the found piece is an edge piece not a centre
             if (square.pos != square.rot) and (square.color == "white"):
-                ResultWhiteEdges.append(square)
-    return ResultWhiteEdges
+                resultWhiteEdges.append(square)
+    return resultWhiteEdges
 
 
 correctPositionWhiteEdge = {
@@ -124,7 +131,7 @@ def solveWhiteCross(cube):  # tested
     for square in getWhiteEdges(cube):
         currentPosition = square.pos
         currentRotation = square.rot
-        oppositeSideColor = getOtherColor(square, cube)
+        oppositeSideColor = getOtherColor(square, cube)[0]
         correctPosition = correctPositionWhiteEdge[oppositeSideColor]
         currentPosition, currentRotation, extraCubeRotations = rotateToUF(
             cube, correctPosition, currentPosition, currentRotation)
@@ -137,6 +144,39 @@ def solveWhiteCross(cube):  # tested
         whiteCrossSolution.append(getInverse(extraCubeRotations))
 
     return whiteCrossSolution
+
+
+'''
+=========================================================================================
+F2L Subroutines
+=========================================================================================
+'''
+
+# Function that gets all white corners:
+
+
+def getWhiteCorners(cube):
+    resultWhiteCorners = []
+    for square in cube.squares:
+        if 0 not in square.pos:
+            if square.color == "white":
+                resultWhiteCorners.append(square)
+    return resultWhiteCorners
+
+
+# Function that gets all white corners:
+
+def getCorrectPositionWhiteCorner(otherColors):  # tested
+    if "green" in otherColors:
+        z = -1
+    if "blue" in otherColors:
+        z = 1
+    if "orange" in otherColors:
+        x = -1
+    if "red" in otherColors:
+        x = 1
+    correctPosition = [x, -1, z]
+    return correctPosition
 
 
 if __name__ == "__main__":
