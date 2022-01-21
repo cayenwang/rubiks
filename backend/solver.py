@@ -179,6 +179,23 @@ def getCorrectPositionWhiteCorner(otherColors):  # tested
     return correctPosition
 
 
+# Function that finds the F2L edge piece:
+
+def getF2LEdge(otherColors, cube):  # tested
+    color1 = otherColors[0]
+    color2 = otherColors[1]
+    for square1 in cube.squares:
+        if 0 in square1.pos:
+            if square1.color == color1 or square1.color == color2:
+                tempPosition = square1.pos
+                for square2 in cube.squares:
+                    if 0 in square2.pos:
+                        if square2.pos == tempPosition and square2 != square1:
+                            if square2.color == color1 or square2.color == color2:
+                                edgePosition = tempPosition
+    return edgePosition
+
+
 if __name__ == "__main__":
     testCube = test_cube.test_cubeInit()
     pprint.pprint(testCube.toDict())

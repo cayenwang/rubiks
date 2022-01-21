@@ -30,10 +30,10 @@ def test_function():
 
 def test_squareInit():
     # Given:
-    testSquare = cube.square([1,1,-1], [1,0,0], "white")
+    testSquare = cube.square([1, 1, 1], [1, 0, 0], "white")
     expectedDictionary = {
-        "position": [1,1,-1],
-        "rotation": [1,0,0],
+        "position": [1, 1, 1],
+        "rotation": [1, 0, 0],
         "color": "white"
     }
     # When:

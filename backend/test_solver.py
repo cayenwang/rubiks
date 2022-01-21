@@ -660,13 +660,34 @@ def test_getCorrectPositionWhiteCorner():
     # Given:
     testSquare = test_cube.test_squareInit()
     otherColors = solver.getOtherColor(testSquare, testCube)
-    expectedResult = [1, -1, -1]
+    expectedResult = [1, -1, 1]
     # When:
+
     # Then:
     if solver.getCorrectPositionWhiteCorner(otherColors) == expectedResult:
-        print("Test getting the correct position of white corners: " + printColors.PASS + "passed" + printColors.RESET)
+        print("Test getting the correct position of white corners: " +
+              printColors.PASS + "passed" + printColors.RESET)
     else:
-        print("Test getting the correct position of white corners: " + printColors.FAIL + "failed" + printColors.RESET)
+        print("Test getting the correct position of white corners: " +
+              printColors.FAIL + "failed" + printColors.RESET)
+
+# Test getting the F2L edge:
+
+
+def test_getF2LEdge():
+    # Given:
+    testSquare = test_cube.test_squareInit()
+    otherColors = solver.getOtherColor(testSquare, testCube)
+    expectedResult = [1, 1, 0]
+    # When:
+    print(solver.getF2LEdge(otherColors, testCube))
+    # Then:
+    if solver.getF2LEdge(otherColors, testCube) == expectedResult:
+        print("Test getting the F2L edge: " +
+              printColors.PASS + "passed" + printColors.RESET)
+    else:
+        print("Test getting the F2L edge: " +
+              printColors.FAIL + "failed" + printColors.RESET)
 
 
 print("======================================== TESTING ========================================")
@@ -689,6 +710,6 @@ test_solveWhiteCross()
 print("---")
 '''
 test_getCorrectPositionWhiteCorner()
-
-
+print("---")
+test_getF2LEdge()
 print("=========================================================================================")
