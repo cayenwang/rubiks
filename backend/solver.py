@@ -1,6 +1,7 @@
 import test_cube
 import numpy as np
 import cross_solutions
+import f2l_solutions
 import pprint
 
 '''
@@ -90,7 +91,7 @@ correctPositionWhiteEdge = {
     "orange": [-1, -1, 0]
 }
 
-# Function that rotates the cube until it has the correct position for the white edge in the UF position:
+# Function that rotates the cube until the correct position for the white edge in the UF position:
 
 
 def rotateToUF(cube, correctPosition, currentPosition, currentRotation):  # tested
@@ -172,11 +173,63 @@ def getCorrectPositionWhiteCorner(otherColors):  # tested
     if "blue" in otherColors:
         z = 1
     if "orange" in otherColors:
-        x = -1
-    if "red" in otherColors:
         x = 1
-    correctPosition = [x, -1, z]
+    if "red" in otherColors:
+        x = -1
+    correctPosition = [x, 1, z]
     return correctPosition
+
+
+# Function that rotates the cube until the correct position for the white corner in the DFR position:
+
+
+def rotateToDFR(cube, correctPosition, currentCornerPosition, currentCornerRotation):
+    extraCubeRotations = []
+    if correctPosition != [1, 1, -1]:
+        if correctPosition == [1, 1, 1]:
+            move = "Y"
+            cube.offsetFromOriginal[1] = (cube.offsetFromOriginal[1]+1) % 4
+        if correctPosition == [-1, 1, 1]:
+            move = "Y2"
+            cube.offsetFromOriginal[1] = (cube.offsetFromOriginal[1]+2) % 4
+        if correctPosition == [-1, 1, -1]:
+            move = "Y'"
+            cube.offsetFromOriginal[1] = (cube.offsetFromOriginal[1]-1) % 4
+
+        moveFace, rotationMatrix = cube.moveToRotationMatrix(move)
+        cube.doMove(move)
+        extraCubeRotations.append(move)
+
+        currentCornerPosition = list(np.dot(
+            rotationMatrix, currentCornerPosition))
+        currentCornerRotation = list(np.dot(
+            rotationMatrix, currentCornerRotation))
+
+    return currentCornerPosition, currentCornerRotation, extraCubeRotations
+
+# Function that rotates the top layer until the position of the white corner in the UFR position:
+
+
+def rotateToUFR(cube, currentCornerPosition, currentCornerRotation):
+    moveCornerToU = {
+        # position: sequence of moves
+        [1, 1, -1]: ["R", "U", "R'"],
+        [1, 1, 1]: ["L", "U", "L'"],
+        [-1, 1, 1]: ["R'", "U'", "R"],
+        [-1, 1, -1]: ["L'", "U'", "L"]
+    }
+
+    moveCornerToUFR = {
+        # position: sequence of moves
+        [1, -1, -1]: [],
+        [1, -1, 1]: ["U"],
+        [-1, -1, 1]: ["U2"],
+        [-1, -1, -1]: ["U'"]
+    }
+
+    if currentCornerPosition[1] == 1:
+        doSequenceOfMoves(cube, moveCornerToU[currentCornerPosition])
+    doSequenceOfMoves(cube, moveCornerToUFR[currentCornerPosition])
 
 
 # Function that finds the F2L edge piece:
