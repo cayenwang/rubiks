@@ -79,7 +79,7 @@ def test_getOtherColor():
 # Test rotate to UF
 
 
-def test_rotateToUF():
+def test_rotateWhiteEdgeToUF():
     # Given:
     expectedDictionary = {'squares': [{'color': 'yellow',
                                        'position': [1, -1, -1],
@@ -202,7 +202,7 @@ def test_rotateToUF():
                                       {'color': 'orange', 'position': [
                                           0, 1, -1], 'rotation': [0, 1, 0]},
                                       {'color': 'red', 'position': [-1, 1, -1], 'rotation': [0, 1, 0]}]}
-    currentPosition, currentRotation, extraCubeRotations = solver.rotateToUF(
+    currentPosition, currentRotation, extraCubeRotations = solver.rotateWhiteEdgeToUF(
         testCube, [0, -1, 1], [-1, 1, 0], [0, 1, 0])
     # When:
 
@@ -235,7 +235,7 @@ def test_getWhiteEdgeSolution():
 # Test doing a sequence of moves:
 
 
-def test_doSequenceOfMoves():  # tested given rotateToUF had been called first
+def test_doSequenceOfMoves():  # tested given rotateWhiteEdgeToUF had been called first
     # Given:
     testSequence = ["D'", "F2"]
     solver.doSequenceOfMoves(testCube, testSequence)
@@ -374,7 +374,7 @@ def test_doSequenceOfMoves():  # tested given rotateToUF had been called first
 # Test returning to original orientation
 
 
-def test_rotateToOriginal():  # tested given rotateToUF and doSequenceOfMoves had been called first
+def test_rotateToOriginal():  # tested given rotateWhiteEdgeToUF and doSequenceOfMoves had been called first
     # Given:
     solver.rotateToOriginal(testCube)
     expectedDictionary = {'squares': [{'color': 'yellow', 'position': [1, 1, 1], 'rotation': [0, 1, 0]},
@@ -661,7 +661,7 @@ End of White Cross Testing
 def test_getCorrectPositionWhiteCorner():
     # Given:
     otherColors = solver.getOtherColor(testSquare, testCube)
-    expectedResult = [-1, 1, 1]
+    expectedResult = [1, 1, 1]
     # When:
 
     # Then:
@@ -678,7 +678,7 @@ def test_getCorrectPositionWhiteCorner():
 def test_getF2LEdge():
     # Given:
     otherColors = solver.getOtherColor(testSquare, testCube)
-    expectedResult = [1, 1, 0]
+    expectedResult = [0, 1, 1]
     # When:
 
     # Then:
@@ -691,7 +691,7 @@ def test_getF2LEdge():
 
 
 # Test rotate white corner to UFR (correct slot in DFR)
-def test_rotateToFR():
+def test_rotateWhiteCornerToFR():
     # Given:
 
     completeSolution = []
@@ -705,13 +705,13 @@ def test_rotateToFR():
     currentCornerPosition = list(np.dot(rotationMatrix, currentCornerPosition))
     currentCornerRotation = list(np.dot(rotationMatrix, currentCornerRotation))
 
-    currentCornerPosition, currentCornerRotation, extraCubeRotations = solver.rotateToDFR(
+    currentCornerPosition, currentCornerRotation, extraCubeRotations = solver.rotateCorrectPositionToDFR(
         testCube, correctPosition, currentCornerPosition, currentCornerRotation)
-    whiteCornerToUFRSolution = solver.rotateToUFR(
+    whiteCornerToUFRSolution = solver.rotateWhiteCornerToUFR(
         testCube, currentCornerPosition)
     completeSolution.append(extraCubeRotations)
     completeSolution.append(whiteCornerToUFRSolution)
-    expectedResult = [['Y2'], [[]]]
+    expectedResult = [['Y'], [["R'", "U'", 'R'], ['U2']]]
     # When:
 
     # Then:
@@ -731,7 +731,7 @@ test_getWhiteEdges()
 print("---")
 test_getOtherColor()
 print("---")
-test_rotateToUF()
+test_rotateWhiteEdgeToUF()
 print("---")
 test_getWhiteEdgeSolution()
 print("---")
@@ -746,5 +746,5 @@ test_getCorrectPositionWhiteCorner()
 print("---")
 test_getF2LEdge()
 print("---")
-test_rotateToFR()
+test_rotateWhiteCornerToFR()
 print("=========================================================================================")

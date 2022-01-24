@@ -94,7 +94,7 @@ correctPositionWhiteEdge = {
 # Function that rotates the cube until the correct position for the white edge in the UF position:
 
 
-def rotateToUF(cube, correctPosition, currentPosition, currentRotation):  # tested
+def rotateWhiteEdgeToUF(cube, correctPosition, currentPosition, currentRotation):  # tested
     extraCubeRotations = []
     if correctPosition != [0, -1, -1]:
         if correctPosition == [-1, -1, 0]:
@@ -134,7 +134,7 @@ def solveWhiteCross(cube):  # tested
         currentRotation = square.rot
         oppositeSideColor = getOtherColor(square, cube)[0]
         correctPosition = correctPositionWhiteEdge[oppositeSideColor]
-        currentPosition, currentRotation, extraCubeRotations = rotateToUF(
+        currentPosition, currentRotation, extraCubeRotations = rotateWhiteEdgeToUF(
             cube, correctPosition, currentPosition, currentRotation)
         solution = getWhiteEdgeSolution(currentPosition, currentRotation)
         doSequenceOfMoves(cube, solution)
@@ -183,7 +183,7 @@ def getCorrectPositionWhiteCorner(otherColors):  # tested
 # Function that rotates the cube until the correct position for the white corner in the DFR position:
 
 
-def rotateToDFR(cube, correctPosition, currentCornerPosition, currentCornerRotation):  # tested
+def rotateCorrectPositionToDFR(cube, correctPosition, currentCornerPosition, currentCornerRotation):  # tested
     extraCubeRotations = []
     if correctPosition != [1, 1, -1]:
         if correctPosition == [1, 1, 1]:
@@ -207,16 +207,17 @@ def rotateToDFR(cube, correctPosition, currentCornerPosition, currentCornerRotat
 
     return currentCornerPosition, currentCornerRotation, extraCubeRotations
 
+
 # Function that rotates the top layer until the position of the white corner in the UFR position:
 
 
-def rotateToUFR(cube, currentCornerPosition):  # tested
+def rotateWhiteCornerToUFR(cube, currentCornerPosition):  # tested
     moveCornerToU = {
-        # position: sequence of moves
-        "[1, 1, -1]": ["R", "U", "R'"],
-        "[1, 1, 1]": ["L", "U", "L'"],
-        "[-1, 1, 1]": ["R'", "U'", "R"],
-        "[-1, 1, -1]": ["L'", "U'", "L"]
+        # position: [sequence of moves, new position]
+        "[1, 1, -1]": [["R", "U", "R'"], [-1, -1, -1]],
+        "[1, 1, 1]": [["R'", "U'", "R"], [-1, -1, 1]],
+        "[-1, 1, 1]": [["L", "U", "L'"], [1, -1, 1]],
+        "[-1, 1, -1]": [["L'", "U'", "L"], [1, -1, -1]]
     }
 
     moveCornerToUFR = {
@@ -228,8 +229,11 @@ def rotateToUFR(cube, currentCornerPosition):  # tested
     }
     solution = []
     if currentCornerPosition[1] == 1:
-        solution.append(moveCornerToU[str(currentCornerPosition)])
-        doSequenceOfMoves(cube, moveCornerToU[str(currentCornerPosition)])
+        solution.append(moveCornerToU[str(currentCornerPosition)][0])
+        doSequenceOfMoves(cube, moveCornerToU[str(currentCornerPosition)][0])
+
+    currentCornerPosition = moveCornerToU[str(currentCornerPosition)][1]
+
     solution.append(moveCornerToUFR[str(currentCornerPosition)])
     doSequenceOfMoves(cube, moveCornerToUFR[str(currentCornerPosition)])
 
@@ -251,6 +255,56 @@ def getF2LEdge(otherColors, cube):  # tested
                             if square2.color == color1 or square2.color == color2:
                                 edgePosition = tempPosition
     return edgePosition
+
+
+# Function that moves the F2L edge to U:
+
+def rotateF2LEdgeToU(otherColors, cube):
+
+    moveEdgeToU = {
+        # position: [sequence of moves, new position]
+        "[-1, 0, -1]": [["L'", "U'", "L", "U"], [-1, -1, 0]],
+        "[1, 0, -1]": [["U", "R", "U", "R'", "U2"], [0, -1, 1]],
+        "[-1, 0, 1]": [["L", "U'", "L'", "U"], [-1, -1, 0]],
+        "[1, 0, 1]": [["U", "R'", "U", "R", "U2"], [0, -1, 1]]
+    }
+
+    edgePosition = getF2LEdge(otherColors, cube)
+    solution = []
+    if edgePosition[1] == 0:
+        solution.append(moveEdgeToU[str(edgePosition)][0])
+        doSequenceOfMoves(cube, moveEdgeToU[str(edgePosition)][0])
+        edgePosition = moveEdgeToU[str(edgePosition)][1]
+
+    return solution, edgePosition
+
+# Function that calculates the correct sequence of moves to solve a given F2L pair:
+
+
+def getF2LSolution(edgePosition, correctPosition, cube):
+    getFrontColor = {
+        # correctPosition: front color
+        "[1, 1, 1]": "orange",
+        "[1, 1, -1]": "green",
+        "[-1, 1, 1]": "blue",
+        "[-1, 1, -1]": "red"
+    }
+
+    frontColor = getFrontColor[correctPosition]
+
+    for square in cube.squares:
+        if square.pos == edgePosition:
+            if square.color == frontColor:
+                edgeRotation = square.rot
+
+    for square in cube.squares:
+        if square.pos == [1, -1, -1]:
+            if square.color == "white":
+                cornerRotation = square.rot
+
+    current = str(tuple((cornerRotation, edgePosition, edgeRotation)))
+    f2lSolution = f2l_solutions.f2lSolution[current]
+    return f2lSolution
 
 
 if __name__ == "__main__":
