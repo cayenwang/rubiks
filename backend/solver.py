@@ -282,7 +282,7 @@ def rotateF2LEdgeToU(otherColors, cube):
 # Function that calculates the correct sequence of moves to solve a given F2L pair:
 
 
-def getF2LSolution(edgePosition, correctPosition, cube):  # tested
+def getF2LSolution(edgePosition, correctPosition, cube):
     getFrontColor = {
         # correctPosition: front color
         "[1, 1, 1]": "orange",
@@ -309,7 +309,7 @@ def getF2LSolution(edgePosition, correctPosition, cube):  # tested
 
 
 # Function that solves the first 2 layers:
-def solveF2L(cube):
+def solveF2L(cube):  # tested
     doSequenceOfMoves(cube, ["Z2"])
     f2lSolution = [["Z2"]]
     for square in getWhiteCorners(cube):
