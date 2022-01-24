@@ -101,6 +101,7 @@ class cube:
             "U": [0, -1, 0],
             "B": [0, 0, 1],
             "F": [0, 0, -1]
+
         }
         correctLayer = rotationOfFace[face]
         for i in [0, 1, 2]:
@@ -133,7 +134,8 @@ class cube:
 
     def moveToRotationMatrix(self, move):
         # extracting the face that should be turned in the inputted move
-        moveFace = move[0]
+        moveType = move[0]
+        moveFace = move[0].upper()
 
         # seeing how far the face should be turned
         if len(move) == 1:
@@ -152,7 +154,10 @@ class cube:
             "F": ["Z", 1],
             "X": ["X", -1],
             "Y": ["Y", 1],
-            "Z": ["Z", 1]
+            "Z": ["Z", 1],
+            "M": ["X", 1],
+            "E": ["Y", -1],
+            "S": ["Z", 1]
         }
 
         # in order to rotate the desired face, which axis must squares be rotated about
@@ -167,13 +172,13 @@ class cube:
 
         rotationMatrix = self.getRotationMatrix(axis, angle)
 
-        return moveFace, rotationMatrix
+        return moveType, rotationMatrix
 
     def doMove(self, move):  # tested
-        moveFace, rotationMatrix = self.moveToRotationMatrix(move)
+        moveType, rotationMatrix = self.moveToRotationMatrix(move)
 
-        if moveFace in ["R", "L", "D", "U", "B", "F"]:
-            for square in self.getSquaresOnFace(moveFace):
+        if moveType in ["R", "L", "D", "U", "B", "F"]:
+            for square in self.getSquaresOnFace(moveType):
                 for i in range(54):
                     if square == self.squares[i]:
                         self.squares[i].pos = list(np.matmul(
@@ -181,12 +186,45 @@ class cube:
                         self.squares[i].rot = list(np.matmul(
                             rotationMatrix, self.squares[i].rot))
 
-        elif moveFace in ["X", "Y", "Z"]:
+        elif moveType in ["X", "Y", "Z"]:
             for i in range(54):
                 self.squares[i].pos = list(np.matmul(
                     rotationMatrix, self.squares[i].pos))
                 self.squares[i].rot = list(np.matmul(
                     rotationMatrix, self.squares[i].rot))
+
+        elif moveType in ["r", "l", "d", "u", "b", "f"]:
+            oppositeFace = {
+                "r": "L",
+                "l": "R",
+                "d": "U",
+                "u": "D",
+                "b": "F",
+                "f": "B"
+            }
+            for square in self.squares:
+                if square not in self.getSquaresOnFace(oppositeFace[moveType]):
+                    for i in range(54):
+                        if square == self.squares[i]:
+                            self.squares[i].pos = list(np.matmul(
+                                rotationMatrix, self.squares[i].pos))
+                            self.squares[i].rot = list(np.matmul(
+                                rotationMatrix, self.squares[i].rot))
+
+        elif moveType in ["M", "E", "S"]:
+            parallelFaces = {
+                "M": ["L", "R"],
+                "E": ["U", "D"],
+                "S": ["F", "B"]
+            }
+            for square in self.squares:
+                if (square not in self.getSquaresOnFace(parallelFaces[moveType][0])) and (square not in self.getSquaresOnFace(parallelFaces[moveType][1])):
+                    for i in range(54):
+                        if square == self.squares[i]:
+                            self.squares[i].pos = list(np.matmul(
+                                rotationMatrix, self.squares[i].pos))
+                            self.squares[i].rot = list(np.matmul(
+                                rotationMatrix, self.squares[i].rot))
 
     def toDict(self):  # tested
         attributes = {
@@ -200,8 +238,8 @@ class cube:
 if __name__ == "__main__":
     cube = cube()
     cube.buildCube("yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor")
-    for i in [19, 20, 21]:
+    for i in [0, 1, 2]:
         print(cube.toDict()["squares"][i])
-    cube.doMove("F2")
-    for i in [19, 20, 21]:
+    cube.doMove("M")
+    for i in [0, 1, 2]:
         print(cube.toDict()["squares"][i])
