@@ -176,16 +176,16 @@ class cube:
             for square in self.getSquaresOnFace(moveFace):
                 for i in range(54):
                     if square == self.squares[i]:
-                        self.squares[i].pos = list(np.dot(
+                        self.squares[i].pos = list(np.matmul(
                             rotationMatrix, self.squares[i].pos))
-                        self.squares[i].rot = list(np.dot(
+                        self.squares[i].rot = list(np.matmul(
                             rotationMatrix, self.squares[i].rot))
 
         elif moveFace in ["X", "Y", "Z"]:
             for i in range(54):
-                self.squares[i].pos = list(np.dot(
+                self.squares[i].pos = list(np.matmul(
                     rotationMatrix, self.squares[i].pos))
-                self.squares[i].rot = list(np.dot(
+                self.squares[i].rot = list(np.matmul(
                     rotationMatrix, self.squares[i].rot))
 
     def toDict(self):  # tested

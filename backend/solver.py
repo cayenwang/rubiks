@@ -183,7 +183,7 @@ def getCorrectPositionWhiteCorner(otherColors):  # tested
 # Function that rotates the cube until the correct position for the white corner in the DFR position:
 
 
-def rotateToDFR(cube, correctPosition, currentCornerPosition, currentCornerRotation):
+def rotateToDFR(cube, correctPosition, currentCornerPosition, currentCornerRotation):  # tested
     extraCubeRotations = []
     if correctPosition != [1, 1, -1]:
         if correctPosition == [1, 1, 1]:
@@ -210,26 +210,30 @@ def rotateToDFR(cube, correctPosition, currentCornerPosition, currentCornerRotat
 # Function that rotates the top layer until the position of the white corner in the UFR position:
 
 
-def rotateToUFR(cube, currentCornerPosition, currentCornerRotation):
+def rotateToUFR(cube, currentCornerPosition):  # tested
     moveCornerToU = {
         # position: sequence of moves
-        [1, 1, -1]: ["R", "U", "R'"],
-        [1, 1, 1]: ["L", "U", "L'"],
-        [-1, 1, 1]: ["R'", "U'", "R"],
-        [-1, 1, -1]: ["L'", "U'", "L"]
+        "[1, 1, -1]": ["R", "U", "R'"],
+        "[1, 1, 1]": ["L", "U", "L'"],
+        "[-1, 1, 1]": ["R'", "U'", "R"],
+        "[-1, 1, -1]": ["L'", "U'", "L"]
     }
 
     moveCornerToUFR = {
         # position: sequence of moves
-        [1, -1, -1]: [],
-        [1, -1, 1]: ["U"],
-        [-1, -1, 1]: ["U2"],
-        [-1, -1, -1]: ["U'"]
+        "[1, -1, -1]": [],
+        "[1, -1, 1]": ["U"],
+        "[-1, -1, 1]": ["U2"],
+        "[-1, -1, -1]": ["U'"]
     }
-
+    solution = []
     if currentCornerPosition[1] == 1:
-        doSequenceOfMoves(cube, moveCornerToU[currentCornerPosition])
-    doSequenceOfMoves(cube, moveCornerToUFR[currentCornerPosition])
+        solution.append(moveCornerToU[str(currentCornerPosition)])
+        doSequenceOfMoves(cube, moveCornerToU[str(currentCornerPosition)])
+    solution.append(moveCornerToUFR[str(currentCornerPosition)])
+    doSequenceOfMoves(cube, moveCornerToUFR[str(currentCornerPosition)])
+
+    return solution
 
 
 # Function that finds the F2L edge piece:

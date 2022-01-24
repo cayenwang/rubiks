@@ -3,6 +3,8 @@ import solver
 import pprint
 import test_cube
 
+import numpy as np
+
 
 class printColors:
     PASS = "\033[90m"
@@ -10,6 +12,7 @@ class printColors:
     RESET = "\033[0m"
 
 
+testSquare = test_cube.test_squareInit()
 testCube = test_cube.test_cubeInit()
 
 '''
@@ -62,7 +65,6 @@ def test_getWhiteEdges():
 
 def test_getOtherColor():
     # Given:
-    testPiece = test_cube.test_squareInit()
     expectedColor = ["green", "red"]
     # When:
     print(solver.getOtherColor(testPiece, testCube))
@@ -658,9 +660,8 @@ End of White Cross Testing
 
 def test_getCorrectPositionWhiteCorner():
     # Given:
-    testSquare = test_cube.test_squareInit()
     otherColors = solver.getOtherColor(testSquare, testCube)
-    expectedResult = [1, -1, 1]
+    expectedResult = [-1, 1, 1]
     # When:
 
     # Then:
@@ -676,17 +677,49 @@ def test_getCorrectPositionWhiteCorner():
 
 def test_getF2LEdge():
     # Given:
-    testSquare = test_cube.test_squareInit()
     otherColors = solver.getOtherColor(testSquare, testCube)
     expectedResult = [1, 1, 0]
     # When:
-    print(solver.getF2LEdge(otherColors, testCube))
+
     # Then:
     if solver.getF2LEdge(otherColors, testCube) == expectedResult:
         print("Test getting the F2L edge: " +
               printColors.PASS + "passed" + printColors.RESET)
     else:
         print("Test getting the F2L edge: " +
+              printColors.FAIL + "failed" + printColors.RESET)
+
+
+# Test rotate white corner to UFR (correct slot in DFR)
+def test_rotateToFR():
+    # Given:
+
+    completeSolution = []
+    otherColors = solver.getOtherColor(testSquare, testCube)
+    solver.doSequenceOfMoves(testCube, ["Z2"])
+    correctPosition = solver.getCorrectPositionWhiteCorner(otherColors)
+
+    rotationMatrix = [[-1, 0, 0], [0, -1, 0], [0, 0, 1]]
+    currentCornerPosition = testSquare.pos
+    currentCornerRotation = testSquare.rot
+    currentCornerPosition = list(np.dot(rotationMatrix, currentCornerPosition))
+    currentCornerRotation = list(np.dot(rotationMatrix, currentCornerRotation))
+
+    currentCornerPosition, currentCornerRotation, extraCubeRotations = solver.rotateToDFR(
+        testCube, correctPosition, currentCornerPosition, currentCornerRotation)
+    whiteCornerToUFRSolution = solver.rotateToUFR(
+        testCube, currentCornerPosition)
+    completeSolution.append(extraCubeRotations)
+    completeSolution.append(whiteCornerToUFRSolution)
+    expectedResult = [['Y2'], [[]]]
+    # When:
+
+    # Then:
+    if completeSolution == expectedResult:
+        print("Test rotate white corner to UFR (correct slot in DFR): " +
+              printColors.PASS + "passed" + printColors.RESET)
+    else:
+        print("Test rotate white corner to UFR (correct slot in DFR): " +
               printColors.FAIL + "failed" + printColors.RESET)
 
 
@@ -712,4 +745,6 @@ print("---")
 test_getCorrectPositionWhiteCorner()
 print("---")
 test_getF2LEdge()
+print("---")
+test_rotateToFR()
 print("=========================================================================================")
