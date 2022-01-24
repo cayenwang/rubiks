@@ -144,6 +144,8 @@ def solveWhiteCross(cube):  # tested
         whiteCrossSolution.append(solution)
         whiteCrossSolution.append(getInverse(extraCubeRotations))
 
+    print(whiteCrossSolution)
+
     return whiteCrossSolution
 
 
@@ -231,8 +233,7 @@ def rotateWhiteCornerToUFR(cube, currentCornerPosition):  # tested
     if currentCornerPosition[1] == 1:
         solution.append(moveCornerToU[str(currentCornerPosition)][0])
         doSequenceOfMoves(cube, moveCornerToU[str(currentCornerPosition)][0])
-
-    currentCornerPosition = moveCornerToU[str(currentCornerPosition)][1]
+        currentCornerPosition = moveCornerToU[str(currentCornerPosition)][1]
 
     solution.append(moveCornerToUFR[str(currentCornerPosition)])
     doSequenceOfMoves(cube, moveCornerToUFR[str(currentCornerPosition)])
@@ -281,7 +282,7 @@ def rotateF2LEdgeToU(otherColors, cube):
 # Function that calculates the correct sequence of moves to solve a given F2L pair:
 
 
-def getF2LSolution(edgePosition, correctPosition, cube):
+def getF2LSolution(edgePosition, correctPosition, cube):  # tested
     getFrontColor = {
         # correctPosition: front color
         "[1, 1, 1]": "orange",
@@ -290,7 +291,7 @@ def getF2LSolution(edgePosition, correctPosition, cube):
         "[-1, 1, -1]": "red"
     }
 
-    frontColor = getFrontColor[correctPosition]
+    frontColor = getFrontColor[str(correctPosition)]
 
     for square in cube.squares:
         if square.pos == edgePosition:
@@ -304,6 +305,36 @@ def getF2LSolution(edgePosition, correctPosition, cube):
 
     current = str(tuple((cornerRotation, edgePosition, edgeRotation)))
     f2lSolution = f2l_solutions.f2lSolution[current]
+    return f2lSolution
+
+
+# Function that solves the first 2 layers:
+def solveF2L(cube):
+    doSequenceOfMoves(cube, ["Z2"])
+    f2lSolution = [["Z2"]]
+    for square in getWhiteCorners(cube):
+        currentCornerPosition = square.pos
+        currentCornerRotation = square.rot
+        oppositeSideColors = getOtherColor(square, cube)
+        correctPosition = getCorrectPositionWhiteCorner(oppositeSideColors)
+        currentCornerPosition, currentCornerRotation, extraCubeRotations = rotateCorrectPositionToDFR(
+            cube, correctPosition, currentCornerPosition, currentCornerRotation)
+        solutionCornerToUFR = rotateWhiteCornerToUFR(
+            cube, currentCornerPosition)
+        solutionEdgeToU, edgePosition = rotateF2LEdgeToU(
+            oppositeSideColors, cube)
+        solution = getF2LSolution(edgePosition, correctPosition, cube)
+        doSequenceOfMoves(cube, solution)
+        rotateToOriginal(cube)
+
+        f2lSolution.append(extraCubeRotations)
+        f2lSolution.append(solutionCornerToUFR)
+        f2lSolution.append(solutionEdgeToU)
+        f2lSolution.append(solution)
+        f2lSolution.append(getInverse(extraCubeRotations))
+
+    print(f2lSolution)
+
     return f2lSolution
 
 

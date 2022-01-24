@@ -67,9 +67,9 @@ def test_getOtherColor():
     # Given:
     expectedColor = ["green", "red"]
     # When:
-    print(solver.getOtherColor(testPiece, testCube))
+    print(solver.getOtherColor(testSquare, testCube))
     # Then:
-    if solver.getOtherColor(testPiece, testCube) == expectedColor:
+    if solver.getOtherColor(testSquare, testCube) == expectedColor:
         print("Test getting other color: " +
               printColors.PASS + "passed" + printColors.RESET)
     else:
@@ -690,7 +690,7 @@ def test_getF2LEdge():
               printColors.FAIL + "failed" + printColors.RESET)
 
 
-# Test rotate white corner to UFR (correct slot in DFR)
+# Test rotate white corner to UFR (correct slot in DFR):
 def test_rotateWhiteCornerToFR():
     # Given:
 
@@ -723,6 +723,26 @@ def test_rotateWhiteCornerToFR():
               printColors.FAIL + "failed" + printColors.RESET)
 
 
+# Test getting f2l solution:
+def test_solvef2l():
+    # Given:
+    solver.solveF2L(testCube)
+    '''
+    expectedDictionary = {
+        ___
+    }
+    # When:
+
+    # Then:
+    if ___ == expectedDictionary:
+        print("Test getting f2l solution: " +
+              printColors.PASS + "passed" + printColors.RESET)
+    else:
+        print("Test getting f2l solution: " +
+              printColors.FAIL + "failed" + printColors.RESET)
+    '''
+
+
 print("======================================== TESTING ========================================")
 '''
 # White Cross Testing
@@ -739,6 +759,7 @@ test_doSequenceOfMoves()
 print("---")
 test_rotateToOriginal()
 print("---")
+'''
 test_solveWhiteCross()
 print("---")
 '''
@@ -747,4 +768,6 @@ print("---")
 test_getF2LEdge()
 print("---")
 test_rotateWhiteCornerToFR()
+'''
+test_solvef2l()
 print("=========================================================================================")
