@@ -821,12 +821,45 @@ def test_solvef2l():
         print("Test getting f2l solution: " +
               printColors.FAIL + "failed" + printColors.RESET)
     
+'''
+=========================================================================================
+End of F2L Testing
+=========================================================================================
+'''
+# Test getting the top layer format:
+def test_getTopLayerFormat():
+    # Given
+    topLayer = solver.getTopLayerFormat(testCube)
+    expectedResult = [[1, 1, 1], [0, 0, 0, 0, 0], [1, 0, 1, 1, 0], [0, 1, 1, 1, 0], [0, 0, 0]]
+    # When:
 
+    # Then:
+    if topLayer == expectedResult:
+        print("Test getting the top layer format: " +
+              printColors.PASS + "passed" + printColors.RESET)
+    else:
+        print("Test getting the top layer format: " +
+              printColors.FAIL + "failed" + printColors.RESET)
+
+# Test getting oll solution:
+def test_getOLLSolution():
+    # Given:
+    OLLSolution = solver.getOLLSolution(testCube)
+    print(OLLSolution)
+    '''
+    # When:
+
+    # Then:
+    if testCube.toDict() == expectedDictionary:
+        print("Test getting f2l solution: " +
+              printColors.PASS + "passed" + printColors.RESET)
+    else:
+        print("Test getting f2l solution: " +
+              printColors.FAIL + "failed" + printColors.RESET)
+    '''
 
 print("======================================== TESTING ========================================")
 '''
-# White Cross Testing
-
 test_getWhiteEdges()
 print("---")
 test_getOtherColor()
@@ -850,4 +883,10 @@ print("---")
 test_rotateWhiteCornerToFR()
 '''
 test_solvef2l()
+'''
+print("---")
+test_getTopLayerFormat()
+'''
+print("---")
+test_getOLLSolution()
 print("=========================================================================================")

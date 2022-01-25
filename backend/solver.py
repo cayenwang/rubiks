@@ -1,7 +1,9 @@
+
 import test_cube
 import numpy as np
 import cross_solutions
 import f2l_solutions
+import oll_solutions
 import pprint
 
 '''
@@ -336,6 +338,76 @@ def solveF2L(cube):  # tested
     print(f2lSolution)
 
     return f2lSolution
+
+
+'''
+=========================================================================================
+OLL Subroutines
+=========================================================================================
+'''
+
+
+# Function to determine what the top layer looks like #tested
+def getTopLayerFormat(cube):  # tested
+    # top layer looks like:       xxx
+    # where o represents        x ooo x
+    # a square on the U         x ooo x
+    # face and x represents     x ooo x
+    # a square around the         xxx
+    # U layer
+    topLayer = [[0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0]]
+
+    positionToCoordinate = {
+        # (position,rotation): [row,column]
+        "([-1, -1, 1], [0, 0, 1])": [0, 0],
+        "([0, -1, 1], [0, 0, 1])": [0, 1],
+        "([1, -1, 1], [0, 0, 1])": [0, 2],
+        "([-1, -1, 1], [-1, 0, 0])": [1, 0],
+        "([-1, -1, 1], [0, -1, 0])": [1, 1],
+        "([0, -1, 1], [0, -1, 0])": [1, 2],
+        "([1, -1, 1], [0, -1, 0])": [1, 3],
+        "([1, -1, 1], [1, 0, 0])": [1, 4],
+        "([-1, -1, 0], [-1, 0, 0])": [2, 0],
+        "([-1, -1, 0], [0, -1, 0])": [2, 1],
+        "([0, -1, 0], [0, -1, 0])": [2, 2],
+        "([1, -1, 0], [0, -1, 0])": [2, 3],
+        "([1, -1, 0], [1, 0, 0])": [2, 4],
+        "([-1, -1, -1], [-1, 0, 0])": [3, 0],
+        "([-1, -1, -1], [0, -1, 0])": [3, 1],
+        "([0, -1, -1], [0, -1, 0])": [3, 2],
+        "([1, -1, -1], [0, -1, 0])": [3, 3],
+        "([1, -1, -1], [1, 0, 0])": [3, 4],
+        "([-1, -1, -1], [0, 0, -1])": [4, 0],
+        "([0, -1, -1], [0, 0, -1])": [4, 1],
+        "([1, -1, -1], [0, 0, -1])": [4, 2]
+    }
+
+    for square in cube.getSquaresOnFace("U"):
+        if square.color == "yellow":
+            position = square.pos
+            rotation = square.rot
+            coordinate = positionToCoordinate[str(tuple((position, rotation)))]
+            topLayer[coordinate[0]][coordinate[1]] = 1
+
+    return topLayer
+
+# Function to determine the OLL case
+
+
+def getOLLSolution(cube):  # tested
+    OLLSolution = []
+    topLayer = getTopLayerFormat(cube)
+    while str(topLayer) not in oll_solutions.topLayerToOLLCase.keys():
+        doSequenceOfMoves(cube, ["U"])
+        OLLSolution.append(["U"])
+        topLayer = getTopLayerFormat(cube)
+    OLLCase = oll_solutions.topLayerToOLLCase[str(topLayer)]
+    OLLSolution.append(oll_solutions.OLLSolution[OLLCase])
+    return OLLSolution
 
 
 if __name__ == "__main__":
