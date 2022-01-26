@@ -53,6 +53,22 @@ def rotateToOriginal(cube):  # tested
 def getInverse(sequence):
     resultInverse = []
     inverse = {
+        "1": "'",
+        "'": "",
+        "2": "2"
+    }
+    for move in reversed(sequence):
+        inverseMove = move[0]
+        if len(move) == 2:
+            direction = move[1]
+        else:
+            direction = 1
+        inverseDirection = inverse[str(direction)]
+        inverseMove += inverseDirection
+        resultInverse.append(inverseMove)
+
+    '''
+    inverse = {
         "X": "X'",
         "Y": "Y'",
         "Z": "Z'",
@@ -65,6 +81,7 @@ def getInverse(sequence):
     }
     for move in reversed(sequence):
         resultInverse.append(inverse[move])
+    '''
     return resultInverse
 
 
@@ -146,8 +163,6 @@ def solveWhiteCross(cube):  # tested
         whiteCrossSolution.append(extraCubeRotations)
         whiteCrossSolution.append(solution)
         whiteCrossSolution.append(getInverse(extraCubeRotations))
-
-    print(whiteCrossSolution)
 
     return whiteCrossSolution
 
@@ -336,8 +351,6 @@ def solveF2L(cube):  # tested
         f2lSolution.append(solution)
         f2lSolution.append(getInverse(extraCubeRotations))
 
-    print(f2lSolution)
-
     return f2lSolution
 
 
@@ -411,8 +424,6 @@ def getOLLSolution(cube):  # tested
 
     doSequenceOfMoves(cube, caseSolution)
     OLLSolution.append(caseSolution)
-
-    print(OLLSolution)
 
     return OLLSolution
 
@@ -507,6 +518,24 @@ def sortSquaresInBand(cube):
     result = ''.join(stringBandFormat)
     return result
 
+# Function to align the last layer:
+
+
+def UAlign(cube):
+    for square in cube.squares:
+        if square.pos == [0, -1, -1] and square.rot == [0, 0, -1]:
+            color = square.color
+    movesToAlign = {
+        "green": [],
+        "orange": ["U"],
+        "blue": ["U2"],
+        "red": ["U'"]
+    }
+
+    doSequenceOfMoves(cube, movesToAlign[color])
+
+    return movesToAlign[color]
+
 # Function to determine the PLL case:
 
 
@@ -527,12 +556,54 @@ def getPLLSolution(cube):  # tested
         PLLSolution.append(["U"])
         bandFormat = sortSquaresInBand(cube)
     PLLCase = pll_solutions.topBandToCase[str(bandFormat)]
-    PLLSolution.append(pll_solutions.pllSolution[PLLCase])
+    caseSolution = pll_solutions.pllSolution[PLLCase]
+
+    doSequenceOfMoves(cube, caseSolution)
+    PLLSolution.append(caseSolution)
+
+    movesToAlign = UAlign(cube)
+    PLLSolution.append(movesToAlign)
+
     return PLLSolution
+
+
+'''
+=========================================================================================
+Complete Solution
+=========================================================================================
+'''
+
+
+def solveCube(cube):
+    completeSolution = []
+    whiteCrossSolution = solveWhiteCross(cube)
+    f2lSolution = solveF2L(cube)
+    ollSolution = getOLLSolution(cube)
+    pllSolution = getPLLSolution(cube)
+
+    completeSolution.append(whiteCrossSolution)
+    completeSolution.append(f2lSolution)
+    completeSolution.append(ollSolution)
+    completeSolution.append(pllSolution)
+
+    return completeSolution
+
+
+def flatten(listOfLists):
+    if len(listOfLists) == 0:
+        return listOfLists
+    if isinstance(listOfLists[0], list):
+        return flatten(listOfLists[0]) + flatten(listOfLists[1:])
+    return listOfLists[:1] + flatten(listOfLists[1:])
 
 
 if __name__ == "__main__":
     testCube = test_cube.test_cubeInit()
-    pprint.pprint(testCube.toDict())
-    print(solveWhiteCross(testCube))
-    pprint.pprint(testCube.toDict())
+    solution = solveCube(testCube)
+
+    ''' GETS THE INVERSE SOLUTION: ie goes from solved cube to scrambled state
+    flat = flatten(solution)
+    print("flat:", flat)
+    inverse = getInverse(flat)
+    print("inverse:", inverse)
+    '''

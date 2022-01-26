@@ -861,39 +861,31 @@ def test_getOLLSolution():
 End of OLL Testing
 =========================================================================================
 '''
-'''
-# Test solving OLL (including rotating the cube):
-def test_solveOLL():
-    # Given:
-    OLLSolution = solver.solveOLL(testCube)
-    expectedResult = [['U'], ['U'], ['U'], ["F'", "U'", "L'", 'U', 'L', 'F']]
-    # When:
 
-    # Then:
-    if OLLSolution == expectedResult:
-        print("Test doing oll solution: " +
-              printColors.PASS + "passed" + printColors.RESET)
-    else:
-        print("Test doing oll solution: " +
-              printColors.FAIL + "failed" + printColors.RESET)
-'''
 
 # Test getting pll solution:
 def test_getPLLSolution():
     # Given:
     PLLSolution = solver.getPLLSolution(testCube)
     print(PLLSolution)
-    #expectedResult = [['U'], ['U'], ['U'], ["F'", "U'", "L'", 'U', 'L', 'F']]
+    expectedResult = [['M2', 'U', 'M', 'U2', "M'", 'U', 'M2'], ['U2']]
     # When:
-'''
+
     # Then:
     if PLLSolution == expectedResult:
-        print("Test getting oll solution: " +
+        print("Test getting pll solution: " +
               printColors.PASS + "passed" + printColors.RESET)
     else:
-        print("Test getting oll solution: " +
+        print("Test getting pll solution: " +
               printColors.FAIL + "failed" + printColors.RESET)
+
+
 '''
+=========================================================================================
+End of PLL Testing
+=========================================================================================
+'''
+
 
 print("======================================== TESTING ========================================")
 '''
