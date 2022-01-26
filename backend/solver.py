@@ -1,15 +1,17 @@
 
 import test_cube
+import cube
 import numpy as np
 import cross_solutions
 import f2l_solutions
 import oll_solutions
 import pll_solutions
 import pprint
+import random
 
 '''
 =========================================================================================
-Communal Subroutines 
+Communal Subroutines
 =========================================================================================
 '''
 
@@ -547,14 +549,14 @@ def getPLLSolution(cube):  # tested
         # matches the dictionary but just in a different colour scheme
         counter = 0
         while str(bandFormat) not in pll_solutions.topBandToCase.keys() and counter != 4:
-            for i in range(len(bandFormat)):
-                bandFormat[i] = (bandFormat[i]+1) % 4
+            bandFormat = str(int(bandFormat)+111111111111).replace("4", "0")
             counter += 1
         # out of the loop, we've determined the current pll case isnt one in the
         # dictionary and hence we need to rotate the top layer and check again
-        doSequenceOfMoves(cube, ["U"])
-        PLLSolution.append(["U"])
-        bandFormat = sortSquaresInBand(cube)
+        if str(bandFormat) not in pll_solutions.topBandToCase.keys():
+            doSequenceOfMoves(cube, ["U"])
+            PLLSolution.append(["U"])
+            bandFormat = sortSquaresInBand(cube)
     PLLCase = pll_solutions.topBandToCase[str(bandFormat)]
     caseSolution = pll_solutions.pllSolution[PLLCase]
 
@@ -577,9 +579,13 @@ Complete Solution
 def solveCube(cube):
     completeSolution = []
     whiteCrossSolution = solveWhiteCross(cube)
+    print("cross done")
     f2lSolution = solveF2L(cube)
+    print("f2l done")
     ollSolution = getOLLSolution(cube)
+    print("oll done")
     pllSolution = getPLLSolution(cube)
+    print("pll done")
 
     completeSolution.append(whiteCrossSolution)
     completeSolution.append(f2lSolution)
@@ -597,13 +603,85 @@ def flatten(listOfLists):
     return listOfLists[:1] + flatten(listOfLists[1:])
 
 
+'''
+=========================================================================================
+Further Testing
+=========================================================================================
+'''
+
+# Generate solved cube:
+
+
+def buildSolvedCube():
+    testCube = cube.cube()
+    testCube.buildCube(
+        "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyyyy")
+    return testCube
+
+
+# Generate a random scramble:
+def randomScramble():
+    indexToMove = {
+        0: "U",
+        1: "U'",
+        2: "U2",
+        3: "D",
+        4: "D'",
+        5: "D2",
+        6: "L",
+        7: "L'",
+        8: "L2",
+        9: "R",
+        10: "R'",
+        11: "R2",
+        12: "B",
+        13: "B'",
+        14: "B2",
+        15: "F",
+        16: "F'",
+        17: "F2",
+    }
+    scramble = []
+    for i in range(20):
+        index = random.randint(0, 17)
+        scramble.append(indexToMove[index])
+    return scramble
+
+# Check if the final cube is solved:
+
+
+def isSolved(cube):
+    flag = True
+    for position in [[0, -1, 0], [0, 1, 0], [-1, 0, 0], [1, 0, 0], [0, 0, -1], [0, 0, 1]]:
+        for centre in cube.squares:
+            if centre.pos == position:
+                for square in cube.squares:
+                    if square.rot == centre.pos:
+                        if square.color != centre.color:
+                            flag = False
+
+    return flag
+
+
 if __name__ == "__main__":
-    testCube = test_cube.test_cubeInit()
+    # testCube = test_cube.test_cubeInit()
+
+    testCube = buildSolvedCube()
+    scramble = randomScramble()
+    # scramble = ['L', 'U', "L'", 'R2', 'R', "L'", 'R2', 'U2', 'D2', "B'", 'R2', "F'", 'F', 'L2', 'U2', 'R', 'F', 'R2', 'D2', 'L']
+    # ['L', 'F', 'L2', 'F2', "U'", 'L', "F'", "R'", 'R', "F'", 'L', 'F2', 'B2', "R'", 'B2', 'D2', "B'", 'R', 'F2', 'R']
+    print(scramble)
+    doSequenceOfMoves(testCube, scramble)
     solution = solveCube(testCube)
 
-    ''' GETS THE INVERSE SOLUTION: ie goes from solved cube to scrambled state
+    # GETS THE INVERSE SOLUTION: ie goes from solved cube to scrambled state
     flat = flatten(solution)
+    '''
     print("flat:", flat)
     inverse = getInverse(flat)
     print("inverse:", inverse)
     '''
+    print(flat)
+    print(isSolved(testCube))
+    # pprint.pprint(testCube.toDict())
+    print("SOMETHING IS BROKEN. IDK WHERE. FIND IT LATER :)")
