@@ -4,6 +4,7 @@ import numpy as np
 import cross_solutions
 import f2l_solutions
 import oll_solutions
+import pll_solutions
 import pprint
 
 '''
@@ -347,8 +348,8 @@ OLL Subroutines
 '''
 
 
-# Function to determine what the top layer looks like #tested
-def getTopLayerFormat(cube):  # tested
+# Function to determine what the top layer looks like:
+def getTopLayerFormatOLL(cube):  # tested
     # top layer looks like:       xxx
     # where o represents        x ooo x
     # a square on the U         x ooo x
@@ -395,19 +396,139 @@ def getTopLayerFormat(cube):  # tested
 
     return topLayer
 
-# Function to determine the OLL case
+# Function to determine the OLL case:
 
 
 def getOLLSolution(cube):  # tested
     OLLSolution = []
-    topLayer = getTopLayerFormat(cube)
+    topLayer = getTopLayerFormatOLL(cube)
     while str(topLayer) not in oll_solutions.topLayerToOLLCase.keys():
         doSequenceOfMoves(cube, ["U"])
         OLLSolution.append(["U"])
-        topLayer = getTopLayerFormat(cube)
+        topLayer = getTopLayerFormatOLL(cube)
     OLLCase = oll_solutions.topLayerToOLLCase[str(topLayer)]
-    OLLSolution.append(oll_solutions.OLLSolution[OLLCase])
+    caseSolution = oll_solutions.OLLSolution[OLLCase]
+
+    doSequenceOfMoves(cube, caseSolution)
+    OLLSolution.append(caseSolution)
+
+    print(OLLSolution)
+
     return OLLSolution
+
+
+'''
+# Function that solves the OLL:
+
+
+def solveOLL(cube):  # not doing the moves correctly
+    print("before")
+    for square in cube.squares:
+        if square.pos[1] == -1 and square.rot == [0, -1, 0]:
+            pprint.pprint(square.toDict())
+    for square in cube.squares:
+        if square.pos[1] == -1 and square.rot != [0, -1, 0]:
+            pprint.pprint(square.toDict())
+
+    OLLSolution = getOLLSolution(cube)
+    for sequence in OLLSolution:
+        print('Before')
+        for square in cube.squares:
+            if square.pos[1] == -1 and square.rot == [0, -1, 0]:
+                pprint.pprint(square.toDict())
+        doSequenceOfMoves(cube, sequence)
+        print(sequence)
+        print("after")
+        for square in cube.squares:
+            if square.pos[1] == -1 and square.rot == [0, -1, 0]:
+                pprint.pprint(square.toDict())
+    print(OLLSolution)
+
+    print("after")
+    for square in cube.squares:
+        if square.pos[1] == -1 and square.rot == [0, -1, 0]:
+            pprint.pprint(square.toDict())
+    for square in cube.squares:
+        if square.pos[1] == -1 and square.rot != [0, -1, 0]:
+            pprint.pprint(square.toDict())
+
+    return(OLLSolution)
+'''
+
+'''
+=========================================================================================
+PLL Subroutines
+=========================================================================================
+'''
+
+# Function to get the squares in the PLL band:
+
+
+def getSquaresInBand(cube):
+    resultSquares = []
+    for square in cube.squares:
+        if square.pos[1] == -1 and square.rot != [0, -1, 0]:
+            resultSquares.append(square)
+    return resultSquares
+
+# Function to sort the squares in the PLL band to be sequencial:
+
+
+def sortSquaresInBand(cube):
+    bandFormat = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+    posAndRotToIndex = {
+        # (position,rotation): index
+        "([-1, -1, -1], [0, 0, -1])": 0,
+        "([0, -1, -1], [0, 0, -1])": 1,
+        "([1, -1, -1], [0, 0, -1])": 2,
+        "([1, -1, -1], [1, 0, 0])": 3,
+        "([1, -1, 0], [1, 0, 0])": 4,
+        "([1, -1, 1], [1, 0, 0])": 5,
+        "([1, -1, 1], [0, 0, 1])": 6,
+        "([0, -1, 1], [0, 0, 1])": 7,
+        "([-1, -1, 1], [0, 0, 1])": 8,
+        "([-1, -1, 1], [-1, 0, 0])": 9,
+        "([-1, -1, 0], [-1, 0, 0])": 10,
+        "([-1, -1, -1], [-1, 0, 0])": 11
+    }
+    colorToNumber = {
+        "green": 0,
+        "orange": 1,
+        "blue": 2,
+        "red": 3
+    }
+
+    for square in getSquaresInBand(cube):
+        position = square.pos
+        rotation = square.rot
+        index = posAndRotToIndex[str(tuple((position, rotation)))]
+        bandFormat[index] = colorToNumber[square.color]
+    stringBandFormat = [str(index) for index in bandFormat]
+    result = ''.join(stringBandFormat)
+    return result
+
+# Function to determine the PLL case:
+
+
+def getPLLSolution(cube):  # tested
+    PLLSolution = []
+    bandFormat = sortSquaresInBand(cube)
+    while str(bandFormat) not in pll_solutions.topBandToCase.keys():
+        # not rotating the top face but seeing whether the current pll case
+        # matches the dictionary but just in a different colour scheme
+        counter = 0
+        while str(bandFormat) not in pll_solutions.topBandToCase.keys() and counter != 4:
+            for i in range(len(bandFormat)):
+                bandFormat[i] = (bandFormat[i]+1) % 4
+            counter += 1
+        # out of the loop, we've determined the current pll case isnt one in the
+        # dictionary and hence we need to rotate the top layer and check again
+        doSequenceOfMoves(cube, ["U"])
+        PLLSolution.append(["U"])
+        bandFormat = sortSquaresInBand(cube)
+    PLLCase = pll_solutions.topBandToCase[str(bandFormat)]
+    PLLSolution.append(pll_solutions.pllSolution[PLLCase])
+    return PLLSolution
 
 
 if __name__ == "__main__":

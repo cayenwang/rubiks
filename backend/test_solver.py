@@ -827,9 +827,9 @@ End of F2L Testing
 =========================================================================================
 '''
 # Test getting the top layer format:
-def test_getTopLayerFormat():
+def test_getTopLayerFormatOLL():
     # Given
-    topLayer = solver.getTopLayerFormat(testCube)
+    topLayer = solver.getTopLayerFormatOLL(testCube)
     expectedResult = [[1, 1, 1], [0, 0, 0, 0, 0], [1, 0, 1, 1, 0], [0, 1, 1, 1, 0], [0, 0, 0]]
     # When:
 
@@ -845,18 +845,55 @@ def test_getTopLayerFormat():
 def test_getOLLSolution():
     # Given:
     OLLSolution = solver.getOLLSolution(testCube)
-    print(OLLSolution)
-    '''
+    expectedResult = [['U'], ['U'], ['U'], ["F'", "U'", "L'", 'U', 'L', 'F']]
     # When:
 
     # Then:
-    if testCube.toDict() == expectedDictionary:
-        print("Test getting f2l solution: " +
+    if OLLSolution == expectedResult:
+        print("Test getting oll solution: " +
               printColors.PASS + "passed" + printColors.RESET)
     else:
-        print("Test getting f2l solution: " +
+        print("Test getting oll solution: " +
               printColors.FAIL + "failed" + printColors.RESET)
-    '''
+
+'''
+=========================================================================================
+End of OLL Testing
+=========================================================================================
+'''
+'''
+# Test solving OLL (including rotating the cube):
+def test_solveOLL():
+    # Given:
+    OLLSolution = solver.solveOLL(testCube)
+    expectedResult = [['U'], ['U'], ['U'], ["F'", "U'", "L'", 'U', 'L', 'F']]
+    # When:
+
+    # Then:
+    if OLLSolution == expectedResult:
+        print("Test doing oll solution: " +
+              printColors.PASS + "passed" + printColors.RESET)
+    else:
+        print("Test doing oll solution: " +
+              printColors.FAIL + "failed" + printColors.RESET)
+'''
+
+# Test getting pll solution:
+def test_getPLLSolution():
+    # Given:
+    PLLSolution = solver.getPLLSolution(testCube)
+    print(PLLSolution)
+    #expectedResult = [['U'], ['U'], ['U'], ["F'", "U'", "L'", 'U', 'L', 'F']]
+    # When:
+'''
+    # Then:
+    if PLLSolution == expectedResult:
+        print("Test getting oll solution: " +
+              printColors.PASS + "passed" + printColors.RESET)
+    else:
+        print("Test getting oll solution: " +
+              printColors.FAIL + "failed" + printColors.RESET)
+'''
 
 print("======================================== TESTING ========================================")
 '''
@@ -889,4 +926,10 @@ test_getTopLayerFormat()
 '''
 print("---")
 test_getOLLSolution()
+print("---")
+'''
+test_solveOLL()
+print("---")
+'''
+test_getPLLSolution()
 print("=========================================================================================")
