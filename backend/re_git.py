@@ -7,4 +7,4 @@ def doSequenceOfMoves(cube, sequence):
         print('----------')
         cube.doMove(move)
         print("after:", repr(move), cube.toDict()["squares"][0])
-        print('----------')git
+        print('----------')
