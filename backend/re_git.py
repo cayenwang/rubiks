@@ -3,8 +3,4 @@
 
 def doSequenceOfMoves(cube, sequence):
     for move in sequence:
-        print("before:", repr(move), cube.toDict()["squares"][0])
-        print('----------')
         cube.doMove(move)
-        print("after:", repr(move), cube.toDict()["squares"][0])
-        print('----------')
