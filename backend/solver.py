@@ -684,4 +684,4 @@ if __name__ == "__main__":
     print(flat)
     print(isSolved(testCube))
     # pprint.pprint(testCube.toDict())
-    print("SOMETHING IS BROKEN. IDK WHERE. FIND IT LATER :)")
+    #print("SOMETHING IS BROKEN. IDK WHERE. FIND IT LATER :)")
