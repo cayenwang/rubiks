@@ -1,4 +1,5 @@
 import numpy as np
+import json
 
 
 class square:  # tested
@@ -111,6 +112,14 @@ class cube:
         for square in self.squares:
             if square.pos[layerIndex] == correctLayer[layerIndex]:
                 resultSquares.append(square)
+
+        dictResultSquares = []
+        for square in resultSquares:
+            dictResultSquares.append(square.toDict())
+
+        with open('../rubiks.json', 'w') as outfile:
+            json.dump(dictResultSquares, outfile)
+
         return resultSquares
 
     @staticmethod
@@ -238,8 +247,4 @@ class cube:
 if __name__ == "__main__":
     cube = cube()
     cube.buildCube("yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor")
-    for i in [0, 1, 2]:
-        print(cube.toDict()["squares"][i])
-    cube.doMove("M")
-    for i in [0, 1, 2]:
-        print(cube.toDict()["squares"][i])
+    cube.getSquaresOnFace("F")
