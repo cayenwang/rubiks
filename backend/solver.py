@@ -1,12 +1,10 @@
 
-import test_cube
-import cube
+from .cube import *
 import numpy as np
-import cross_solutions
-import f2l_solutions
-import oll_solutions
-import pll_solutions
-import pprint
+from .cross_solutions import *
+from .f2l_solutions import *
+from .oll_solutions import *
+from .pll_solutions import *
 import random
 
 '''
@@ -144,8 +142,8 @@ def rotateWhiteEdgeToUF(cube, correctPosition, currentPosition, currentRotation)
 # Function that calculates the correct sequence of moves to solve a given white edge piece:
 def getWhiteEdgeSolution(currentPosition, currentRotation):  # tested
     current = str(tuple((currentPosition, currentRotation)))
-    crossSolution = cross_solutions.crossSolution[current]
-    return crossSolution
+    aCrossSolution = crossSolution[current]
+    return aCrossSolution
 
 
 # Function that solves the white cross:
@@ -324,8 +322,8 @@ def getF2LSolution(edgePosition, correctPosition, cube):
                 cornerRotation = square.rot
 
     current = str(tuple((cornerRotation, edgePosition, edgeRotation)))
-    f2lSolution = f2l_solutions.f2lSolution[current]
-    return f2lSolution
+    af2lSolution = f2lSolution[current]
+    return af2lSolution
 
 
 # Function that solves the first 2 layers:
@@ -415,19 +413,19 @@ def getTopLayerFormatOLL(cube):  # tested
 
 
 def getOLLSolution(cube):  # tested
-    OLLSolution = []
+    aOLLSolution = []
     topLayer = getTopLayerFormatOLL(cube)
-    while str(topLayer) not in oll_solutions.topLayerToOLLCase.keys():
+    while str(topLayer) not in topLayerToOLLCase.keys():
         doSequenceOfMoves(cube, ["U"])
-        OLLSolution.append(["U"])
+        aOLLSolution.append(["U"])
         topLayer = getTopLayerFormatOLL(cube)
-    OLLCase = oll_solutions.topLayerToOLLCase[str(topLayer)]
-    caseSolution = oll_solutions.OLLSolution[OLLCase]
+    OLLCase = topLayerToOLLCase[str(topLayer)]
+    caseSolution = OLLSolution[OLLCase]
 
     doSequenceOfMoves(cube, caseSolution)
-    OLLSolution.append(caseSolution)
+    aOLLSolution.append(caseSolution)
 
-    return OLLSolution
+    return aOLLSolution
 
 
 '''
@@ -544,21 +542,21 @@ def UAlign(cube):
 def getPLLSolution(cube):  # tested
     PLLSolution = []
     bandFormat = sortSquaresInBand(cube)
-    while str(bandFormat) not in pll_solutions.topBandToCase.keys():
+    while str(bandFormat) not in topBandToCase.keys():
         # not rotating the top face but seeing whether the current pll case
         # matches the dictionary but just in a different colour scheme
         counter = 0
-        while str(bandFormat) not in pll_solutions.topBandToCase.keys() and counter != 4:
+        while str(bandFormat) not in topBandToCase.keys() and counter != 4:
             bandFormat = str(int(bandFormat)+111111111111).replace("4", "0")
             counter += 1
         # out of the loop, we've determined the current pll case isnt one in the
         # dictionary and hence we need to rotate the top layer and check again
-        if str(bandFormat) not in pll_solutions.topBandToCase.keys():
+        if str(bandFormat) not in topBandToCase.keys():
             doSequenceOfMoves(cube, ["U"])
             PLLSolution.append(["U"])
             bandFormat = sortSquaresInBand(cube)
-    PLLCase = pll_solutions.topBandToCase[str(bandFormat)]
-    caseSolution = pll_solutions.pllSolution[PLLCase]
+    PLLCase = topBandToCase[str(bandFormat)]
+    caseSolution = pllSolution[PLLCase]
 
     doSequenceOfMoves(cube, caseSolution)
     PLLSolution.append(caseSolution)

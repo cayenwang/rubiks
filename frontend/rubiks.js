@@ -1,8 +1,11 @@
 import * as THREE from './three.js-dev/build/three.module.js';
 import { OrbitControls } from './three.js-dev/examples/jsm/controls/OrbitControls.js';
 
-const loader = new THREE.FileLoader();
-THREE.Cache.enabled = true;
+
+//var fs = require('fs');
+//var http = require('http');
+//const loader = new THREE.FileLoader();
+//THREE.Cache.enabled = true;
 
 /*
 =========================================================================================
@@ -92,9 +95,9 @@ function render() {
 Building cube
 =========================================================================================
 */
-let state = "yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor";
-buildCube(state);
-//test()
+let scramble = "yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor";
+buildCube(scramble);
+// test();
 
 function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyyyy") {
 
@@ -249,66 +252,6 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
     return allSquares
 }
 
-document.getElementById("btn_getSquaresOnU").addEventListener("click", getSquaresOnFace("U"));
-
-function getSquaresOnFace(face) {
-    let allSquares = buildCube(state);
-    let squaresOnFace = [];
-
-    // send the face to backend
-    /*loader.load("../rubiks.json",
-        function (data) { console.log(data) })*/
-
-    let fileFace = new function (face) {
-        this.save = function () {
-            sessionStorage.setItem("face", JSON.stringify(face));
-        };
-    }
-    fileFace.save(face)
-
-
-
-    /*
-    this.save = function () {
-                var result = knot.toJSON();
-                localStorage.setItem("json", JSON.stringify(result));
-            };
-
-            this.load = function () {
-
-                scene.remove(loadedMesh);
-
-                var json = localStorage.getItem("json");
-
-                if (json) {
-                    var loadedGeometry = JSON.parse(json);
-                    var loader = new THREE.ObjectLoader();
-
-                    loadedMesh = loader.parse(loadedGeometry);
-                    loadedMesh.position.x -= 50;
-                    scene.add(loadedMesh);
-                }
-            }
-    */
-    /*let faceJSON = JSON.stringify(face);
-        fs.writeFile("../rubiks.json", faceJSON, (err) => {
-            if (err) throw err;
-            console.log("Completed!");
-        });
-
-
-    const xhttp = new XMLHttpRequest();
-    xhttp.onload = function () {
-        document.getElementById("test").innerHTML = this.responseText;
-    }
-    xhttp.open("GET", "../rubiks.json");
-    xhttp.send();*/
-}
-
-
-// ==============
-
-
 function test() {
     let sideWidth = 20;
     let separation = 1.1;
@@ -337,4 +280,8 @@ function test() {
         }
     }
 
+}
+
+export function test2() {
+    alert("hi")
 }

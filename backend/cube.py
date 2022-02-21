@@ -113,13 +113,6 @@ class cube:
             if square.pos[layerIndex] == correctLayer[layerIndex]:
                 resultSquares.append(square)
 
-        dictResultSquares = []
-        for square in resultSquares:
-            dictResultSquares.append(square.toDict())
-
-        with open('../rubiks.json', 'w') as outfile:
-            json.dump(dictResultSquares, outfile)
-
         return resultSquares
 
     @staticmethod

@@ -8,6 +8,12 @@ body {
 	overscroll-behavior: none;
 }
 
+a, button, input, select {
+    pointer-events: auto;
+    position: absolute;
+    top: 0;
+}
+
 a {
 	color: #ff0;
 	text-decoration: none;
