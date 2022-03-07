@@ -14,6 +14,22 @@ def hello_world():
     return "<h1>I'm up and running!</h1>"
 
 
+@app.route("/getSquaresOnFace", methods=["POST"])
+def getSquaresOnFace():
+    requestData = request.get_json()
+    face = requestData["face"]
+    aCube = cube()
+    aCube.buildCube("wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyyyy")
+    squaresOnFace = aCube.getSquaresOnFace(face)
+    squaresList = []
+    for square in squaresOnFace:
+        squaresList.append(square.toDict())
+    squaresDict = {
+        "squaresOnFace": squaresList
+    }
+    return json.dumps(squaresDict)
+
+
 @app.route("/solve", methods=["POST"])
 def solve():
     request_data = request.get_json()
@@ -23,7 +39,7 @@ def solve():
     moves = solveCube(acube)
     flat = flatten(moves)
     response = {
-        "moves": flat
+        "moves": moves
     }
     return json.dumps(response)
 

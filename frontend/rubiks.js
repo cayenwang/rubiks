@@ -2,11 +2,6 @@ import * as THREE from './three.js-dev/build/three.module.js';
 import { OrbitControls } from './three.js-dev/examples/jsm/controls/OrbitControls.js';
 
 
-//var fs = require('fs');
-//var http = require('http');
-//const loader = new THREE.FileLoader();
-//THREE.Cache.enabled = true;
-
 /*
 =========================================================================================
 World Building
@@ -95,8 +90,10 @@ function render() {
 Building cube
 =========================================================================================
 */
+
 let scramble = "yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor";
-buildCube(scramble);
+let cubeSquares = buildCube(scramble);
+console.log(cubeSquares)
 // test();
 
 function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyyyy") {

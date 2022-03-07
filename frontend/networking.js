@@ -2,7 +2,7 @@
 // It should be a JSON Object
 // A callback is the function you want called when you receive a response
 // It should have the signature functionName(JSONObject)
-function request(endpoint, mode, callback, body = {}) {
+/*function request(endpoint, mode, callback, body = {}) {
 
     // Defines the reqeust with very little information
     var xmlhttp = new XMLHttpRequest();
@@ -30,7 +30,55 @@ function request(endpoint, mode, callback, body = {}) {
     // This executes the request as defined above with the request_data provided
     // It also changes the JSON object provided to a string that can be sent https
     xmlhttp.send(JSON.stringify(body));
+}*/
+
+function request(endpoint, mode, callback, body = {}) {
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            callback(JSON.parse(this.responseText));
+        }
+    };
+    var url = "http://localhost:5000/";
+    url += endpoint
+    xmlhttp.open(mode, url, true);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.send(JSON.stringify(body));
 }
+
+function getSquaresOnFace(face) {
+    requestBody = {
+        "face": face
+    }
+    request("getSquaresOnFace", "POST", turn, requestBody)
+}
+
+function turn(response) {
+    let squaresToTurn = response["squaresOnFace"]
+    console.log(squaresToTurn)
+    let positionList = []
+    let rotationToMultiplier = {
+        "1,0,0": "33,22,22",
+        "-1,0,0": "33,22,22",
+        "0,1,0": "22,33,22",
+        "0,-1,0": "22,33,22",
+        "0,0,1": "22,22,33",
+        "0,0,-1": "22,22,33"
+    }
+    for (var square in squaresToTurn) {
+        position = squaresToTurn[square]["position"]
+        rotation = squaresToTurn[square]["rotation"]
+        multiplier = rotationToMultiplier[rotation.toString()].split(",")
+
+
+        positionList.push(position)
+    }
+    console.log(positionList)
+}
+
+
+//=========================
 
 function solveCube() {
     request_body = {
