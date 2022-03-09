@@ -1,10 +1,11 @@
 from flask import Flask, request
 import json
 
-import cube
-import solver
+from .cube import cube
+from .solver import *
 
 app = Flask(__name__)
+
 
 @app.route("/", methods=["GET"])
 def hello_world():
@@ -25,7 +26,7 @@ def solve():
     return json.dumps(response)
 
 
-@app.route("/jsonExample", methods=["POST"])
+'''@app.route("/jsonExample", methods=["POST"])
 def json_example():
     # I hope the request data comes in in the form
     # {
@@ -51,4 +52,4 @@ def json_example():
     json_response = {"status": status}
 
     # Return the JSON string of your request
-    return json.dumps(jgit son_response)
+    return json.dumps(json_response)'''
