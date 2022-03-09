@@ -39,7 +39,7 @@ def solve():
     moves = solveCube(acube)
     flat = flatten(moves)
     response = {
-        "moves": moves
+        "moves": flat
     }
     return json.dumps(response)
 
