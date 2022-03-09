@@ -1,5 +1,3 @@
-
-
 function request(endpoint, mode, callback, body = {}) {
     var xmlhttp = new XMLHttpRequest();
 
@@ -15,8 +13,24 @@ function request(endpoint, mode, callback, body = {}) {
     xmlhttp.send(JSON.stringify(body));
 }
 
+document.getElementById("solve").addEventListener("click", solveCube);
+document.getElementById("getSquaresOnFaceU").addEventListener("click", function () { getSquaresOnFace('U') });
+
+function solveCube() {
+    let request_body = {
+        "cube": "yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor"
+    };
+    request("solve", "POST", processResponse, request_body);
+}
+
+function processResponse(response) {
+    console.log(response);
+}
+//----------------------
+let exportSquaresToTurn
+
 function getSquaresOnFace(face) {
-    requestBody = {
+    let requestBody = {
         "face": face
     }
     request("getSquaresOnFace", "POST", turn, requestBody)
@@ -24,7 +38,6 @@ function getSquaresOnFace(face) {
 
 function turn(response) {
     let squaresToTurn = response["squaresOnFace"]
-    console.log(squaresToTurn)
     let positionList = []
     let rotationToMultiplier = {
         "1,0,0": "33,22,22",
@@ -35,38 +48,16 @@ function turn(response) {
         "0,0,-1": "22,22,33"
     }
     for (var square in squaresToTurn) {
-        position = squaresToTurn[square]["position"]
-        rotation = squaresToTurn[square]["rotation"]
-        multiplier = rotationToMultiplier[rotation.toString()].split(",")
-
-
+        let position = squaresToTurn[square]["position"]
+        let rotation = squaresToTurn[square]["rotation"]
+        let multiplier = rotationToMultiplier[rotation.toString()].split(",")
+        for (let i = 0; i < 3; i++) {
+            position[i] *= multiplier[i]
+        }
         positionList.push(position)
     }
     console.log(positionList)
+    exportSquaresToTurn = positionList
 }
 
-
-//=========================
-
-function solveCube() {
-    request_body = {
-        "cube": "yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor"
-    };
-    request("solve", "POST", processResponse, request_body);
-}
-
-function testPost() {
-    // An example of how you'd make a POST request
-    request_body = {
-        "language": "python"
-    }
-    request("jsonExample", "POST", processResponse, request_body);
-}
-function getRandomisedCube() {
-    // An example of how you'd make a GET request
-    request("getRandomisedCube", "GET", processResponse);
-}
-
-function processResponse(response) {
-    console.log(response);
-}
+export { exportSquaresToTurn }

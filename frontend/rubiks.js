@@ -1,6 +1,6 @@
 import * as THREE from './three.js-dev/build/three.module.js';
 import { OrbitControls } from './three.js-dev/examples/jsm/controls/OrbitControls.js';
-
+import { exportSquaresToTurn } from './networking.js'
 
 /*
 =========================================================================================
@@ -91,14 +91,13 @@ Building cube
 =========================================================================================
 */
 
+let allSquares = []
 let scramble = "yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor";
 let cubeSquares = buildCube(scramble);
 console.log(cubeSquares)
 // test();
 
 function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyyyy") {
-
-    let allSquares = []
 
     let sideWidth = 20;
     let separation = 1.1;
@@ -246,7 +245,24 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
             allSquares.push(square)
         }
     }
-    return allSquares
+}
+
+function findSquaresToTurn() {
+    let resultSquaresToTurn = []
+    for (var position in exportSquaresToTurn) {
+        let aPosition = exportSquaresToTurn[position]
+        for (let i = 0; i < 54; i++) {
+            let square = allSquares[i]
+            if (
+                aPosition[0] == square.position.x
+                && aPosition[1] == square.position.y
+                && aPosition[2] == square.position.z
+            ) {
+                resultSquaresToTurn.push(square)
+            }
+        }
+    }
+    return resultSquaresToTurn
 }
 
 function test() {
@@ -282,3 +298,9 @@ function test() {
 export function test2() {
     alert("hi")
 }
+
+function test3() {
+    findSquaresToTurn()
+}
+
+document.getElementById("test3").addEventListener("click", test3);
