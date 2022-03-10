@@ -15,6 +15,7 @@ function request(endpoint, mode, callback, body = {}) {
 
 document.getElementById("solve").addEventListener("click", solveCube);
 document.getElementById("getSquaresOnFaceU").addEventListener("click", function () { getSquaresOnFace('U') });
+document.getElementById("getSquaresOnFaceF").addEventListener("click", function () { getSquaresOnFace('F') });
 
 function solveCube() {
     let request_body = {
@@ -33,11 +34,11 @@ function getSquaresOnFace(face) {
     let requestBody = {
         "face": face
     }
-    request("getSquaresOnFace", "POST", turn, requestBody)
-    request("getRotationMatrix", "POST", process, requestBody)
+    request("getSquaresOnFace", "POST", getSquares, requestBody)
+    request("getRotationMatrix", "POST", getMatrix, requestBody)
 }
 
-function turn(response) {
+function getSquares(response) {
     let squaresToTurn = response["squaresOnFace"]
     let positionList = []
     let rotationList = []
@@ -67,7 +68,7 @@ function turn(response) {
     }
 }
 
-function process(response) {
+function getMatrix(response) {
     exportMatrix = response["rotationMatrix"]
     exportAxis = response["axis"]
     exportAngle = response["angle"]
