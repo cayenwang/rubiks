@@ -28,12 +28,14 @@ def solve():
     return json.dumps(response)
 
 
+aCube = cube()
+aCube.buildCube("wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyyyy")
+
+
 @app.route("/getSquaresOnFace", methods=["POST"])
 def getSquaresOnFace():
     requestData = request.get_json()
     face = requestData["face"]
-    aCube = cube()
-    aCube.buildCube("wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyyyy")
     squaresOnFace = aCube.getSquaresOnFace(face)
     squaresList = []
     for square in squaresOnFace:
@@ -42,3 +44,16 @@ def getSquaresOnFace():
         "squaresOnFace": squaresList
     }
     return json.dumps(squaresDict)
+
+
+@app.route("/getRotationMatrix", methods=["POST"])
+def getRotationMatrix():
+    requestData = request.get_json()
+    face = requestData["face"]
+    moveType, rotationMatrix, axis, angle = aCube.moveToRotationMatrix(face)
+    matrixDict = {
+        "rotationMatrix": rotationMatrix,
+        "axis": axis,
+        "angle": angle
+    }
+    return json.dumps(matrixDict)

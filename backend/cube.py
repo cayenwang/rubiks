@@ -174,7 +174,7 @@ class cube:
 
         rotationMatrix = self.getRotationMatrix(axis, angle)
 
-        return moveType, rotationMatrix
+        return moveType, rotationMatrix, axis, angle
 
     def doMove(self, move):  # tested
         moveType, rotationMatrix = self.moveToRotationMatrix(move)

@@ -27,18 +27,20 @@ function processResponse(response) {
     console.log(response);
 }
 //----------------------
-let exportSquaresToTurn
+let exportSquaresToTurn, exportMatrix, exportAxis, exportAngle
 
 function getSquaresOnFace(face) {
     let requestBody = {
         "face": face
     }
     request("getSquaresOnFace", "POST", turn, requestBody)
+    request("getRotationMatrix", "POST", process, requestBody)
 }
 
 function turn(response) {
     let squaresToTurn = response["squaresOnFace"]
     let positionList = []
+    let rotationList = []
     let rotationToMultiplier = {
         "1,0,0": "33,22,22",
         "-1,0,0": "33,22,22",
@@ -55,9 +57,21 @@ function turn(response) {
             position[i] *= multiplier[i]
         }
         positionList.push(position)
+        rotationList.push(rotation)
     }
-    console.log(positionList)
-    exportSquaresToTurn = positionList
+    console.log("position list: ", positionList)
+    console.log("rotation list: ", rotationList)
+    exportSquaresToTurn = {
+        "positionList": positionList,
+        "rotationList": rotationList
+    }
 }
 
-export { exportSquaresToTurn }
+function process(response) {
+    exportMatrix = response["rotationMatrix"]
+    exportAxis = response["axis"]
+    exportAngle = response["angle"]
+}
+
+
+export { exportSquaresToTurn, exportMatrix, exportAngle, exportAxis }
