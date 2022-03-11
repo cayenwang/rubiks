@@ -30,7 +30,7 @@ function processResponse(response) {
 //----------------------
 let exportSquaresToTurn, exportMatrix, exportAxis, exportAngle
 
-function getSquaresOnFace(face) {
+export function getSquaresOnFace(face) {
     let requestBody = {
         "face": face
     }
