@@ -33,7 +33,7 @@ function createScene() {
 
     window.addEventListener('resize', onWindowResize);
 
-    const animationGroup = new THREE.AnimationObjectGroup();
+    //const animationGroup = new THREE.AnimationObjectGroup();
 
     // build cube
     let scramble = "yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor";
@@ -188,6 +188,7 @@ function createScene() {
             }
         }
 
+        /*
         // define animation tracks, clips and mixer
         const xAxis = new THREE.Vector3(1, 0, 0);
         const qInitial = new THREE.Quaternion().setFromAxisAngle(xAxis, 0);
@@ -207,7 +208,7 @@ function createScene() {
         clipAction.play();
 
         clock = new THREE.Clock();
-
+        */
 
         return allSquares
     }
@@ -216,18 +217,13 @@ function createScene() {
 
 function animate() {
     requestAnimationFrame(animate);
-
-    if (startStop) {
-        controls.update();
-        render();
-    }
+    controls.update();
     render()
-
 }
 
 function render() {
-    const delta = clock.getDelta();
-    if (mixer) { mixer.update(delta); }
+    //const delta = clock.getDelta();
+    //if (mixer) { mixer.update(delta); }
     renderer.render(scene, camera);
 }
 
@@ -367,7 +363,7 @@ function turnSquares() {
 
         requestAnimationFrame(render3);
         for (var square in squaresToTurn) {
-            if (startStop == false) {
+            if (startStop == true) {
                 squaresToTurn[square].applyMatrix4(matrix);
                 //console.log(startStop)
             } else { break }
@@ -386,7 +382,7 @@ function test3() {
 }
 
 function play() {
-    startStop = true
+    startStop = !startStop
     console.log("after", startStop)
 }
 
