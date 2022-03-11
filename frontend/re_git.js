@@ -334,7 +334,6 @@ function turnSquares() {
 
     let resultSquares = findSquaresToTurn()
     let squaresToTurn = resultSquares['resultSquaresToTurn']
-    let squaresOnOtherSide = resultSquares['resultSquaresOnOtherSide']
 
     for (var square in squaresToTurn) { // rotate the position of the squares
         let position = squaresToTurn[square].position
