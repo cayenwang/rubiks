@@ -335,17 +335,17 @@ function turnSquares() {
     let resultSquares = findSquaresToTurn()
     let squaresToTurn = resultSquares['resultSquaresToTurn']
 
-    for (var square in squaresToTurn) { // rotate the position of the squares
-        let position = squaresToTurn[square].position
-        const vector = new THREE.Vector3(position.x, position.y, position.z);
-        vector.applyQuaternion(quaternion);
-        squaresToTurn[square].position.x = Math.round(vector.x)
-        squaresToTurn[square].position.y = Math.round(vector.y)
-        squaresToTurn[square].position.z = Math.round(vector.z)
-    }
+    // for (var square in squaresToTurn) { // rotate the position of the squares
+    //     let position = squaresToTurn[square].position
+    //     const vector = new THREE.Vector3(position.x, position.y, position.z);
+    //     vector.applyQuaternion(quaternion);
+    //     squaresToTurn[square].position.x = Math.round(vector.x)
+    //     squaresToTurn[square].position.y = Math.round(vector.y)
+    //     squaresToTurn[square].position.z = Math.round(vector.z)
+    // }
 
-    for (var square in squaresOnOtherSide) {
-        squaresOnOtherSide[square].rotateOnAxis(axis, angle)
+    for (var square in squaresToTurn) {
+        squaresToTurn[square].rotateOnAxis(axis, angle)
     }
 }
 
