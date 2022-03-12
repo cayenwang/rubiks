@@ -10,11 +10,13 @@ World Building
 */
 
 let camera, controls, scene, renderer, clock, mixer;
-let startStop, cubeSquares
+let startStop = false
+let cubeSquares
 createScene();
 setCameraControls();
 setLighting()
 animate();
+//render()
 
 function createScene() {
     // build world
@@ -31,7 +33,7 @@ function createScene() {
 
     window.addEventListener('resize', onWindowResize);
 
-    const animationGroup = new THREE.AnimationObjectGroup();
+    //const animationGroup = new THREE.AnimationObjectGroup();
 
     // build cube
     let scramble = "yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor";
@@ -185,13 +187,17 @@ function createScene() {
                 allSquares.push(square)
             }
         }
+
         /*
         // define animation tracks, clips and mixer
         const xAxis = new THREE.Vector3(1, 0, 0);
         const qInitial = new THREE.Quaternion().setFromAxisAngle(xAxis, 0);
         const qFinal = new THREE.Quaternion().setFromAxisAngle(xAxis, Math.PI);
         const quaternionKF = new THREE.QuaternionKeyframeTrack('.quaternion', [0, 1, 2], [qInitial.x, qInitial.y, qInitial.z, qInitial.w, qFinal.x, qFinal.y, qFinal.z, qFinal.w, qInitial.x, qInitial.y, qInitial.z, qInitial.w]);
-        const clip = new THREE.AnimationClip('default', 3, [quaternionKF])
+        const colorKF = new THREE.ColorKeyframeTrack('.material.color', [0, 1, 2], [1, 0, 0, 0, 1, 0, 0, 0, 1], THREE.InterpolateDiscrete);
+        const opacityKF = new THREE.NumberKeyframeTrack('.material.opacity', [0, 1, 2], [1, 0, 1]);
+        // create clip
+        const clip = new THREE.AnimationClip('default', 3, [quaternionKF, colorKF, opacityKF]);
         mixer = new THREE.AnimationMixer(animationGroup);
         const clipAction = mixer.clipAction(clip);
         clipAction.play();
@@ -206,13 +212,12 @@ function createScene() {
 function animate() {
     requestAnimationFrame(animate);
     controls.update();
-    render();
-
-
+    render()
 }
 
 function render() {
-
+    //const delta = clock.getDelta();
+    //if (mixer) { mixer.update(delta); }
     renderer.render(scene, camera);
 }
 
@@ -256,15 +261,6 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 
 }
-
-
-
-/*
-=========================================================================================
-Building cube
-=========================================================================================
-*/
-
 
 
 
@@ -351,15 +347,21 @@ function turnSquares() {
     //==== new stuff
 
 
+    //ROTATES BOTTOM LAYER SMOOTHLY WITH ANIMATION
     function render3() {
+
         var matrix = new THREE.Matrix4();
-        //Rotate the matrix
         matrix.makeRotationY(Math.PI / 100);
+
         requestAnimationFrame(render3);
         for (var square in squaresToTurn) {
-            squaresToTurn[square].applyMatrix4(matrix);
+            if (startStop == true) {
+                squaresToTurn[square].applyMatrix4(matrix);
+            } else { break }
+            renderer.render(scene, camera);
+
         }
-        renderer.render(scene, camera);
+
     }
     render3();
 
@@ -370,15 +372,12 @@ function test3() {
 }
 
 function play() {
-    startStop = true
-}
-function stop() {
-    startStop = false
+    startStop = !startStop
+    console.log("after", startStop)
 }
 
 document.getElementById("test3").addEventListener("click", test3);
 document.getElementById("play").addEventListener("click", play);
-//document.getElementById("stop").addEventListener("click", stop);
 
 
 //=========== animation? who knows
