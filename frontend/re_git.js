@@ -246,146 +246,49 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
     }
     return allSquares
 }
-
-/*
-=========================================================================================
-Functionality
-=========================================================================================
-*/
-
-function findSquaresToTurn() {
-    let resultSquaresToTurn = []
-    let positionList = exportSquaresToTurn['positionList']
-    let rotationList = exportSquaresToTurn['rotationList']
-    let sideR = [], sideL = [], sideD = [], sideU = [], sideB = [], sideF = []
-
-    // for each position 
-    for (var i in positionList) {
-        let aPosition = positionList[i]
-        let aRotation = rotationList[i]
-        // find the corresponding square
-        for (let i = 0; i < 54; i++) {
-            let square = cubeSquares[i]
-            if (
-                aPosition[0] == square.position.x
-                && aPosition[1] == square.position.y
-                && aPosition[2] == square.position.z
-            ) {
-                // and add that to an array
-                resultSquaresToTurn.push(square)
-
-                // and also add it to an array corresponding to its rotation
-                if (aRotation[0] == 1) { sideR.push(square) }
-                if (aRotation[0] == -1) { sideL.push(square) }
-                if (aRotation[1] == 1) { sideD.push(square) }
-                if (aRotation[1] == -1) { sideU.push(square) }
-                if (aRotation[2] == 1) { sideB.push(square) }
-                if (aRotation[2] == -1) { sideF.push(square) }
-            }
-        }
-    }
-
-    // find which face has 9 squares. that will be the face we're rotating
-    let resultSquaresOnOtherSide
-    if (sideR.length == 9) { resultSquaresOnOtherSide = sideL.concat(sideD, sideU, sideB, sideF) }
-    if (sideL.length == 9) { resultSquaresOnOtherSide = sideR.concat(sideD, sideU, sideB, sideF) }
-    if (sideD.length == 9) { resultSquaresOnOtherSide = sideR.concat(sideL, sideU, sideB, sideF) }
-    if (sideU.length == 9) { resultSquaresOnOtherSide = sideR.concat(sideL, sideD, sideB, sideF) }
-    if (sideB.length == 9) { resultSquaresOnOtherSide = sideR.concat(sideL, sideD, sideU, sideF) }
-    if (sideF.length == 9) { resultSquaresOnOtherSide = sideR.concat(sideL, sideD, sideU, sideB) }
-
-    console.log("resultSquaresOnOtherSide", resultSquaresOnOtherSide)
-
-    console.log("resultSquaresToTurn", resultSquaresToTurn)
-
-    let result = {
-        "resultSquaresOnOtherSide": resultSquaresOnOtherSide,
-        "resultSquaresToTurn": resultSquaresToTurn
-    }
-    return result
-}
-
-
-function turnSquares() {
-    //define the axis and angle of rotation
-    let axis = new THREE.Vector3(0, 0, 0);
-    if (exportAxis == "X") {
-        axis.set(1, 0, 0);
-    } else if (exportAxis == "Y") {
-        axis.set(0, 1, 0);
-    } else if (exportAxis == "Z") {
-        axis.set(0, 0, 1);
-    }
-    let angle = exportAngle * Math.PI / 2
-
-    let m = exportMatrix
-    const rotationMatrix = new THREE.Matrix4();
-    rotationMatrix.set(m[0][0], m[0][1], m[0][2], 0,
-        m[1][0], m[1][1], m[1][2], 0,
-        m[2][0], m[2][1], m[2][2], 0,
-        0, 0, 0, 0);
+//=========== rotate about world axis ><
 
 
 
+//Make an object 
+var geometry = new THREE.BoxGeometry(10, 10, 10);
+var material = new THREE.MeshPhongMaterial({ color: 0x00ff00, flatShading: true });
+var object = new THREE.Mesh(geometry, material);
+object.position.z = -70
+scene.add(object);
+//Create a matrix
+var matrix = new THREE.Matrix4();
+//Rotate the matrix
+matrix.makeRotationY(Math.PI / 100);
 
-    const quaternion = new THREE.Quaternion();
-    //quaternion.setFromRotationMatrix(rotationMatrix)
-    quaternion.setFromAxisAngle(axis, angle)
+//rotate the object using the matrix
+object.position.applyMatrix4(matrix);
 
-    let resultSquares = findSquaresToTurn()
-    let squaresToTurn = resultSquares['resultSquaresToTurn']
+var render3 = function () {
+    requestAnimationFrame(render3);
 
-    // for (var square in squaresToTurn) { // rotate the position of the squares
-    //     let position = squaresToTurn[square].position
-    //     const vector = new THREE.Vector3(position.x, position.y, position.z);
-    //     vector.applyQuaternion(quaternion);
-    //     squaresToTurn[square].position.x = Math.round(vector.x)
-    //     squaresToTurn[square].position.y = Math.round(vector.y)
-    //     squaresToTurn[square].position.z = Math.round(vector.z)
-    // }
+    object.applyMatrix4(matrix);
 
-    for (var square in squaresToTurn) {
-        squaresToTurn[square].rotateOnAxis(axis, angle)
-    }
-}
+    renderer.render(scene, camera);
+};
+render3();
 
 
-function test() {
-    let sideWidth = 20;
-    let separation = 1.1;
 
-    const geometrySquare = new THREE.PlaneGeometry(sideWidth, sideWidth);
-    const materialRed = new THREE.MeshPhongMaterial({ color: 0xde3421, flatShading: true });
-    const materialOrange = new THREE.MeshPhongMaterial({ color: 0xc47806, flatShading: true })
-    const materialYellow = new THREE.MeshPhongMaterial({ color: 0xeaed32, flatShading: true })
-    const materialWhite = new THREE.MeshPhongMaterial({ color: 0xfffff7, flatShading: true })
-    const materialGreen = new THREE.MeshPhongMaterial({ color: 0x2bcc2e, flatShading: true })
-    const materialBlue = new THREE.MeshPhongMaterial({ color: 0x3e78d6, flatShading: true })
+//=========== rotate around own axis
+var geometry = new THREE.BoxGeometry(10, 10, 10);
+var material = new THREE.MeshPhongMaterial({ color: 0x00ff00, flatShading: true });
+var cube = new THREE.Mesh(geometry, material);
+cube.position.z = 70
 
-    // front
-    for (let i = -1; i < 2; i++) {
-        for (let j = -1; j < 2; j++) {
-            const square = new THREE.Mesh(geometrySquare, materialGreen)
-            square.position.x = i * sideWidth * separation;
-            square.position.y = j * sideWidth * separation;
-            square.position.z = -sideWidth * separation * 1.5;
-            square.rotation.x = 0;
-            square.rotation.y = Math.PI;
-            square.rotation.z = 0;
-            square.updateMatrix();
-            scene.add(square);
+scene.add(cube);
 
-        }
-    }
+var render2 = function () {
+    requestAnimationFrame(render2);
 
-}
+    cube.rotation.y += 0.1;
 
-export function test2() {
-    alert("hi")
-}
+    renderer.render(scene, camera);
+};
 
-function test3() {
-    turnSquares()
-}
-
-document.getElementById("test3").addEventListener("click", test3);
+render2();
