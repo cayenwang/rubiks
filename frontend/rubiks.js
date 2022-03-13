@@ -10,7 +10,6 @@ World Building
 */
 
 let camera, controls, scene, renderer;
-let startStop = false
 let cubeSquares
 let counter
 
@@ -311,10 +310,7 @@ function turnSquares() {
             for (var square in squaresToTurn) {
                 let xyz = ["x", "y", "z"]
                 for (var i in xyz) {
-                    console.log("before:", squaresToTurn[square].position)
                     squaresToTurn[square].position[xyz[i]] = Math.round(squaresToTurn[square].position[xyz[i]])
-                    console.log("after:", squaresToTurn[square].position)
-                    console.log("---")
                 }
             }
         }
@@ -330,6 +326,21 @@ function completeTurn(face) {
 }
 
 
-document.getElementById("completeU").addEventListener("click", function () { completeTurn("U") });
-document.getElementById("completeF").addEventListener("click", function () { completeTurn("F") });
-document.getElementById("play").addEventListener("click", play);
+document.getElementById("TurnR").addEventListener("click", function () { completeTurn("R") });
+document.getElementById("TurnL").addEventListener("click", function () { completeTurn("L") });
+document.getElementById("TurnD").addEventListener("click", function () { completeTurn("D") });
+document.getElementById("TurnU").addEventListener("click", function () { completeTurn("U") });
+document.getElementById("TurnB").addEventListener("click", function () { completeTurn("B") });
+document.getElementById("TurnF").addEventListener("click", function () { completeTurn("F") });
+document.getElementById("TurnR'").addEventListener("click", function () { completeTurn("R'") });
+document.getElementById("TurnL'").addEventListener("click", function () { completeTurn("L'") });
+document.getElementById("TurnD'").addEventListener("click", function () { completeTurn("D'") });
+document.getElementById("TurnU'").addEventListener("click", function () { completeTurn("U'") });
+document.getElementById("TurnB'").addEventListener("click", function () { completeTurn("B'") });
+document.getElementById("TurnF'").addEventListener("click", function () { completeTurn("F'") });
+document.getElementById("TurnR2").addEventListener("click", function () { completeTurn("R2") });
+document.getElementById("TurnL2").addEventListener("click", function () { completeTurn("L2") });
+document.getElementById("TurnD2").addEventListener("click", function () { completeTurn("D2") });
+document.getElementById("TurnU2").addEventListener("click", function () { completeTurn("U2") });
+document.getElementById("TurnB2").addEventListener("click", function () { completeTurn("B2") });
+document.getElementById("TurnF2").addEventListener("click", function () { completeTurn("F2") });

@@ -29,11 +29,14 @@ function processResponse(response) {
 let exportSquaresToTurn, exportMatrix, exportAxis, exportAngle
 
 export function getSquaresOnFace(face) {
-    let requestBody = {
+    let requestBody1 = {
+        "face": face[0]
+    }
+    let requestBody2 = {
         "face": face
     }
-    request("getSquaresOnFace", "POST", getSquares, requestBody)
-    request("getRotationMatrix", "POST", getMatrix, requestBody)
+    request("getSquaresOnFace", "POST", getSquares, requestBody1)
+    request("getRotationMatrix", "POST", getMatrix, requestBody2)
 }
 
 function getSquares(response) {
