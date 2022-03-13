@@ -252,13 +252,10 @@ Functionality
 function findSquaresToTurn() {
     let resultSquaresToTurn = []
     let positionList = exportSquaresToTurn['positionList']
-    let rotationList = exportSquaresToTurn['rotationList']
-    let sideR = [], sideL = [], sideD = [], sideU = [], sideB = [], sideF = []
 
     // for each position 
     for (var i in positionList) {
         let aPosition = positionList[i]
-        let aRotation = rotationList[i]
         // find the corresponding square
         for (let i = 0; i < 54; i++) {
             let square = cubeSquares[i]
@@ -269,29 +266,10 @@ function findSquaresToTurn() {
             ) {
                 // and add that to an array
                 resultSquaresToTurn.push(square)
-
-                // and also add it to an array corresponding to its rotation
-                // if (aRotation[0] == 1) { sideR.push(square) }
-                // if (aRotation[0] == -1) { sideL.push(square) }
-                // if (aRotation[1] == 1) { sideD.push(square) }
-                // if (aRotation[1] == -1) { sideU.push(square) }
-                // if (aRotation[2] == 1) { sideB.push(square) }
-                // if (aRotation[2] == -1) { sideF.push(square) }
             }
         }
     }
-    /*
-    // find which face has 9 squares. that will be the face we're rotating
-    let resultSquaresOnOtherSide
-    if (sideR.length == 9) { resultSquaresOnOtherSide = sideL.concat(sideD, sideU, sideB, sideF) }
-    if (sideL.length == 9) { resultSquaresOnOtherSide = sideR.concat(sideD, sideU, sideB, sideF) }
-    if (sideD.length == 9) { resultSquaresOnOtherSide = sideR.concat(sideL, sideU, sideB, sideF) }
-    if (sideU.length == 9) { resultSquaresOnOtherSide = sideR.concat(sideL, sideD, sideB, sideF) }
-    if (sideB.length == 9) { resultSquaresOnOtherSide = sideR.concat(sideL, sideD, sideU, sideF) }
-    if (sideF.length == 9) { resultSquaresOnOtherSide = sideR.concat(sideL, sideD, sideU, sideB) }
-    */
     let result = {
-        //"resultSquaresOnOtherSide": resultSquaresOnOtherSide,
         "resultSquaresToTurn": resultSquaresToTurn
     }
     return result
@@ -300,8 +278,8 @@ function findSquaresToTurn() {
 function turnSquares() {
     //find the squares to turn
     let resultSquares = findSquaresToTurn()
-    let squaresToTurnPleaseBeUnique = resultSquares['resultSquaresToTurn']
-    console.log(squaresToTurnPleaseBeUnique)
+    let squaresToTurn = resultSquares['resultSquaresToTurn']
+    console.log(squaresToTurn)
 
     let targetAxis = exportAxis
     let targetAngle = exportAngle
@@ -324,33 +302,32 @@ function turnSquares() {
 
         if (counter < 50) {
             requestAnimationFrame(rotator);
-            for (var square in squaresToTurnPleaseBeUnique) {
-                squaresToTurnPleaseBeUnique[square].applyMatrix4(matrix);
-
+            for (var square in squaresToTurn) {
+                squaresToTurn[square].applyMatrix4(matrix);
             }
             counter += 1
         }
         if (counter == 50) {
-            for (var square in squaresToTurnPleaseBeUnique) {
+            for (var square in squaresToTurn) {
                 let xyz = ["x", "y", "z"]
                 for (var i in xyz) {
-                    if (squaresToTurnPleaseBeUnique[square].position[xyz[i]] < -27) { squaresToTurnPleaseBeUnique[square].position[xyz[i]] = -33 }
+                    if (squaresToTurn[square].position[xyz[i]] < -27) { squaresToTurn[square].position[xyz[i]] = -33 }
                     if (
-                        (squaresToTurnPleaseBeUnique[square].position[xyz[i]] > -27)
-                        && (squaresToTurnPleaseBeUnique[square].position[xyz[i]] < -10)) {
-                        squaresToTurnPleaseBeUnique[square].position[xyz[i]] = -22
+                        (squaresToTurn[square].position[xyz[i]] > -27)
+                        && (squaresToTurn[square].position[xyz[i]] < -10)) {
+                        squaresToTurn[square].position[xyz[i]] = -22
                     }
                     if (
-                        (squaresToTurnPleaseBeUnique[square].position[xyz[i]] > -10)
-                        && (squaresToTurnPleaseBeUnique[square].position[xyz[i]] < 10)) {
-                        squaresToTurnPleaseBeUnique[square].position[xyz[i]] = 0
+                        (squaresToTurn[square].position[xyz[i]] > -10)
+                        && (squaresToTurn[square].position[xyz[i]] < 10)) {
+                        squaresToTurn[square].position[xyz[i]] = 0
                     }
                     if (
-                        (squaresToTurnPleaseBeUnique[square].position[xyz[i]] > 10)
-                        && (squaresToTurnPleaseBeUnique[square].position[xyz[i]] < 27)) {
-                        squaresToTurnPleaseBeUnique[square].position[xyz[i]] = 22
+                        (squaresToTurn[square].position[xyz[i]] > 10)
+                        && (squaresToTurn[square].position[xyz[i]] < 27)) {
+                        squaresToTurn[square].position[xyz[i]] = 22
                     }
-                    if (squaresToTurnPleaseBeUnique[square].position[xyz[i]] > 27) { squaresToTurnPleaseBeUnique[square].position[xyz[i]] = 33 }
+                    if (squaresToTurn[square].position[xyz[i]] > 27) { squaresToTurn[square].position[xyz[i]] = 33 }
                 }
             }
         }
@@ -362,8 +339,7 @@ function turnSquares() {
 
 function completeTurn(face) {
     getSquaresOnFace(face)
-    setTimeout(() => { counter = 0; turnSquares() }, 500);
-
+    setTimeout(() => { counter = 0; turnSquares() }, 500)
 }
 
 
