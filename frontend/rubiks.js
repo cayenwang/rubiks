@@ -347,3 +347,11 @@ document.getElementById("TurnB2").addEventListener("click", function () { comple
 document.getElementById("TurnF2").addEventListener("click", function () { completeTurn("F2") });
 
 document.getElementById("TurnM").addEventListener("click", function () { completeTurn("M") });
+document.getElementById("TurnE").addEventListener("click", function () { completeTurn("E") });
+document.getElementById("TurnS").addEventListener("click", function () { completeTurn("S") });
+
+document.getElementById("TurnX").addEventListener("click", function () { completeTurn("X") });
+document.getElementById("TurnY").addEventListener("click", function () { completeTurn("Y") });
+document.getElementById("TurnZ").addEventListener("click", function () { completeTurn("Z") });
+
+document.getElementById("Turnr").addEventListener("click", function () { completeTurn("r") });
