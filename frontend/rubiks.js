@@ -355,3 +355,8 @@ document.getElementById("TurnY").addEventListener("click", function () { complet
 document.getElementById("TurnZ").addEventListener("click", function () { completeTurn("Z") });
 
 document.getElementById("Turnr").addEventListener("click", function () { completeTurn("r") });
+document.getElementById("Turnl").addEventListener("click", function () { completeTurn("l") });
+document.getElementById("Turnd").addEventListener("click", function () { completeTurn("d") });
+document.getElementById("Turnu").addEventListener("click", function () { completeTurn("u") });
+document.getElementById("Turnb").addEventListener("click", function () { completeTurn("b") });
+document.getElementById("Turnf").addEventListener("click", function () { completeTurn("f") });

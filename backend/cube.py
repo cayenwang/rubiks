@@ -213,8 +213,8 @@ class cube:
             for square in self.squares:
                 if square not in self.getSquaresOnFace(oppositeFace[moveType]):
                     for i in range(54):
-                        squaresToMove.append(self.squares[i])
                         if square == self.squares[i]:
+                            squaresToMove.append(self.squares[i])
                             self.squares[i].pos = list(np.matmul(
                                 rotationMatrix, self.squares[i].pos))
                             self.squares[i].rot = list(np.matmul(
