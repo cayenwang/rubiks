@@ -14,8 +14,6 @@ function request(endpoint, mode, callback, body = {}) {
 }
 
 document.getElementById("solve").addEventListener("click", solveCube);
-document.getElementById("getSquaresOnFaceU").addEventListener("click", function () { getSquaresOnFace('U') });
-document.getElementById("getSquaresOnFaceF").addEventListener("click", function () { getSquaresOnFace('F') });
 
 function solveCube() {
     let request_body = {

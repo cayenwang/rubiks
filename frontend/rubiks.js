@@ -306,9 +306,20 @@ function turnSquares() {
     //rotates the layer
 
     function rotator() {
-        //get the rotation matrix
+
+        //define the axis and angle of rotation
+        let axis = new THREE.Vector3(0, 0, 0);
+        if (exportAxis == "X") {
+            axis.set(1, 0, 0);
+        } else if (exportAxis == "Y") {
+            axis.set(0, 1, 0);
+        } else if (exportAxis == "Z") {
+            axis.set(0, 0, 1);
+        }
+        let angle = exportAngle * Math.PI / 100
+
         var matrix = new THREE.Matrix4();
-        matrix.makeRotationY(Math.PI / 100);
+        matrix.makeRotationAxis(axis, angle)
 
 
 
@@ -330,19 +341,17 @@ function turnSquares() {
 
 };
 
-function testboth() {
-    getSquaresOnFace("U")
-    setTimeout(() => { turnSquares() }, 200);
-
+function completeTurn(face) {
+    getSquaresOnFace(face)
+    setTimeout(() => { turnSquares() }, 500);
 }
 
 function play() {
     counter = 0
     startStop = true
     console.log("after", startStop)
-    //setTimeout(() => { startStop = !startStop }, 2000)
 }
 
-document.getElementById("testboth").addEventListener("click", testboth);
-document.getElementById("test3").addEventListener("click", turnSquares);
+document.getElementById("completeU").addEventListener("click", function () { completeTurn("U") });
+document.getElementById("completeF").addEventListener("click", function () { completeTurn("F") });
 document.getElementById("play").addEventListener("click", play);
