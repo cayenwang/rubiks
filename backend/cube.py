@@ -10,10 +10,13 @@ class square:  # tested
 
     def toDict(self):
         attributes = {
-            "position": self.pos,
-            "rotation": self.rot,
+            "position": [0, 0, 0],
+            "rotation": [0, 0, 0],
             "color": self.color
         }
+        for i in [0, 1, 2]:
+            attributes["position"][i] = int(self.pos[i])
+            attributes["rotation"][i] = int(self.rot[i])
         return attributes
 
 
@@ -177,12 +180,14 @@ class cube:
         return moveType, rotationMatrix, axis, angle
 
     def doMove(self, move):  # tested
+        squaresToMove = []
         moveType, rotationMatrix, a, b = self.moveToRotationMatrix(move)
 
         if moveType in ["R", "L", "D", "U", "B", "F"]:
             for square in self.getSquaresOnFace(moveType):
                 for i in range(54):
                     if square == self.squares[i]:
+                        squaresToMove.append(self.squares[i])
                         self.squares[i].pos = list(np.matmul(
                             rotationMatrix, self.squares[i].pos))
                         self.squares[i].rot = list(np.matmul(
@@ -190,6 +195,7 @@ class cube:
 
         elif moveType in ["X", "Y", "Z"]:
             for i in range(54):
+                squaresToMove.append(self.squares[i])
                 self.squares[i].pos = list(np.matmul(
                     rotationMatrix, self.squares[i].pos))
                 self.squares[i].rot = list(np.matmul(
@@ -207,6 +213,7 @@ class cube:
             for square in self.squares:
                 if square not in self.getSquaresOnFace(oppositeFace[moveType]):
                     for i in range(54):
+                        squaresToMove.append(self.squares[i])
                         if square == self.squares[i]:
                             self.squares[i].pos = list(np.matmul(
                                 rotationMatrix, self.squares[i].pos))
@@ -223,10 +230,13 @@ class cube:
                 if (square not in self.getSquaresOnFace(parallelFaces[moveType][0])) and (square not in self.getSquaresOnFace(parallelFaces[moveType][1])):
                     for i in range(54):
                         if square == self.squares[i]:
+                            squaresToMove.append(self.squares[i])
                             self.squares[i].pos = list(np.matmul(
                                 rotationMatrix, self.squares[i].pos))
                             self.squares[i].rot = list(np.matmul(
                                 rotationMatrix, self.squares[i].rot))
+
+        return squaresToMove
 
     def toDict(self):  # tested
         attributes = {

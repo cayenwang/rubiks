@@ -345,3 +345,5 @@ document.getElementById("TurnD2").addEventListener("click", function () { comple
 document.getElementById("TurnU2").addEventListener("click", function () { completeTurn("U2") });
 document.getElementById("TurnB2").addEventListener("click", function () { completeTurn("B2") });
 document.getElementById("TurnF2").addEventListener("click", function () { completeTurn("F2") });
+
+document.getElementById("TurnM").addEventListener("click", function () { completeTurn("M") });

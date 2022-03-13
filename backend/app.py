@@ -36,13 +36,14 @@ aCube.buildCube("wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyyyy")
 def getSquaresOnFace():
     requestData = request.get_json()
     face = requestData["face"]
-    squaresOnFace = aCube.getSquaresOnFace(face)
+    squaresOnFace = aCube.doMove(face)
     squaresList = []
     for square in squaresOnFace:
         squaresList.append(square.toDict())
     squaresDict = {
         "squaresOnFace": squaresList
     }
+    print('squaresDict', squaresDict)
     return json.dumps(squaresDict)
 
 
