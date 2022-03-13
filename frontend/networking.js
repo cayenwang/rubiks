@@ -58,8 +58,6 @@ function getSquares(response) {
         positionList.push(position)
         rotationList.push(rotation)
     }
-    console.log("position list: ", positionList)
-    console.log("rotation list: ", rotationList)
     exportSquaresToTurn = {
         "positionList": positionList,
         "rotationList": rotationList

@@ -271,12 +271,12 @@ function findSquaresToTurn() {
                 resultSquaresToTurn.push(square)
 
                 // and also add it to an array corresponding to its rotation
-                if (aRotation[0] == 1) { sideR.push(square) }
-                if (aRotation[0] == -1) { sideL.push(square) }
-                if (aRotation[1] == 1) { sideD.push(square) }
-                if (aRotation[1] == -1) { sideU.push(square) }
-                if (aRotation[2] == 1) { sideB.push(square) }
-                if (aRotation[2] == -1) { sideF.push(square) }
+                // if (aRotation[0] == 1) { sideR.push(square) }
+                // if (aRotation[0] == -1) { sideL.push(square) }
+                // if (aRotation[1] == 1) { sideD.push(square) }
+                // if (aRotation[1] == -1) { sideU.push(square) }
+                // if (aRotation[2] == 1) { sideB.push(square) }
+                // if (aRotation[2] == -1) { sideF.push(square) }
             }
         }
     }
@@ -294,63 +294,78 @@ function findSquaresToTurn() {
         //"resultSquaresOnOtherSide": resultSquaresOnOtherSide,
         "resultSquaresToTurn": resultSquaresToTurn
     }
-    console.log('othersquares')
     return result
 }
+
 function turnSquares() {
     //find the squares to turn
     let resultSquares = findSquaresToTurn()
-    let squaresToTurn = resultSquares['resultSquaresToTurn']
-    //let squaresOnOtherSide = resultSquares['resultSquaresOnOtherSide']
+    let squaresToTurnPleaseBeUnique = resultSquares['resultSquaresToTurn']
+    console.log(squaresToTurnPleaseBeUnique)
+
+    let targetAxis = exportAxis
+    let targetAngle = exportAngle
 
     //rotates the layer
-
     function rotator() {
-
         //define the axis and angle of rotation
         let axis = new THREE.Vector3(0, 0, 0);
-        if (exportAxis == "X") {
+        if (targetAxis == "X") {
             axis.set(1, 0, 0);
-        } else if (exportAxis == "Y") {
+        } else if (targetAxis == "Y") {
             axis.set(0, 1, 0);
-        } else if (exportAxis == "Z") {
+        } else if (targetAxis == "Z") {
             axis.set(0, 0, 1);
         }
-        let angle = exportAngle * Math.PI / 100
+        let angle = targetAngle * Math.PI / 100
 
         var matrix = new THREE.Matrix4();
         matrix.makeRotationAxis(axis, angle)
 
+        if (counter < 50) {
+            requestAnimationFrame(rotator);
+            for (var square in squaresToTurnPleaseBeUnique) {
+                squaresToTurnPleaseBeUnique[square].applyMatrix4(matrix);
 
-
-        // apply the rotation to each square
-        requestAnimationFrame(rotator);
-        for (var square in squaresToTurn) {
-            if (startStop == true && counter < 50 * 21) {
-                squaresToTurn[square].applyMatrix4(matrix);
-                counter += 1
-                console.log(counter)
-            } else {
-                break
             }
-            renderer.render(scene, camera);
+            counter += 1
         }
-    }
-    rotator();
-    startStop = false
+        if (counter == 50) {
+            for (var square in squaresToTurnPleaseBeUnique) {
+                let xyz = ["x", "y", "z"]
+                for (var i in xyz) {
+                    if (squaresToTurnPleaseBeUnique[square].position[xyz[i]] < -27) { squaresToTurnPleaseBeUnique[square].position[xyz[i]] = -33 }
+                    if (
+                        (squaresToTurnPleaseBeUnique[square].position[xyz[i]] > -27)
+                        && (squaresToTurnPleaseBeUnique[square].position[xyz[i]] < -10)) {
+                        squaresToTurnPleaseBeUnique[square].position[xyz[i]] = -22
+                    }
+                    if (
+                        (squaresToTurnPleaseBeUnique[square].position[xyz[i]] > -10)
+                        && (squaresToTurnPleaseBeUnique[square].position[xyz[i]] < 10)) {
+                        squaresToTurnPleaseBeUnique[square].position[xyz[i]] = 0
+                    }
+                    if (
+                        (squaresToTurnPleaseBeUnique[square].position[xyz[i]] > 10)
+                        && (squaresToTurnPleaseBeUnique[square].position[xyz[i]] < 27)) {
+                        squaresToTurnPleaseBeUnique[square].position[xyz[i]] = 22
+                    }
+                    if (squaresToTurnPleaseBeUnique[square].position[xyz[i]] > 27) { squaresToTurnPleaseBeUnique[square].position[xyz[i]] = 33 }
+                }
+            }
+        }
 
-};
+        renderer.render(scene, camera);
+    }
+    rotator()
+}
 
 function completeTurn(face) {
     getSquaresOnFace(face)
-    setTimeout(() => { turnSquares() }, 500);
+    setTimeout(() => { counter = 0; turnSquares() }, 500);
+
 }
 
-function play() {
-    counter = 0
-    startStop = true
-    console.log("after", startStop)
-}
 
 document.getElementById("completeU").addEventListener("click", function () { completeTurn("U") });
 document.getElementById("completeF").addEventListener("click", function () { completeTurn("F") });
