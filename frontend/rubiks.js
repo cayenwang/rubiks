@@ -311,23 +311,10 @@ function turnSquares() {
             for (var square in squaresToTurn) {
                 let xyz = ["x", "y", "z"]
                 for (var i in xyz) {
-                    if (squaresToTurn[square].position[xyz[i]] < -27) { squaresToTurn[square].position[xyz[i]] = -33 }
-                    if (
-                        (squaresToTurn[square].position[xyz[i]] > -27)
-                        && (squaresToTurn[square].position[xyz[i]] < -10)) {
-                        squaresToTurn[square].position[xyz[i]] = -22
-                    }
-                    if (
-                        (squaresToTurn[square].position[xyz[i]] > -10)
-                        && (squaresToTurn[square].position[xyz[i]] < 10)) {
-                        squaresToTurn[square].position[xyz[i]] = 0
-                    }
-                    if (
-                        (squaresToTurn[square].position[xyz[i]] > 10)
-                        && (squaresToTurn[square].position[xyz[i]] < 27)) {
-                        squaresToTurn[square].position[xyz[i]] = 22
-                    }
-                    if (squaresToTurn[square].position[xyz[i]] > 27) { squaresToTurn[square].position[xyz[i]] = 33 }
+                    console.log("before:", squaresToTurn[square].position)
+                    squaresToTurn[square].position[xyz[i]] = Math.round(squaresToTurn[square].position[xyz[i]])
+                    console.log("after:", squaresToTurn[square].position)
+                    console.log("---")
                 }
             }
         }
