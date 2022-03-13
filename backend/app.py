@@ -22,8 +22,9 @@ def solve():
     acube.buildCube(cubestr)
     moves = solveCube(acube)
     flat = flatten(moves)
+    optimised = optimise(flat)
     response = {
-        "moves": flat
+        "moves": optimised
     }
     return json.dumps(response)
 
@@ -43,7 +44,7 @@ def getSquaresOnFace():
     squaresDict = {
         "squaresOnFace": squaresList
     }
-    print('squaresDict', squaresDict)
+
     return json.dumps(squaresDict)
 
 

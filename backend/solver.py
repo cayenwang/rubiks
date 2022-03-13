@@ -601,6 +601,52 @@ def flatten(listOfLists):
     return listOfLists[:1] + flatten(listOfLists[1:])
 
 
+def optimise(flatList):
+    print(flatList)
+    flag = True
+    while flag == True:
+        flag = False
+        for i in range(len(flatList)-1):
+            if not (i == len(flatList)-1):
+                move1 = flatList[i]
+                move2 = flatList[i+1]
+                if not (move2 == ''):
+                    moveType1 = move1[0]
+                    moveType2 = move2[0]
+                    if moveType1 == moveType2:
+                        combined = moveType1
+                        if len(move1) == 1:
+                            moveAngle1 = 1
+                        elif move1[1] == "'":
+                            moveAngle1 = -1
+                        elif move1[1] == "2":
+                            moveAngle1 = 2
+                        if len(move2) == 1:
+                            moveAngle2 = 1
+                        elif move2[1] == "'":
+                            moveAngle2 = -1
+                        elif move2[1] == "2":
+                            moveAngle2 = 2
+                        totalAngle = moveAngle1 + moveAngle2
+                        if totalAngle == 0 or totalAngle == 4:
+                            combined = ''
+                        elif totalAngle == 2 or totalAngle == -2:
+                            combined = combined + "2"
+                        elif totalAngle == 3:
+                            combined = combined + "'"
+                        flatList.pop(i)
+                        flatList[i] = combined
+                        flatList.append('')
+                        flag = True
+        try:
+            while True:
+                flatList.remove('')
+        except ValueError:
+            pass
+        print(flatList)
+    return flatList
+
+
 '''
 =========================================================================================
 Further Testing
@@ -674,6 +720,10 @@ if __name__ == "__main__":
 
     # GETS THE INVERSE SOLUTION: ie goes from solved cube to scrambled state
     flat = flatten(solution)
+    optimised = optimise(flat)
+    print("flat", flat)
+
+    print("optimised", optimised)
     '''
     print("flat:", flat)
     inverse = getInverse(flat)

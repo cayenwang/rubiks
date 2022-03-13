@@ -15,7 +15,9 @@ function request(endpoint, mode, callback, body = {}) {
 
 document.getElementById("solve").addEventListener("click", solveCube);
 
-function solveCube() {
+let exportSolution
+
+export function solveCube() {
     let request_body = {
         "cube": "yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor"
     };
@@ -23,7 +25,7 @@ function solveCube() {
 }
 
 function processResponse(response) {
-    console.log(response);
+    exportSolution = response;
 }
 //----------------------
 let exportSquaresToTurn, exportMatrix, exportAxis, exportAngle
@@ -74,4 +76,4 @@ function getMatrix(response) {
 }
 
 
-export { exportSquaresToTurn, exportMatrix, exportAngle, exportAxis }
+export { exportSquaresToTurn, exportMatrix, exportAngle, exportAxis, exportSolution }

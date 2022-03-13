@@ -1,7 +1,7 @@
 import * as THREE from './three.js-dev/build/three.module.js';
 import { OrbitControls } from './three.js-dev/examples/jsm/controls/OrbitControls.js';
 //import { AnimationClip, AnimationMixer, QuaternionKeyframeTrack, Clock } from './three.js-dev/build/three.module.js';
-import { exportAngle, exportAxis, exportMatrix, exportSquaresToTurn, getSquaresOnFace } from './networking.js'
+import { exportAngle, exportAxis, exportMatrix, exportSquaresToTurn, getSquaresOnFace, solveCube, exportSolution } from './networking.js'
 
 /*
 =========================================================================================
@@ -279,11 +279,11 @@ function turnSquares() {
     //find the squares to turn
     let resultSquares = findSquaresToTurn()
     let squaresToTurn = resultSquares['resultSquaresToTurn']
-    console.log(squaresToTurn)
 
     let targetAxis = exportAxis
     let targetAngle = exportAngle
 
+    let divider = 50
     //rotates the layer
     function rotator() {
         //define the axis and angle of rotation
@@ -295,19 +295,19 @@ function turnSquares() {
         } else if (targetAxis == "Z") {
             axis.set(0, 0, 1);
         }
-        let angle = targetAngle * Math.PI / 100
+        let angle = targetAngle * Math.PI / divider
 
         var matrix = new THREE.Matrix4();
         matrix.makeRotationAxis(axis, angle)
 
-        if (counter < 50) {
+        if (counter < divider / 2) {
             requestAnimationFrame(rotator);
             for (var square in squaresToTurn) {
                 squaresToTurn[square].applyMatrix4(matrix);
             }
             counter += 1
         }
-        if (counter == 50) {
+        if (counter == divider / 2) {
             for (var square in squaresToTurn) {
                 let xyz = ["x", "y", "z"]
                 for (var i in xyz) {
@@ -326,6 +326,29 @@ function completeTurn(face) {
     setTimeout(() => { counter = 0; turnSquares() }, 500)
 }
 
+/*
+=========================================================================================
+Solve
+=========================================================================================
+*/
+
+function doSolve() {
+    let solution = exportSolution["moves"];
+
+    (function loop(i) {
+        setTimeout(function () {
+            console.log(solution[solution.length - i])
+            completeTurn(solution[solution.length - i])
+            if (--i) loop(i)
+        }, 1000)
+    })(solution.length)
+
+}
+
+function overallSolve() {
+    solveCube()
+    setTimeout(() => { doSolve() }, 500)
+}
 
 document.getElementById("TurnR").addEventListener("click", function () { completeTurn("R") });
 document.getElementById("TurnL").addEventListener("click", function () { completeTurn("L") });
@@ -360,3 +383,6 @@ document.getElementById("Turnd").addEventListener("click", function () { complet
 document.getElementById("Turnu").addEventListener("click", function () { completeTurn("u") });
 document.getElementById("Turnb").addEventListener("click", function () { completeTurn("b") });
 document.getElementById("Turnf").addEventListener("click", function () { completeTurn("f") });
+
+
+document.getElementById("wholeSolve").addEventListener("click", function () { overallSolve() });
