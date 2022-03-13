@@ -177,7 +177,7 @@ class cube:
         return moveType, rotationMatrix, axis, angle
 
     def doMove(self, move):  # tested
-        moveType, rotationMatrix = self.moveToRotationMatrix(move)
+        moveType, rotationMatrix, a, b = self.moveToRotationMatrix(move)
 
         if moveType in ["R", "L", "D", "U", "B", "F"]:
             for square in self.getSquaresOnFace(moveType):

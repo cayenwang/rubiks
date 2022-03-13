@@ -29,7 +29,8 @@ function createScene() {
     document.body.appendChild(renderer.domElement);
 
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.set(400, 200, -100);
+    camera.position.set(100, -200, -400);
+    camera.up.set(0, -1, 0)
 
     window.addEventListener('resize', onWindowResize);
 

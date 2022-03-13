@@ -127,7 +127,7 @@ def rotateWhiteEdgeToUF(cube, correctPosition, currentPosition, currentRotation)
             move = "Y"
             cube.offsetFromOriginal[1] = (cube.offsetFromOriginal[1]+1) % 4
 
-        moveFace, rotationMatrix = cube.moveToRotationMatrix(move)
+        moveFace, rotationMatrix, a, b = cube.moveToRotationMatrix(move)
         cube.doMove(move)
         extraCubeRotations.append(move)
 
@@ -216,7 +216,7 @@ def rotateCorrectPositionToDFR(cube, correctPosition, currentCornerPosition, cur
             move = "Y'"
             cube.offsetFromOriginal[1] = (cube.offsetFromOriginal[1]-1) % 4
 
-        moveFace, rotationMatrix = cube.moveToRotationMatrix(move)
+        moveFace, rotationMatrix, a, b = cube.moveToRotationMatrix(move)
         cube.doMove(move)
         extraCubeRotations.append(move)
 
