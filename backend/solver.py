@@ -429,44 +429,6 @@ def getOLLSolution(cube):  # tested
 
 
 '''
-# Function that solves the OLL:
-
-
-def solveOLL(cube):  # not doing the moves correctly
-    print("before")
-    for square in cube.squares:
-        if square.pos[1] == -1 and square.rot == [0, -1, 0]:
-            pprint.pprint(square.toDict())
-    for square in cube.squares:
-        if square.pos[1] == -1 and square.rot != [0, -1, 0]:
-            pprint.pprint(square.toDict())
-
-    OLLSolution = getOLLSolution(cube)
-    for sequence in OLLSolution:
-        print('Before')
-        for square in cube.squares:
-            if square.pos[1] == -1 and square.rot == [0, -1, 0]:
-                pprint.pprint(square.toDict())
-        doSequenceOfMoves(cube, sequence)
-        print(sequence)
-        print("after")
-        for square in cube.squares:
-            if square.pos[1] == -1 and square.rot == [0, -1, 0]:
-                pprint.pprint(square.toDict())
-    print(OLLSolution)
-
-    print("after")
-    for square in cube.squares:
-        if square.pos[1] == -1 and square.rot == [0, -1, 0]:
-            pprint.pprint(square.toDict())
-    for square in cube.squares:
-        if square.pos[1] == -1 and square.rot != [0, -1, 0]:
-            pprint.pprint(square.toDict())
-
-    return(OLLSolution)
-'''
-
-'''
 =========================================================================================
 PLL Subroutines
 =========================================================================================
@@ -527,9 +489,9 @@ def UAlign(cube):
             color = square.color
     movesToAlign = {
         "green": [],
-        "orange": ["U"],
+        "orange": ["U'"],
         "blue": ["U2"],
-        "red": ["U'"]
+        "red": ["U"]
     }
 
     doSequenceOfMoves(cube, movesToAlign[color])

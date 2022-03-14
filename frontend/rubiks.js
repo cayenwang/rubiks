@@ -282,7 +282,7 @@ function turnSquares() {
     let targetAxis = exportAxis
     let targetAngle = exportAngle
 
-    let divider = 50
+    let divider = 30
     //rotates the layer
     function rotator() {
         //define the axis and angle of rotation
@@ -379,7 +379,7 @@ document.getElementById("submitCubeState").addEventListener("click", function ()
         if (scene.children[i].type === "Mesh")
             scene.remove(scene.children[i]);
     }
-    buildCube(cubeState)
+    cubeSquares = buildCube(cubeState)
 });
 
 
@@ -393,7 +393,7 @@ document.getElementById("submitCubeScramble").addEventListener("click", function
             if (scene.children[i].type === "Mesh")
                 scene.remove(scene.children[i]);
         }
-        buildCube(cubeState)
+        cubeSquares = buildCube(cubeState)
     }, 500)
 });
 
@@ -405,13 +405,13 @@ function doSolve() {
             console.log(solution[solution.length - i])
             completeTurn(solution[solution.length - i])
             if (--i) loop(i)
-        }, 1000)
+        }, 500)
     })(solution.length)
 
 }
 
 function overallSolve() {
-    solveCube()
+    solveCube(exportCubeState["cubeState"])
     setTimeout(() => { doSolve() }, 500)
 }
 
@@ -450,7 +450,10 @@ function randomScramble() {
         let index = Math.floor(Math.random() * 17)
         scramble = scramble.concat(indexToMove[index], " ")
     }
+    scramble = scramble.slice(0, -1)
     console.log(scramble)
+
+    document.getElementById("cubeScramble").value = scramble
     return scramble
 }
 
