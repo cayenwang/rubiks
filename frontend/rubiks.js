@@ -334,16 +334,19 @@ Solve
 
 function doSolve() {
     let solution = exportSolution["moves"];
-
-    (function loop(i) {
-        setTimeout(function () {
-            console.log(solution[solution.length - i])
-            completeTurn(solution[solution.length - i])
-            if (--i) loop(i)
-        }, 1000)
-    })(solution.length)
-
+    for (var move in solution) {
+        completeTurn(solution[move])
+    }
 }
+// (function loop(i) {
+//     setTimeout(function () {
+//         console.log(solution[solution.length - i])
+//         completeTurn(solution[solution.length - i])
+//         if (--i) loop(i)
+//     }, 1000)
+// })(solution.length)
+
+
 
 function overallSolve() {
     solveCube()
