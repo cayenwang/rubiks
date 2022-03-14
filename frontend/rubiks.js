@@ -34,162 +34,161 @@ function createScene() {
 
     window.addEventListener('resize', onWindowResize);
 
-    // build cube
-    let scramble = "yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor";
-    cubeSquares = buildCube(scramble);
+}
 
-    function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyyyy") {
-        let allSquares = []
-        let sideWidth = 20;
-        let separation = 1.1;
+// build cube
+cubeSquares = buildCube();
 
-        const geometrySquare = new THREE.PlaneGeometry(sideWidth, sideWidth);
-        const materialRed = new THREE.MeshPhongMaterial({ color: 0xde3421, flatShading: true });
-        const materialOrange = new THREE.MeshPhongMaterial({ color: 0xc47806, flatShading: true })
-        const materialYellow = new THREE.MeshPhongMaterial({ color: 0xeaed32, flatShading: true })
-        const materialWhite = new THREE.MeshPhongMaterial({ color: 0xfffff7, flatShading: true })
-        const materialGreen = new THREE.MeshPhongMaterial({ color: 0x2bcc2e, flatShading: true })
-        const materialBlue = new THREE.MeshPhongMaterial({ color: 0x3e78d6, flatShading: true })
+function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyyyy") {
+    let allSquares = []
+    let sideWidth = 20;
+    let separation = 1.1;
 
-        let stateIndex = -1
-        let getColourFromCode = {
-            "w": materialWhite,
-            "o": materialOrange,
-            "g": materialGreen,
-            "r": materialRed,
-            "b": materialBlue,
-            "y": materialYellow,
-        }
+    const geometrySquare = new THREE.PlaneGeometry(sideWidth, sideWidth);
+    const materialRed = new THREE.MeshPhongMaterial({ color: 0xde3421, flatShading: true });
+    const materialOrange = new THREE.MeshPhongMaterial({ color: 0xc47806, flatShading: true })
+    const materialYellow = new THREE.MeshPhongMaterial({ color: 0xeaed32, flatShading: true })
+    const materialWhite = new THREE.MeshPhongMaterial({ color: 0xfffff7, flatShading: true })
+    const materialGreen = new THREE.MeshPhongMaterial({ color: 0x2bcc2e, flatShading: true })
+    const materialBlue = new THREE.MeshPhongMaterial({ color: 0x3e78d6, flatShading: true })
 
-        // top
-        for (let i = -1; i < 2; i++) {
-            for (let k = -1; k < 2; k++) {
-                stateIndex++
-                let colorCode = state[stateIndex]
-                let color = getColourFromCode[colorCode]
-
-                const square = new THREE.Mesh(geometrySquare, color)
-                square.position.x = k * sideWidth * separation;
-                square.position.y = -sideWidth * separation * 1.5;
-                square.position.z = -i * sideWidth * separation;
-                square.rotation.x = Math.PI / 2;
-                square.rotation.y = 0;
-                square.rotation.z = 0;
-                square.updateMatrix();
-                scene.add(square);
-
-                allSquares.push(square)
-            }
-        }
-
-        // left
-        for (let j = -1; j < 2; j++) {
-            for (let k = -1; k < 2; k++) {
-                stateIndex++
-                let colorCode = state[stateIndex]
-                let color = getColourFromCode[colorCode]
-
-                const square = new THREE.Mesh(geometrySquare, color)
-                square.position.x = -sideWidth * separation * 1.5;
-                square.position.y = j * sideWidth * separation;
-                square.position.z = -k * sideWidth * separation;
-                square.rotation.x = 0;
-                square.rotation.y = -Math.PI / 2;
-                square.rotation.z = 0;
-                square.updateMatrix();
-                scene.add(square);
-
-                allSquares.push(square)
-            }
-        }
-
-        // front
-        for (let i = -1; i < 2; i++) {
-            for (let j = -1; j < 2; j++) {
-                stateIndex++
-                let colorCode = state[stateIndex]
-                let color = getColourFromCode[colorCode]
-
-                const square = new THREE.Mesh(geometrySquare, color)
-                square.position.x = j * sideWidth * separation;
-                square.position.y = i * sideWidth * separation;
-                square.position.z = -sideWidth * separation * 1.5;
-                square.rotation.x = 0;
-                square.rotation.y = Math.PI;
-                square.rotation.z = 0;
-                square.updateMatrix();
-                scene.add(square);
-
-                allSquares.push(square)
-            }
-        }
-
-        // right
-        for (let j = -1; j < 2; j++) {
-            for (let k = -1; k < 2; k++) {
-                stateIndex++
-                let colorCode = state[stateIndex]
-                let color = getColourFromCode[colorCode]
-
-                const square = new THREE.Mesh(geometrySquare, color)
-                square.position.x = sideWidth * separation * 1.5;
-                square.position.y = j * sideWidth * separation;
-                square.position.z = k * sideWidth * separation;
-                square.rotation.x = 0;
-                square.rotation.y = Math.PI / 2;
-                square.rotation.z = 0;
-                square.updateMatrix();
-                scene.add(square);
-
-                allSquares.push(square)
-            }
-        }
-
-        // back
-        for (let i = -1; i < 2; i++) {
-            for (let j = -1; j < 2; j++) {
-                stateIndex++
-                let colorCode = state[stateIndex]
-                let color = getColourFromCode[colorCode]
-
-                const square = new THREE.Mesh(geometrySquare, color)
-                square.position.x = -j * sideWidth * separation;
-                square.position.y = i * sideWidth * separation;
-                square.position.z = sideWidth * separation * 1.5;
-                square.rotation.x = 0;
-                square.rotation.y = 0;
-                square.rotation.z = 0;
-                square.updateMatrix();
-                scene.add(square);
-
-                allSquares.push(square)
-            }
-        }
-
-        // bottom
-        for (let i = -1; i < 2; i++) {
-            for (let k = -1; k < 2; k++) {
-                stateIndex++
-                let colorCode = state[stateIndex]
-                let color = getColourFromCode[colorCode]
-
-                const square = new THREE.Mesh(geometrySquare, color)
-                square.position.x = k * sideWidth * separation;
-                square.position.y = sideWidth * separation * 1.5;
-                square.position.z = i * sideWidth * separation;
-                square.rotation.x = -Math.PI / 2;
-                square.rotation.y = 0;
-                square.rotation.z = 0;
-                square.updateMatrix();
-                scene.add(square);
-
-                allSquares.push(square)
-            }
-        }
-
-        return allSquares
+    let stateIndex = -1
+    let getColourFromCode = {
+        "w": materialWhite,
+        "o": materialOrange,
+        "g": materialGreen,
+        "r": materialRed,
+        "b": materialBlue,
+        "y": materialYellow,
     }
 
+    // top
+    for (let i = -1; i < 2; i++) {
+        for (let k = -1; k < 2; k++) {
+            stateIndex++
+            let colorCode = state[stateIndex]
+            let color = getColourFromCode[colorCode]
+
+            const square = new THREE.Mesh(geometrySquare, color)
+            square.position.x = k * sideWidth * separation;
+            square.position.y = -sideWidth * separation * 1.5;
+            square.position.z = -i * sideWidth * separation;
+            square.rotation.x = Math.PI / 2;
+            square.rotation.y = 0;
+            square.rotation.z = 0;
+            square.updateMatrix();
+            scene.add(square);
+
+            allSquares.push(square)
+        }
+    }
+
+    // left
+    for (let j = -1; j < 2; j++) {
+        for (let k = -1; k < 2; k++) {
+            stateIndex++
+            let colorCode = state[stateIndex]
+            let color = getColourFromCode[colorCode]
+
+            const square = new THREE.Mesh(geometrySquare, color)
+            square.position.x = -sideWidth * separation * 1.5;
+            square.position.y = j * sideWidth * separation;
+            square.position.z = -k * sideWidth * separation;
+            square.rotation.x = 0;
+            square.rotation.y = -Math.PI / 2;
+            square.rotation.z = 0;
+            square.updateMatrix();
+            scene.add(square);
+
+            allSquares.push(square)
+        }
+    }
+
+    // front
+    for (let i = -1; i < 2; i++) {
+        for (let j = -1; j < 2; j++) {
+            stateIndex++
+            let colorCode = state[stateIndex]
+            let color = getColourFromCode[colorCode]
+
+            const square = new THREE.Mesh(geometrySquare, color)
+            square.position.x = j * sideWidth * separation;
+            square.position.y = i * sideWidth * separation;
+            square.position.z = -sideWidth * separation * 1.5;
+            square.rotation.x = 0;
+            square.rotation.y = Math.PI;
+            square.rotation.z = 0;
+            square.updateMatrix();
+            scene.add(square);
+
+            allSquares.push(square)
+        }
+    }
+
+    // right
+    for (let j = -1; j < 2; j++) {
+        for (let k = -1; k < 2; k++) {
+            stateIndex++
+            let colorCode = state[stateIndex]
+            let color = getColourFromCode[colorCode]
+
+            const square = new THREE.Mesh(geometrySquare, color)
+            square.position.x = sideWidth * separation * 1.5;
+            square.position.y = j * sideWidth * separation;
+            square.position.z = k * sideWidth * separation;
+            square.rotation.x = 0;
+            square.rotation.y = Math.PI / 2;
+            square.rotation.z = 0;
+            square.updateMatrix();
+            scene.add(square);
+
+            allSquares.push(square)
+        }
+    }
+
+    // back
+    for (let i = -1; i < 2; i++) {
+        for (let j = -1; j < 2; j++) {
+            stateIndex++
+            let colorCode = state[stateIndex]
+            let color = getColourFromCode[colorCode]
+
+            const square = new THREE.Mesh(geometrySquare, color)
+            square.position.x = -j * sideWidth * separation;
+            square.position.y = i * sideWidth * separation;
+            square.position.z = sideWidth * separation * 1.5;
+            square.rotation.x = 0;
+            square.rotation.y = 0;
+            square.rotation.z = 0;
+            square.updateMatrix();
+            scene.add(square);
+
+            allSquares.push(square)
+        }
+    }
+
+    // bottom
+    for (let i = -1; i < 2; i++) {
+        for (let k = -1; k < 2; k++) {
+            stateIndex++
+            let colorCode = state[stateIndex]
+            let color = getColourFromCode[colorCode]
+
+            const square = new THREE.Mesh(geometrySquare, color)
+            square.position.x = k * sideWidth * separation;
+            square.position.y = sideWidth * separation * 1.5;
+            square.position.z = i * sideWidth * separation;
+            square.rotation.x = -Math.PI / 2;
+            square.rotation.y = 0;
+            square.rotation.z = 0;
+            square.updateMatrix();
+            scene.add(square);
+
+            allSquares.push(square)
+        }
+    }
+
+    return allSquares
 }
 
 function animate() {
@@ -332,21 +331,36 @@ Solve
 =========================================================================================
 */
 
+
+let cubeState
+
+document.getElementById("solve").addEventListener("click", function () {
+    solveCube(cubeState)
+    setTimeout(() => { console.log(exportSolution) }, 500)
+});
+
+document.getElementById("submitCubeState").addEventListener("click", function () {
+    cubeState = document.getElementById("cubeState").value
+    console.log("cubestate", cubeState)
+    for (let i = scene.children.length - 1; i >= 0; i--) {
+        if (scene.children[i].type === "Mesh")
+            scene.remove(scene.children[i]);
+    }
+    buildCube(cubeState)
+});
+
 function doSolve() {
     let solution = exportSolution["moves"];
-    for (var move in solution) {
-        completeTurn(solution[move])
-    }
+
+    (function loop(i) {
+        setTimeout(function () {
+            console.log(solution[solution.length - i])
+            completeTurn(solution[solution.length - i])
+            if (--i) loop(i)
+        }, 1000)
+    })(solution.length)
+
 }
-// (function loop(i) {
-//     setTimeout(function () {
-//         console.log(solution[solution.length - i])
-//         completeTurn(solution[solution.length - i])
-//         if (--i) loop(i)
-//     }, 1000)
-// })(solution.length)
-
-
 
 function overallSolve() {
     solveCube()

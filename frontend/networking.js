@@ -13,13 +13,13 @@ function request(endpoint, mode, callback, body = {}) {
     xmlhttp.send(JSON.stringify(body));
 }
 
-document.getElementById("solve").addEventListener("click", solveCube);
+
 
 let exportSolution
 
-export function solveCube() {
+export function solveCube(cube) {
     let request_body = {
-        "cube": "yybgwwogrorbroybbgyogogwoygyoogrgwbwwbgybwbbrwrrwyryor"
+        "cube": cube
     };
     request("solve", "POST", processResponse, request_body);
 }
