@@ -28,7 +28,7 @@ function processResponse(response) {
     exportSolution = response;
 }
 //----------------------
-let exportSquaresToTurn, exportMatrix, exportAxis, exportAngle
+let exportSquaresToTurn, exportMatrix, exportAxis, exportAngle, exportCubeState
 
 export function getSquaresOnFace(face) {
     let requestBody1 = {
@@ -38,7 +38,7 @@ export function getSquaresOnFace(face) {
         "face": face
     }
     request("getSquaresOnFace", "POST", getSquares, requestBody1)
-    request("getRotationMatrix", "POST", getMatrix, requestBody2)
+    request("getARotationMatrix", "POST", getMatrix, requestBody2)
 }
 
 function getSquares(response) {
@@ -76,4 +76,16 @@ function getMatrix(response) {
 }
 
 
-export { exportSquaresToTurn, exportMatrix, exportAngle, exportAxis, exportSolution }
+export function getCubeState(scramble) {
+    let scrambleList = scramble.split(" ")
+    let request_body = {
+        "scramble": scrambleList
+    };
+    request("getCubeState", "POST", process, request_body);
+}
+
+function process(response) {
+    exportCubeState = response
+}
+
+export { exportSquaresToTurn, exportMatrix, exportAngle, exportAxis, exportSolution, exportCubeState }

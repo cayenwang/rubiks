@@ -1,7 +1,7 @@
 import * as THREE from './three.js-dev/build/three.module.js';
 import { OrbitControls } from './three.js-dev/examples/jsm/controls/OrbitControls.js';
 //import { AnimationClip, AnimationMixer, QuaternionKeyframeTrack, Clock } from './three.js-dev/build/three.module.js';
-import { exportAngle, exportAxis, exportMatrix, exportSquaresToTurn, getSquaresOnFace, solveCube, exportSolution } from './networking.js'
+import { exportAngle, exportAxis, exportMatrix, exportSquaresToTurn, getSquaresOnFace, solveCube, exportSolution, getCubeState, exportCubeState } from './networking.js'
 
 /*
 =========================================================================================
@@ -325,48 +325,6 @@ function completeTurn(face) {
     setTimeout(() => { counter = 0; turnSquares() }, 500)
 }
 
-/*
-=========================================================================================
-Solve
-=========================================================================================
-*/
-
-
-let cubeState
-
-document.getElementById("solve").addEventListener("click", function () {
-    solveCube(cubeState)
-    setTimeout(() => { console.log(exportSolution) }, 500)
-});
-
-document.getElementById("submitCubeState").addEventListener("click", function () {
-    cubeState = document.getElementById("cubeState").value
-    console.log("cubestate", cubeState)
-    for (let i = scene.children.length - 1; i >= 0; i--) {
-        if (scene.children[i].type === "Mesh")
-            scene.remove(scene.children[i]);
-    }
-    buildCube(cubeState)
-});
-
-function doSolve() {
-    let solution = exportSolution["moves"];
-
-    (function loop(i) {
-        setTimeout(function () {
-            console.log(solution[solution.length - i])
-            completeTurn(solution[solution.length - i])
-            if (--i) loop(i)
-        }, 1000)
-    })(solution.length)
-
-}
-
-function overallSolve() {
-    solveCube()
-    setTimeout(() => { doSolve() }, 500)
-}
-
 document.getElementById("TurnR").addEventListener("click", function () { completeTurn("R") });
 document.getElementById("TurnL").addEventListener("click", function () { completeTurn("L") });
 document.getElementById("TurnD").addEventListener("click", function () { completeTurn("D") });
@@ -401,5 +359,105 @@ document.getElementById("Turnu").addEventListener("click", function () { complet
 document.getElementById("Turnb").addEventListener("click", function () { completeTurn("b") });
 document.getElementById("Turnf").addEventListener("click", function () { completeTurn("f") });
 
+/*
+=========================================================================================
+Solve
+=========================================================================================
+*/
+
+let cubeState
+
+document.getElementById("solve").addEventListener("click", function () {
+    solveCube(cubeState)
+    setTimeout(() => { console.log(exportSolution) }, 500)
+});
+
+document.getElementById("submitCubeState").addEventListener("click", function () {
+    cubeState = document.getElementById("cubeState").value
+    console.log("cubestate", cubeState)
+    for (let i = scene.children.length - 1; i >= 0; i--) {
+        if (scene.children[i].type === "Mesh")
+            scene.remove(scene.children[i]);
+    }
+    buildCube(cubeState)
+});
+
+
+document.getElementById("submitCubeScramble").addEventListener("click", function () {
+    let cubeScramble = document.getElementById("cubeScramble").value
+    getCubeState(cubeScramble)
+    setTimeout(() => {
+        cubeState = exportCubeState["cubeState"]
+        console.log("cubestate", cubeState)
+        for (let i = scene.children.length - 1; i >= 0; i--) {
+            if (scene.children[i].type === "Mesh")
+                scene.remove(scene.children[i]);
+        }
+        buildCube(cubeState)
+    }, 500)
+});
+
+function doSolve() {
+    let solution = exportSolution["moves"];
+
+    (function loop(i) {
+        setTimeout(function () {
+            console.log(solution[solution.length - i])
+            completeTurn(solution[solution.length - i])
+            if (--i) loop(i)
+        }, 1000)
+    })(solution.length)
+
+}
+
+function overallSolve() {
+    solveCube()
+    setTimeout(() => { doSolve() }, 500)
+}
 
 document.getElementById("wholeSolve").addEventListener("click", function () { overallSolve() });
+
+/*
+=========================================================================================
+Testing
+=========================================================================================
+*/
+
+function randomScramble() {
+    var indexToMove = {
+        0: "U",
+        1: "U'",
+        2: "U2",
+        3: "D",
+        4: "D'",
+        5: "D2",
+        6: "L",
+        7: "L'",
+        8: "L2",
+        9: "R",
+        10: "R'",
+        11: "R2",
+        12: "B",
+        13: "B'",
+        14: "B2",
+        15: "F",
+        16: "F'",
+        17: "F2",
+        18: "F2",
+    }
+    let scramble = ''
+    for (var i = 0; i < 20; i++) {
+        let index = Math.floor(Math.random() * 17)
+        scramble = scramble.concat(indexToMove[index], " ")
+    }
+    console.log(scramble)
+    return scramble
+}
+
+
+
+
+document.getElementById("randomScramble").addEventListener("click", function () { randomScramble() });
+
+
+

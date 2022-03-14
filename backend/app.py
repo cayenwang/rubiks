@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_cors import CORS
 import json
+import pprint
 
 from .cube import cube
 from .solver import *
@@ -48,7 +49,7 @@ def getSquaresOnFace():
     return json.dumps(squaresDict)
 
 
-@app.route("/getRotationMatrix", methods=["POST"])
+@app.route("/getARotationMatrix", methods=["POST"])
 def getRotationMatrix():
     requestData = request.get_json()
     face = requestData["face"]
@@ -59,3 +60,19 @@ def getRotationMatrix():
         "angle": angle
     }
     return json.dumps(matrixDict)
+
+
+@app.route("/getCubeState", methods=["POST"])
+def getARotationMatrix():
+    requestData = request.get_json()
+    scramble = requestData["scramble"]
+    acube = cube()
+    acube.buildCube("wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyyyy")
+    print(scramble)
+    doSequenceOfMoves(acube, scramble)
+    cubeState = acube.decompose()
+
+    cubeDict = {
+        "cubeState": cubeState
+    }
+    return json.dumps(cubeDict)

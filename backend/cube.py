@@ -1,5 +1,6 @@
 import numpy as np
 import json
+import pprint
 
 
 class square:  # tested
@@ -237,6 +238,74 @@ class cube:
                                 rotationMatrix, self.squares[i].rot))
 
         return squaresToMove
+
+    def decompose(self):
+        cubeState = ''
+        getCodeFromColor = {
+            "white": "w",
+            "orange": "o",
+            "green": "g",
+            "red": "r",
+            "blue": "b",
+            "yellow": "y",
+        }
+        pprint.pprint(self.toDict())
+        # top
+        for i in [1, 0, -1]:  # i is the row / z index
+            for j in [-1, 0, 1]:  # j is the column / x index
+                for square in self.squares:
+                    if square.rot == [0, -1, 0] and square.pos == [j, -1, i]:
+                        code = getCodeFromColor[square.color]
+                        cubeState = cubeState + code
+                        print("U")
+
+        # left
+        for i in [-1, 0, 1]:  # i is the row / y index
+            for j in [1, 0, -1]:  # j is the column / z index
+                for square in self.squares:
+                    if square.rot == [-1, 0, 0] and square.pos == [-1, i, j]:
+                        code = getCodeFromColor[square.color]
+                        cubeState = cubeState + code
+                        print("L")
+
+        # front
+        for i in [-1, 0, 1]:  # i is the row / y index
+            for j in [-1, 0, 1]:  # j is the column / x index
+                for square in self.squares:
+                    if square.rot == [0, 0, -1] and square.pos == [j, i, -1]:
+                        code = getCodeFromColor[square.color]
+                        cubeState = cubeState + code
+                        print("F")
+
+        # right
+        for i in [-1, 0, 1]:  # i is the row / y index
+            for j in [-1, 0, 1]:  # j is the column / z index
+                for square in self.squares:
+                    if square.rot == [1, 0, 0] and square.pos == [1, i, j]:
+                        code = getCodeFromColor[square.color]
+                        cubeState = cubeState + code
+                        print("R")
+
+        # back
+        for i in [-1, 0, 1]:  # i is the row / y index
+            for j in [1, 0, -1]:  # j is the column / x index
+                for square in self.squares:
+                    if square.rot == [0, 0, 1] and square.pos == [j, i, 1]:
+                        code = getCodeFromColor[square.color]
+                        cubeState = cubeState + code
+                        print("B")
+
+        # bottom
+        for i in [-1, 0, 1]:  # i is the row / z index
+            for j in [-1, 0, 1]:  # j is the column / x index
+                for square in self.squares:
+                    if square.rot == [0, 1, 0] and square.pos == [j, 1, i]:
+                        code = getCodeFromColor[square.color]
+                        cubeState = cubeState + code
+                        print("D")
+
+        print("cubestate", cubeState)
+        return cubeState
 
     def toDict(self):  # tested
         attributes = {
