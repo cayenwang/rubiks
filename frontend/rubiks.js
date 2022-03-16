@@ -370,6 +370,9 @@ Page
 
 let cubeState
 
+let solutionIndex = 0
+let extra = 0
+
 document.getElementById("submitCubeScramble").addEventListener("click", submit);
 function submit() {
     let cubeScramble = document.getElementById("cubeScramble").value
@@ -389,13 +392,17 @@ function doSolve() {
     let solution = exportSolution["moves"];
     (function loop(i) {
         setTimeout(function () {
-            if (startStop) {
-                console.log(solution[solution.length - i])
-                completeTurn(solution[solution.length - i])
+            if (startStop && solutionIndex < solution.length) {
+                console.log(solution[solutionIndex])
+                completeTurn(solution[solutionIndex])
+                solutionIndex += 1
+                console.log(solutionIndex)
                 if (--i) loop(i)
+            } else if (solutionIndex == solution.length) {
+                return
             } else { loop(i) }
         }, 500)
-    })(solution.length)
+    })(1000)
 }
 
 document.getElementById("playPause").style.display = "none";
@@ -469,16 +476,19 @@ function play() {
 
 
 document.getElementById("stepForward").addEventListener("click", forwardOneMove);
-let solutionIndex = 0
 function forwardOneMove() {
     let solution = exportSolution["moves"];
+    console.log(solution[solutionIndex])
     completeTurn(solution[solutionIndex])
     solutionIndex += 1
+    console.log(solutionIndex)
 }
 
 document.getElementById("stepBackward").addEventListener("click", backwardOneMove);
 function backwardOneMove() {
     solutionIndex -= 1
+    extra += 1
+    console.log(solutionIndex)
     let solution = exportSolution["moves"];
     let move = solution[solutionIndex]
     let inverseMove = move[0]
@@ -493,6 +503,7 @@ function backwardOneMove() {
     } else { direction = 1 }
     let inverseDirection = inverse[direction]
     inverseMove = inverseMove + inverseDirection
+    console.log(inverseMove)
     completeTurn(inverseMove)
 }
 
