@@ -387,20 +387,25 @@ function submit() {
 
 function doSolve() {
     let solution = exportSolution["moves"];
-
     (function loop(i) {
         setTimeout(function () {
-            console.log(solution[solution.length - i])
-            completeTurn(solution[solution.length - i])
-            if (--i) loop(i)
+            if (startStop) {
+                console.log(solution[solution.length - i])
+                completeTurn(solution[solution.length - i])
+                if (--i) loop(i)
+            } else { loop(i) }
         }, 500)
     })(solution.length)
 
 }
 
+document.getElementById("playPause").style.display = "none";
 document.getElementById("wholeSolve").addEventListener("click", overallSolve);
 function overallSolve() {
     solveCube(exportCubeState["cubeState"])
+    console.log(exportCubeState["cubeState"])
+    document.getElementById("wholeSolve").style.display = "none"
+    document.getElementById("playPause").style.display = "inline"
     setTimeout(() => { doSolve() }, 800)
 }
 
@@ -451,10 +456,16 @@ document.getElementById("inputScramble").addEventListener("click", showForm);
 function showForm() {
     displayForm = !displayForm
     if (displayForm) {
-        document.getElementById("scrambleForm").style.display = "block"
+        document.getElementById("scrambleForm").style.display = "inline"
     } else {
         document.getElementById("scrambleForm").style.display = "none"
     }
+}
+
+let startStop = false
+document.getElementById("playPause").addEventListener("click", play);
+function play() {
+    startStop = !startStop
 }
 
 
