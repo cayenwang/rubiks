@@ -396,7 +396,6 @@ function doSolve() {
             } else { loop(i) }
         }, 500)
     })(solution.length)
-
 }
 
 document.getElementById("playPause").style.display = "none";
@@ -406,7 +405,7 @@ function overallSolve() {
     console.log(exportCubeState["cubeState"])
     document.getElementById("wholeSolve").style.display = "none"
     document.getElementById("playPause").style.display = "inline"
-    setTimeout(() => { doSolve() }, 800)
+    setTimeout(() => { doSolve() }, 1000)
 }
 
 function randomScramble() {
@@ -469,6 +468,33 @@ function play() {
 }
 
 
+document.getElementById("stepForward").addEventListener("click", forwardOneMove);
+let solutionIndex = 0
+function forwardOneMove() {
+    let solution = exportSolution["moves"];
+    completeTurn(solution[solutionIndex])
+    solutionIndex += 1
+}
+
+document.getElementById("stepBackward").addEventListener("click", backwardOneMove);
+function backwardOneMove() {
+    solutionIndex -= 1
+    let solution = exportSolution["moves"];
+    let move = solution[solutionIndex]
+    let inverseMove = move[0]
+    let direction
+    let inverse = {
+        "1": "'",
+        "'": "",
+        "2": "2"
+    }
+    if (move.length == 2) {
+        direction = move[1]
+    } else { direction = 1 }
+    let inverseDirection = inverse[direction]
+    inverseMove = inverseMove + inverseDirection
+    completeTurn(inverseMove)
+}
 
 
 

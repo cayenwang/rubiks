@@ -14,6 +14,7 @@ h1 {
 }
 
 button {
+	font-size: 15px;
 	background-color: #fcd1b8;
 	border: 2px solid #e8b295;
 	border-radius: 10px;
@@ -38,7 +39,6 @@ button {
 }
 
 #moveButtons button {
-	font-size: 15px;
 	width: 50px;
 	height: 30px;
 }
@@ -51,9 +51,14 @@ button {
 }
 
 #scrambleSolve button{
-	font-size: 15px;
 	font-weight: bold;
 	width: 150px;
+	height: 30px;
+}
+
+#scrambleSolve .stepButton{
+	font-weight: bold;
+	width: 30px;
 	height: 30px;
 }
 
