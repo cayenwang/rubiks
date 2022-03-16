@@ -30,7 +30,7 @@ function createScene() {
 
     camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
     camera.position.set(100, -200, -400);
-    camera.up.set(0, -1, 0)
+    camera.up.set(0, -1, 0);
 
     window.addEventListener('resize', onWindowResize);
 
@@ -325,65 +325,53 @@ function completeTurn(face) {
     setTimeout(() => { counter = 0; turnSquares() }, 500)
 }
 
-document.getElementById("TurnR").addEventListener("click", function () { completeTurn("R") });
-document.getElementById("TurnL").addEventListener("click", function () { completeTurn("L") });
-document.getElementById("TurnD").addEventListener("click", function () { completeTurn("D") });
-document.getElementById("TurnU").addEventListener("click", function () { completeTurn("U") });
-document.getElementById("TurnB").addEventListener("click", function () { completeTurn("B") });
-document.getElementById("TurnF").addEventListener("click", function () { completeTurn("F") });
-document.getElementById("TurnR'").addEventListener("click", function () { completeTurn("R'") });
-document.getElementById("TurnL'").addEventListener("click", function () { completeTurn("L'") });
-document.getElementById("TurnD'").addEventListener("click", function () { completeTurn("D'") });
-document.getElementById("TurnU'").addEventListener("click", function () { completeTurn("U'") });
-document.getElementById("TurnB'").addEventListener("click", function () { completeTurn("B'") });
-document.getElementById("TurnF'").addEventListener("click", function () { completeTurn("F'") });
-document.getElementById("TurnR2").addEventListener("click", function () { completeTurn("R2") });
-document.getElementById("TurnL2").addEventListener("click", function () { completeTurn("L2") });
-document.getElementById("TurnD2").addEventListener("click", function () { completeTurn("D2") });
-document.getElementById("TurnU2").addEventListener("click", function () { completeTurn("U2") });
-document.getElementById("TurnB2").addEventListener("click", function () { completeTurn("B2") });
-document.getElementById("TurnF2").addEventListener("click", function () { completeTurn("F2") });
+// buttons
+{
+    document.getElementById("TurnR").addEventListener("click", function () { completeTurn("R") });
+    document.getElementById("TurnL").addEventListener("click", function () { completeTurn("L") });
+    document.getElementById("TurnD").addEventListener("click", function () { completeTurn("D") });
+    document.getElementById("TurnU").addEventListener("click", function () { completeTurn("U") });
+    document.getElementById("TurnB").addEventListener("click", function () { completeTurn("B") });
+    document.getElementById("TurnF").addEventListener("click", function () { completeTurn("F") });
+    document.getElementById("TurnR'").addEventListener("click", function () { completeTurn("R'") });
+    document.getElementById("TurnL'").addEventListener("click", function () { completeTurn("L'") });
+    document.getElementById("TurnD'").addEventListener("click", function () { completeTurn("D'") });
+    document.getElementById("TurnU'").addEventListener("click", function () { completeTurn("U'") });
+    document.getElementById("TurnB'").addEventListener("click", function () { completeTurn("B'") });
+    document.getElementById("TurnF'").addEventListener("click", function () { completeTurn("F'") });
+    document.getElementById("TurnR2").addEventListener("click", function () { completeTurn("R2") });
+    document.getElementById("TurnL2").addEventListener("click", function () { completeTurn("L2") });
+    document.getElementById("TurnD2").addEventListener("click", function () { completeTurn("D2") });
+    document.getElementById("TurnU2").addEventListener("click", function () { completeTurn("U2") });
+    document.getElementById("TurnB2").addEventListener("click", function () { completeTurn("B2") });
+    document.getElementById("TurnF2").addEventListener("click", function () { completeTurn("F2") });
 
-document.getElementById("TurnM").addEventListener("click", function () { completeTurn("M") });
-document.getElementById("TurnE").addEventListener("click", function () { completeTurn("E") });
-document.getElementById("TurnS").addEventListener("click", function () { completeTurn("S") });
+    document.getElementById("TurnM").addEventListener("click", function () { completeTurn("M") });
+    document.getElementById("TurnE").addEventListener("click", function () { completeTurn("E") });
+    document.getElementById("TurnS").addEventListener("click", function () { completeTurn("S") });
 
-document.getElementById("TurnX").addEventListener("click", function () { completeTurn("X") });
-document.getElementById("TurnY").addEventListener("click", function () { completeTurn("Y") });
-document.getElementById("TurnZ").addEventListener("click", function () { completeTurn("Z") });
+    document.getElementById("TurnX").addEventListener("click", function () { completeTurn("X") });
+    document.getElementById("TurnY").addEventListener("click", function () { completeTurn("Y") });
+    document.getElementById("TurnZ").addEventListener("click", function () { completeTurn("Z") });
 
-document.getElementById("Turnr").addEventListener("click", function () { completeTurn("r") });
-document.getElementById("Turnl").addEventListener("click", function () { completeTurn("l") });
-document.getElementById("Turnd").addEventListener("click", function () { completeTurn("d") });
-document.getElementById("Turnu").addEventListener("click", function () { completeTurn("u") });
-document.getElementById("Turnb").addEventListener("click", function () { completeTurn("b") });
-document.getElementById("Turnf").addEventListener("click", function () { completeTurn("f") });
+    document.getElementById("Turnr").addEventListener("click", function () { completeTurn("r") });
+    document.getElementById("Turnl").addEventListener("click", function () { completeTurn("l") });
+    document.getElementById("Turnd").addEventListener("click", function () { completeTurn("d") });
+    document.getElementById("Turnu").addEventListener("click", function () { completeTurn("u") });
+    document.getElementById("Turnb").addEventListener("click", function () { completeTurn("b") });
+    document.getElementById("Turnf").addEventListener("click", function () { completeTurn("f") });
+}
 
 /*
 =========================================================================================
-Solve
+Page
 =========================================================================================
 */
 
 let cubeState
 
-document.getElementById("solve").addEventListener("click", function () {
-    solveCube(cubeState)
-    setTimeout(() => { console.log(exportSolution) }, 500)
-});
-
-document.getElementById("submitCubeState").addEventListener("click", function () {
-    cubeState = document.getElementById("cubeState").value
-    console.log("cubestate", cubeState)
-    for (let i = scene.children.length - 1; i >= 0; i--) {
-        if (scene.children[i].type === "Mesh")
-            scene.remove(scene.children[i]);
-    }
-    cubeSquares = buildCube(cubeState)
-});
-
-
-document.getElementById("submitCubeScramble").addEventListener("click", function () {
+document.getElementById("submitCubeScramble").addEventListener("click", submit);
+function submit() {
     let cubeScramble = document.getElementById("cubeScramble").value
     getCubeState(cubeScramble)
     setTimeout(() => {
@@ -395,7 +383,7 @@ document.getElementById("submitCubeScramble").addEventListener("click", function
         }
         cubeSquares = buildCube(cubeState)
     }, 500)
-});
+}
 
 function doSolve() {
     let solution = exportSolution["moves"];
@@ -410,18 +398,11 @@ function doSolve() {
 
 }
 
+document.getElementById("wholeSolve").addEventListener("click", overallSolve);
 function overallSolve() {
     solveCube(exportCubeState["cubeState"])
-    setTimeout(() => { doSolve() }, 500)
+    setTimeout(() => { doSolve() }, 800)
 }
-
-document.getElementById("wholeSolve").addEventListener("click", function () { overallSolve() });
-
-/*
-=========================================================================================
-Testing
-=========================================================================================
-*/
 
 function randomScramble() {
     var indexToMove = {
@@ -453,14 +434,30 @@ function randomScramble() {
     scramble = scramble.slice(0, -1)
     console.log(scramble)
 
-    document.getElementById("cubeScramble").value = scramble
     return scramble
 }
 
+document.getElementById("randomScramble").addEventListener("click", randomAndSubmit);
+function randomAndSubmit() {
+    let scramble = randomScramble()
+    document.getElementById("cubeScramble").value = scramble
+    submit()
+}
+
+document.getElementById("scrambleForm").style.display = "none";
+let displayForm = false
+
+document.getElementById("inputScramble").addEventListener("click", showForm);
+function showForm() {
+    displayForm = !displayForm
+    if (displayForm) {
+        document.getElementById("scrambleForm").style.display = "block"
+    } else {
+        document.getElementById("scrambleForm").style.display = "none"
+    }
+}
 
 
-
-document.getElementById("randomScramble").addEventListener("click", function () { randomScramble() });
 
 
 
