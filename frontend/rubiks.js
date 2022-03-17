@@ -37,11 +37,11 @@ function createScene() {
 }
 
 // build cube
+let allFloats = []
 cubeSquares = buildCube();
 
 function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyyyy") {
     let allSquares = []
-    let allFloats = []
     let sideWidth = 20;
     let separation = 1.1;
     let floatDist = 80;
@@ -269,6 +269,10 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
             scene.add(blackSquare);
             square.add(blackSquare)
         }
+    }
+
+    for (var square in allFloats) {
+        allFloats[square].visible = false
     }
 
     return allSquares
@@ -575,7 +579,7 @@ function play() {
             document.getElementById("moveButtons").children[i].style.backgroundColor = "#e1e1e2"
             document.getElementById("moveButtons").children[i].disabled = true;
         }
-        document.getElementById("stepForward").className = "disabled" // trying to use a class as the disabled css 
+        document.getElementById("stepForward").style.backgroundColor = "#e1e1e2"
         document.getElementById("stepForward").disabled = true;
         document.getElementById("stepBackward").style.backgroundColor = "#e1e1e2"
         document.getElementById("stepBackward").disabled = true;
@@ -638,5 +642,18 @@ function backwardOneMove() {
     document.getElementById("progress").style.width = progressBarWidth + 'px';
 }
 
-
+let backToggle = false
+document.getElementById("showBackSides").addEventListener("click", showBack);
+function showBack() {
+    backToggle = !backToggle
+    if (backToggle) {
+        for (var square in allFloats) {
+            allFloats[square].visible = true
+        }
+    } else {
+        for (var square in allFloats) {
+            allFloats[square].visible = false
+        }
+    }
+}
 
