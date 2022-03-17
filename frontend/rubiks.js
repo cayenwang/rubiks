@@ -369,9 +369,7 @@ Page
 */
 
 let cubeState
-
 let solutionIndex = 0
-let extra = 0
 
 document.getElementById("submitCubeScramble").addEventListener("click", submit);
 function submit() {
@@ -397,8 +395,17 @@ function doSolve() {
                 completeTurn(solution[solutionIndex])
                 solutionIndex += 1
                 console.log(solutionIndex)
+                let progressBarWidth = document.getElementById('bar').offsetWidth
+                console.log(progressBarWidth)
+                progressBarWidth = (progressBarWidth - 20) * solutionIndex / solution.length + 20
+                console.log(progressBarWidth)
+                document.getElementById("progress").style.width = progressBarWidth + 'px';
                 if (--i) loop(i)
             } else if (solutionIndex == solution.length) {
+                document.getElementById("wholeSolve").style.display = "inline"
+                document.getElementById("playPause").style.display = "none"
+                solutionIndex = 0
+                play()
                 return
             } else { loop(i) }
         }, 500)
@@ -406,13 +413,23 @@ function doSolve() {
 }
 
 document.getElementById("playPause").style.display = "none";
+document.getElementById("solutionText").style.display = "none";
 document.getElementById("wholeSolve").addEventListener("click", overallSolve);
 function overallSolve() {
     solveCube(exportCubeState["cubeState"])
     console.log(exportCubeState["cubeState"])
     document.getElementById("wholeSolve").style.display = "none"
     document.getElementById("playPause").style.display = "inline"
-    setTimeout(() => { doSolve() }, 1000)
+    setTimeout(() => {
+        doSolve();
+        let showSolution = ""
+        let solution = exportSolution["moves"]
+        for (var move in solution) {
+            showSolution = showSolution.concat(solution[move], " ")
+        }
+        document.getElementById("solutionText").innerHTML = showSolution
+        document.getElementById("solutionText").style.display = "inline";
+    }, 2000)
 }
 
 function randomScramble() {
@@ -457,7 +474,6 @@ function randomAndSubmit() {
 
 document.getElementById("scrambleForm").style.display = "none";
 let displayForm = false
-
 document.getElementById("inputScramble").addEventListener("click", showForm);
 function showForm() {
     displayForm = !displayForm
@@ -472,6 +488,11 @@ let startStop = false
 document.getElementById("playPause").addEventListener("click", play);
 function play() {
     startStop = !startStop
+    if (startStop) {
+        document.getElementById("playPause").innerHTML = "Pause"
+    } else {
+        document.getElementById("playPause").innerHTML = "Play"
+    }
 }
 
 
@@ -482,6 +503,10 @@ function forwardOneMove() {
     completeTurn(solution[solutionIndex])
     solutionIndex += 1
     console.log(solutionIndex)
+    if (solutionIndex == solution.length) {
+        document.getElementById("wholeSolve").style.display = "inline"
+        document.getElementById("playPause").style.display = "none"
+    }
 }
 
 document.getElementById("stepBackward").addEventListener("click", backwardOneMove);
