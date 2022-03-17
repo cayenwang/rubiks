@@ -461,16 +461,41 @@ let solutionIndex = 0
 document.getElementById("submitCubeScramble").addEventListener("click", submit);
 function submit() {
     let cubeScramble = document.getElementById("cubeScramble").value
-    getCubeState(cubeScramble)
-    setTimeout(() => {
-        cubeState = exportCubeState["cubeState"]
-        console.log("cubestate", cubeState)
-        for (let i = scene.children.length - 1; i >= 0; i--) {
-            if (scene.children[i].type === "Mesh")
-                scene.remove(scene.children[i]);
+    if (validateScramble(cubeScramble)) {
+        getCubeState(cubeScramble)
+        setTimeout(() => {
+            cubeState = exportCubeState["cubeState"]
+            console.log("cubestate", cubeState)
+            for (let i = scene.children.length - 1; i >= 0; i--) {
+                if (scene.children[i].type === "Mesh")
+                    scene.remove(scene.children[i]);
+            }
+            cubeSquares = buildCube(cubeState)
+        }, 500)
+    } else { document.getElementById("cubeScramble").value = 'Invalid Scramble' }
+}
+
+function validateScramble(scramble) {
+    let scrambleList = scramble.split(" ")
+    let result = true
+    let allowedFaces = ["R", "L", "D", "U", "B", "F", "M", "E", "S", "X", "Y", "Z", "r", "l", "d", "u", "b", "f"]
+    let allowedAngles = ["'", "2"]
+    for (var i in scrambleList) {
+        let temp = scrambleList[i]
+        console.log(temp)
+        if (allowedFaces.includes(temp[0]) == false) {
+            console.log("in 1")
+            result = false
+        } else if (temp.length > 2) {
+            console.log("in 2")
+            result = false
+        } else if (temp.length == 2 && allowedAngles.includes(temp[1]) == false) {
+            console.log("in 3")
+            result = false
         }
-        cubeSquares = buildCube(cubeState)
-    }, 500)
+    }
+    console.log(result)
+    return result
 }
 
 function doSolve() {
