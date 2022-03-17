@@ -41,8 +41,10 @@ cubeSquares = buildCube();
 
 function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyyyy") {
     let allSquares = []
+    let allFloats = []
     let sideWidth = 20;
     let separation = 1.1;
+    let floatDist = 80;
 
     const geometrySquare = new THREE.PlaneGeometry(sideWidth, sideWidth);
     const materialRed = new THREE.MeshPhongMaterial({ color: 0xde3421, flatShading: true });
@@ -51,6 +53,9 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
     const materialWhite = new THREE.MeshPhongMaterial({ color: 0xfffff7, flatShading: true })
     const materialGreen = new THREE.MeshPhongMaterial({ color: 0x2bcc2e, flatShading: true })
     const materialBlue = new THREE.MeshPhongMaterial({ color: 0x3e78d6, flatShading: true })
+
+    const materialBlack = new THREE.MeshPhongMaterial({ color: 0x000000, flatShading: true })
+    const geometryBlack = new THREE.PlaneGeometry(sideWidth * separation, sideWidth * separation);
 
     let stateIndex = -1
     let getColourFromCode = {
@@ -78,8 +83,21 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
             square.rotation.z = 0;
             square.updateMatrix();
             scene.add(square);
-
             allSquares.push(square)
+
+            const floatingSquare = new THREE.Mesh(geometrySquare, color)
+            floatingSquare.position.z = floatDist
+            floatingSquare.rotation.y = - Math.PI;
+            floatingSquare.updateMatrix();
+            scene.add(floatingSquare);
+            square.add(floatingSquare)
+            allFloats.push(floatingSquare)
+
+            const blackSquare = new THREE.Mesh(geometryBlack, materialBlack)
+            blackSquare.rotation.y = - Math.PI;
+            blackSquare.updateMatrix();
+            scene.add(blackSquare);
+            square.add(blackSquare)
         }
     }
 
@@ -99,8 +117,21 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
             square.rotation.z = 0;
             square.updateMatrix();
             scene.add(square);
-
             allSquares.push(square)
+
+            const floatingSquare = new THREE.Mesh(geometrySquare, color)
+            floatingSquare.position.z = floatDist
+            floatingSquare.rotation.y = - Math.PI;
+            floatingSquare.updateMatrix();
+            scene.add(floatingSquare);
+            square.add(floatingSquare)
+            allFloats.push(floatingSquare)
+
+            const blackSquare = new THREE.Mesh(geometryBlack, materialBlack)
+            blackSquare.rotation.y = - Math.PI;
+            blackSquare.updateMatrix();
+            scene.add(blackSquare);
+            square.add(blackSquare)
         }
     }
 
@@ -120,8 +151,21 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
             square.rotation.z = 0;
             square.updateMatrix();
             scene.add(square);
-
             allSquares.push(square)
+
+            const floatingSquare = new THREE.Mesh(geometrySquare, color)
+            floatingSquare.position.z = floatDist
+            floatingSquare.rotation.y = - Math.PI;
+            floatingSquare.updateMatrix();
+            scene.add(floatingSquare);
+            square.add(floatingSquare)
+            allFloats.push(floatingSquare)
+
+            const blackSquare = new THREE.Mesh(geometryBlack, materialBlack)
+            blackSquare.rotation.y = - Math.PI;
+            blackSquare.updateMatrix();
+            scene.add(blackSquare);
+            square.add(blackSquare)
         }
     }
 
@@ -141,8 +185,21 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
             square.rotation.z = 0;
             square.updateMatrix();
             scene.add(square);
-
             allSquares.push(square)
+
+            const floatingSquare = new THREE.Mesh(geometrySquare, color)
+            floatingSquare.position.z = floatDist
+            floatingSquare.rotation.y = - Math.PI;
+            floatingSquare.updateMatrix();
+            scene.add(floatingSquare);
+            square.add(floatingSquare)
+            allFloats.push(floatingSquare)
+
+            const blackSquare = new THREE.Mesh(geometryBlack, materialBlack)
+            blackSquare.rotation.y = - Math.PI;
+            blackSquare.updateMatrix();
+            scene.add(blackSquare);
+            square.add(blackSquare)
         }
     }
 
@@ -162,8 +219,21 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
             square.rotation.z = 0;
             square.updateMatrix();
             scene.add(square);
-
             allSquares.push(square)
+
+            const floatingSquare = new THREE.Mesh(geometrySquare, color)
+            floatingSquare.position.z = floatDist
+            floatingSquare.rotation.y = - Math.PI;
+            floatingSquare.updateMatrix();
+            scene.add(floatingSquare);
+            square.add(floatingSquare)
+            allFloats.push(floatingSquare)
+
+            const blackSquare = new THREE.Mesh(geometryBlack, materialBlack)
+            blackSquare.rotation.y = - Math.PI;
+            blackSquare.updateMatrix();
+            scene.add(blackSquare);
+            square.add(blackSquare)
         }
     }
 
@@ -183,8 +253,21 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
             square.rotation.z = 0;
             square.updateMatrix();
             scene.add(square);
-
             allSquares.push(square)
+
+            const floatingSquare = new THREE.Mesh(geometrySquare, color)
+            floatingSquare.position.z = floatDist
+            floatingSquare.rotation.y = - Math.PI;
+            floatingSquare.updateMatrix();
+            scene.add(floatingSquare);
+            square.add(floatingSquare)
+            allFloats.push(floatingSquare)
+
+            const blackSquare = new THREE.Mesh(geometryBlack, materialBlack)
+            blackSquare.rotation.y = - Math.PI;
+            blackSquare.updateMatrix();
+            scene.add(blackSquare);
+            square.add(blackSquare)
         }
     }
 
@@ -396,9 +479,7 @@ function doSolve() {
                 solutionIndex += 1
                 console.log(solutionIndex)
                 let progressBarWidth = document.getElementById('bar').offsetWidth
-                console.log(progressBarWidth)
                 progressBarWidth = (progressBarWidth - 20) * solutionIndex / solution.length + 20
-                console.log(progressBarWidth)
                 document.getElementById("progress").style.width = progressBarWidth + 'px';
                 if (--i) loop(i)
             } else if (solutionIndex == solution.length) {
@@ -490,8 +571,28 @@ function play() {
     startStop = !startStop
     if (startStop) {
         document.getElementById("playPause").innerHTML = "Pause"
+        for (var i = 1; i < document.getElementById("moveButtons").children.length; i++) {
+            document.getElementById("moveButtons").children[i].style.backgroundColor = "#e1e1e2"
+            document.getElementById("moveButtons").children[i].disabled = true;
+        }
+        document.getElementById("stepForward").className = "disabled" // trying to use a class as the disabled css 
+        document.getElementById("stepForward").disabled = true;
+        document.getElementById("stepBackward").style.backgroundColor = "#e1e1e2"
+        document.getElementById("stepBackward").disabled = true;
+        document.getElementById("randomScramble").style.backgroundColor = "#e1e1e2"
+        document.getElementById("randomScramble").disabled = true;
     } else {
         document.getElementById("playPause").innerHTML = "Play"
+        for (var i = 1; i < document.getElementById("moveButtons").children.length; i++) {
+            document.getElementById("moveButtons").children[i].style.backgroundColor = "#fcd1b8"
+            document.getElementById("moveButtons").children[i].disabled = false;
+        }
+        document.getElementById("stepForward").style.backgroundColor = "#fcd1b8"
+        document.getElementById("stepForward").disabled = false;
+        document.getElementById("stepBackward").style.backgroundColor = "#fcd1b8"
+        document.getElementById("stepBackward").disabled = false;
+        document.getElementById("randomScramble").style.backgroundColor = "#fcd1b8"
+        document.getElementById("randomScramble").disabled = false;
     }
 }
 
@@ -503,6 +604,9 @@ function forwardOneMove() {
     completeTurn(solution[solutionIndex])
     solutionIndex += 1
     console.log(solutionIndex)
+    let progressBarWidth = document.getElementById('bar').offsetWidth
+    progressBarWidth = (progressBarWidth - 20) * solutionIndex / solution.length + 20
+    document.getElementById("progress").style.width = progressBarWidth + 'px';
     if (solutionIndex == solution.length) {
         document.getElementById("wholeSolve").style.display = "inline"
         document.getElementById("playPause").style.display = "none"
@@ -512,7 +616,6 @@ function forwardOneMove() {
 document.getElementById("stepBackward").addEventListener("click", backwardOneMove);
 function backwardOneMove() {
     solutionIndex -= 1
-    extra += 1
     console.log(solutionIndex)
     let solution = exportSolution["moves"];
     let move = solution[solutionIndex]
@@ -530,6 +633,9 @@ function backwardOneMove() {
     inverseMove = inverseMove + inverseDirection
     console.log(inverseMove)
     completeTurn(inverseMove)
+    let progressBarWidth = document.getElementById('bar').offsetWidth
+    progressBarWidth = (progressBarWidth - 20) * solutionIndex / solution.length + 20
+    document.getElementById("progress").style.width = progressBarWidth + 'px';
 }
 
 
