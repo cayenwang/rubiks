@@ -27,15 +27,35 @@ button {
 
 #moveButtons {
 	width: 160px;
+	height: 240px;
 	line-height: 35px;
 	position: absolute;
-	left: 80%;
+	right: 20px;
 	top: 20%;
 	padding: 10px;
 	border: 2px solid #e8b295;
 	border-radius: 10px;
 	align-items: center;
 	background-color: #ffe8dc;
+}
+
+#basicMoves {
+	width: 160px;
+	right: 9px;
+	position: absolute;
+}
+
+#basicMoves button {
+	background-color: #ffe8dc;
+}
+
+#leftMoves {
+	width: 160px;
+}
+
+#moreMoves {
+	position: relative;
+	top: 225px
 }
 
 .move {
@@ -90,12 +110,12 @@ button {
 	width: 200px;
 	top: 20%;
 	position: absolute;
+	line-height: 35px;
 }
 
 #leftMenu button {
 	width: 150px;
 	font-size: 13px;
-	height: 25px;
 	text-align: left;
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
@@ -116,7 +136,14 @@ button {
 	right: 25%;
 }
 
-#disabled {
-	background-color: #e1e1e2;
-	color: grey;
+#howTo {
+	position: absolute;
+	top: 10%;
+	text-align: center;
+	left: 10%;
+	right: 10%;
+	background-color: #fcd1b8;
+	border: 2px solid #e8b295;
+	border-radius: 20px;
+	padding: 15px;
 }
