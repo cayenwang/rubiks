@@ -10,7 +10,7 @@ body {
 
 h1 {
 	font-size: 18px;
-	line-height: 10px;
+	padding:0;
 }
 
 button {
@@ -27,10 +27,9 @@ button {
 
 #moveButtons {
 	width: 160px;
-	height: 240px;
 	line-height: 35px;
 	position: absolute;
-	right: 20px;
+	left: 80%;
 	top: 20%;
 	padding: 10px;
 	border: 2px solid #e8b295;
@@ -39,52 +38,9 @@ button {
 	background-color: #ffe8dc;
 }
 
-#basicMoves {
-	width: 160px;
-	right: 9px;
-	position: absolute;
-}
-
-#basicMoves button {
-	background-color: #ffe8dc;
-}
-
-#leftMoves {
-	width: 160px;
-}
-
-#moreMoves {
-	position: relative;
-	top: 225px
-}
-
-.move {
+#moveButtons button {
 	width: 50px;
 	height: 30px;
-}
-
-#progressBar {
-	position: absolute;
-	bottom: 20%;
-	text-align: center;
-	height: 20px;
-	border-radius:10px;
-	left: 30%;
-	right: 30%;
-}
-
-#progress {
-	border: 2px solid #e8b295;
-	background-color: #e8b295;
-	position: absolute;
-	border-radius:20px;
-	width: 20px;
-}
-
-#bar {
-	border: 2px solid #e8b295;
-	background-color: #fcd1b8;
-	border-radius:20px;
 }
 
 #scrambleSolve {
@@ -106,16 +62,12 @@ button {
 	height: 30px;
 }
 
-#leftMenu {
-	width: 200px;
+#inputScramble {
+	font-size: 13px;
+	width: 150px;
+	height: 25px;
 	top: 20%;
 	position: absolute;
-	line-height: 35px;
-}
-
-#leftMenu button {
-	width: 150px;
-	font-size: 13px;
 	text-align: left;
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
@@ -126,24 +78,4 @@ button {
 	top: 10%;
 	text-align: center;
 	width: 100%;
-}
-
-#solutionText {
-	position: absolute;
-	top: 10%;
-	text-align: center;
-	left: 25%;
-	right: 25%;
-}
-
-#howTo {
-	position: absolute;
-	top: 10%;
-	text-align: center;
-	left: 10%;
-	right: 10%;
-	background-color: #fcd1b8;
-	border: 2px solid #e8b295;
-	border-radius: 20px;
-	padding: 15px;
 }
