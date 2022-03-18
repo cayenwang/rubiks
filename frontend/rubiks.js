@@ -1,5 +1,7 @@
 import * as THREE from './three.js-dev/build/three.module.js';
 import { OrbitControls } from './three.js-dev/examples/jsm/controls/OrbitControls.js';
+import { FontLoader } from './three.js-dev/examples/jsm/loaders/FontLoader.js'
+import { TextGeometry } from './three.js-dev/examples/jsm/geometries/TextGeometry.js';
 //import { AnimationClip, AnimationMixer, QuaternionKeyframeTrack, Clock } from './three.js-dev/build/three.module.js';
 import { exportAngle, exportAxis, exportMatrix, exportSquaresToTurn, getSquaresOnFace, solveCube, exportSolution, getCubeState, exportCubeState } from './networking.js'
 
@@ -275,6 +277,32 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
         allFloats[square].visible = false
     }
 
+    var loader = new FontLoader();
+    var textMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
+    let labelText = ["U", "L", "F", "R", "B", "D"]
+    let labelPosition = [[-5, -34, -5], [-34, 5, 5], [-5, 5, -34], [34, 5, -5], [5, 5, 34], [-5, 34, 5]]
+    let labelRotation = [[1, 0, 0], [2, 3, 0], [2, 0, 0], [2, 1, 0], [2, 2, 0], [3, 0, 0]]
+    loader.load('./three.js-dev/examples/fonts/helvetiker_bold.typeface.json', function (font) {
+        for (var i in labelText) {
+            var textGeometry = new TextGeometry(labelText[i], {
+                font: font,
+                size: 10,
+                height: 0.01,
+                curveSegments: 12,
+            });
+            var label = new THREE.Mesh(textGeometry, textMaterial);
+            label.position.x = labelPosition[i][0];
+            label.position.y = labelPosition[i][1];
+            label.position.z = labelPosition[i][2];
+            label.rotation.x = labelRotation[i][0] * Math.PI / 2;
+            label.rotation.y = labelRotation[i][1] * Math.PI / 2;
+            label.rotation.z = labelRotation[i][2] * Math.PI / 2;
+
+            scene.add(label);
+        };
+
+    })
+
     return allSquares
 }
 
@@ -482,19 +510,14 @@ function validateScramble(scramble) {
     let allowedAngles = ["'", "2"]
     for (var i in scrambleList) {
         let temp = scrambleList[i]
-        console.log(temp)
         if (allowedFaces.includes(temp[0]) == false) {
-            console.log("in 1")
             result = false
         } else if (temp.length > 2) {
-            console.log("in 2")
             result = false
         } else if (temp.length == 2 && allowedAngles.includes(temp[1]) == false) {
-            console.log("in 3")
             result = false
         }
     }
-    console.log(result)
     return result
 }
 
