@@ -283,9 +283,10 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
     let labelPosition = [[-5, -34, -5], [-34, 5, 5], [-5, 5, -34], [34, 5, -5], [5, 5, 34], [-5, 34, 5]]
 
     for (var i in labelText) {
-        console.log('labelText:', labelText[i])
-        console.log('labelPosition:', labelPosition[i])
+        console.log('labelText:1', labelText[i])
+        console.log('labelPosition:1', labelPosition[i])
         loader.load('./three.js-dev/examples/fonts/helvetiker_bold.typeface.json', function (font) {
+            console.log('labelText:2', labelText[i])
             var textGeometry = new TextGeometry(labelText[i], {
                 font: font,
                 size: 10,
@@ -293,6 +294,7 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
                 curveSegments: 12,
             });
             var label = new THREE.Mesh(textGeometry, textMaterial);
+            console.log('labelPosition:2', labelPosition[i])
             label.position.x = labelPosition[i][0];
             label.position.y = labelPosition[i][1];
             label.position.z = labelPosition[i][2];
