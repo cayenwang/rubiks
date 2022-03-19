@@ -283,6 +283,8 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
     let labelPosition = [[-5, -34, -5], [-34, 5, 5], [-5, 5, -34], [34, 5, -5], [5, 5, 34], [-5, 34, 5]]
 
     for (var i in labelText) {
+        console.log('labelText:', labelText[i])
+        console.log('labelPosition:', labelPosition[i])
         loader.load('./three.js-dev/examples/fonts/helvetiker_bold.typeface.json', function (font) {
             var textGeometry = new TextGeometry(labelText[i], {
                 font: font,
