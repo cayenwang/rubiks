@@ -25,6 +25,7 @@ export function solveCube(cube) {
 }
 
 function processResponse(response) {
+    console.log(response)
     exportSolution = response;
 }
 //----------------------

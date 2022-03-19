@@ -390,24 +390,41 @@ function doSolve() {
     let solution = exportSolution["moves"];
     (function loop(i) {
         setTimeout(function () {
-            if (startStop) {
+            if (startStop && solutionIndex < solution.length) {
                 console.log(solution[solutionIndex])
                 completeTurn(solution[solutionIndex])
                 solutionIndex += 1
+                console.log(solutionIndex)
                 if (--i) loop(i)
+            } else if (solutionIndex == solution.length) {
+                document.getElementById("wholeSolve").style.display = "inline"
+                document.getElementById("playPause").style.display = "none"
+                solutionIndex = 0
+                play()
+                return
             } else { loop(i) }
         }, 500)
-    })(solution.length)
+    })(1000)
 }
 
 document.getElementById("playPause").style.display = "none";
+document.getElementById("solutionText").style.display = "none";
 document.getElementById("wholeSolve").addEventListener("click", overallSolve);
 function overallSolve() {
     solveCube(exportCubeState["cubeState"])
     console.log(exportCubeState["cubeState"])
     document.getElementById("wholeSolve").style.display = "none"
     document.getElementById("playPause").style.display = "inline"
-    setTimeout(() => { doSolve() }, 1000)
+    setTimeout(() => {
+        doSolve();
+        let showSolution = ""
+        let solution = exportSolution["moves"]
+        for (var move in solution) {
+            showSolution = showSolution.concat(solution[move], " ")
+        }
+        document.getElementById("solutionText").innerHTML = showSolution
+        document.getElementById("solutionText").style.display = "inline";
+    }, 2000)
 }
 
 function randomScramble() {
@@ -452,7 +469,6 @@ function randomAndSubmit() {
 
 document.getElementById("scrambleForm").style.display = "none";
 let displayForm = false
-
 document.getElementById("inputScramble").addEventListener("click", showForm);
 function showForm() {
     displayForm = !displayForm
@@ -467,19 +483,32 @@ let startStop = false
 document.getElementById("playPause").addEventListener("click", play);
 function play() {
     startStop = !startStop
+    if (startStop) {
+        document.getElementById("playPause").innerHTML = "Pause"
+    } else {
+        document.getElementById("playPause").innerHTML = "Play"
+    }
 }
 
 
 document.getElementById("stepForward").addEventListener("click", forwardOneMove);
 function forwardOneMove() {
     let solution = exportSolution["moves"];
+    console.log(solution[solutionIndex])
     completeTurn(solution[solutionIndex])
     solutionIndex += 1
+    console.log(solutionIndex)
+    if (solutionIndex == solution.length) {
+        document.getElementById("wholeSolve").style.display = "inline"
+        document.getElementById("playPause").style.display = "none"
+    }
 }
 
 document.getElementById("stepBackward").addEventListener("click", backwardOneMove);
 function backwardOneMove() {
     solutionIndex -= 1
+    extra += 1
+    console.log(solutionIndex)
     let solution = exportSolution["moves"];
     let move = solution[solutionIndex]
     let inverseMove = move[0]
@@ -494,6 +523,7 @@ function backwardOneMove() {
     } else { direction = 1 }
     let inverseDirection = inverse[direction]
     inverseMove = inverseMove + inverseDirection
+    console.log(inverseMove)
     completeTurn(inverseMove)
 }
 

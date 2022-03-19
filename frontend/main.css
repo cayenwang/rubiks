@@ -43,6 +43,30 @@ button {
 	height: 30px;
 }
 
+#progressBar {
+	position: absolute;
+	bottom: 20%;
+	text-align: center;
+	height: 20px;
+	border-radius:10px;
+	left: 30%;
+	right: 30%;
+}
+
+#progress {
+	border: 2px solid #e8b295;
+	background-color: #e8b295;
+	position: absolute;
+	border-radius:20px;
+	width: 20px;
+}
+
+#bar {
+	border: 2px solid #e8b295;
+	background-color: #fcd1b8;
+	border-radius:20px;
+}
+
 #scrambleSolve {
 	position: absolute;
 	bottom: 10%;
@@ -78,4 +102,12 @@ button {
 	top: 10%;
 	text-align: center;
 	width: 100%;
+}
+
+#solutionText {
+	position: absolute;
+	top: 10%;
+	text-align: center;
+	left: 25%;
+	right: 25%;
 }
