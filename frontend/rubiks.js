@@ -43,6 +43,7 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
     let allSquares = []
     let sideWidth = 20;
     let separation = 1.1;
+    let floatDist = 80;
 
     const geometrySquare = new THREE.PlaneGeometry(sideWidth, sideWidth);
     const materialRed = new THREE.MeshPhongMaterial({ color: 0xde3421, flatShading: true });
@@ -80,6 +81,13 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
             scene.add(square);
 
             allSquares.push(square)
+
+            const floatingSquare = new THREE.Mesh(geometrySquare, color)
+            floatingSquare.position.z = floatDist
+            floatingSquare.rotation.y = - Math.PI;
+            floatingSquare.updateMatrix();
+            scene.add(floatingSquare);
+            square.add(floatingSquare)
         }
     }
 
@@ -101,6 +109,13 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
             scene.add(square);
 
             allSquares.push(square)
+
+            const floatingSquare = new THREE.Mesh(geometrySquare, color)
+            floatingSquare.position.z = floatDist
+            floatingSquare.rotation.y = - Math.PI;
+            floatingSquare.updateMatrix();
+            scene.add(floatingSquare);
+            square.add(floatingSquare)
         }
     }
 
@@ -122,6 +137,13 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
             scene.add(square);
 
             allSquares.push(square)
+
+            const floatingSquare = new THREE.Mesh(geometrySquare, color)
+            floatingSquare.position.z = floatDist
+            floatingSquare.rotation.y = - Math.PI;
+            floatingSquare.updateMatrix();
+            scene.add(floatingSquare);
+            square.add(floatingSquare)
         }
     }
 
@@ -143,6 +165,13 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
             scene.add(square);
 
             allSquares.push(square)
+
+            const floatingSquare = new THREE.Mesh(geometrySquare, color)
+            floatingSquare.position.z = floatDist
+            floatingSquare.rotation.y = - Math.PI;
+            floatingSquare.updateMatrix();
+            scene.add(floatingSquare);
+            square.add(floatingSquare)
         }
     }
 
@@ -164,6 +193,13 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
             scene.add(square);
 
             allSquares.push(square)
+
+            const floatingSquare = new THREE.Mesh(geometrySquare, color)
+            floatingSquare.position.z = floatDist
+            floatingSquare.rotation.y = - Math.PI;
+            floatingSquare.updateMatrix();
+            scene.add(floatingSquare);
+            square.add(floatingSquare)
         }
     }
 
@@ -185,6 +221,13 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
             scene.add(square);
 
             allSquares.push(square)
+
+            const floatingSquare = new THREE.Mesh(geometrySquare, color)
+            floatingSquare.position.z = floatDist
+            floatingSquare.rotation.y = - Math.PI;
+            floatingSquare.updateMatrix();
+            scene.add(floatingSquare);
+            square.add(floatingSquare)
         }
     }
 
@@ -395,6 +438,11 @@ function doSolve() {
                 completeTurn(solution[solutionIndex])
                 solutionIndex += 1
                 console.log(solutionIndex)
+                let progressBarWidth = document.getElementById('bar').offsetWidth
+                console.log(progressBarWidth)
+                progressBarWidth = (progressBarWidth - 20) * solutionIndex / solution.length + 20
+                console.log(progressBarWidth)
+                document.getElementById("progress").style.width = progressBarWidth + 'px';
                 if (--i) loop(i)
             } else if (solutionIndex == solution.length) {
                 document.getElementById("wholeSolve").style.display = "inline"
