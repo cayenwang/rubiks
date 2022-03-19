@@ -10,7 +10,7 @@ body {
 
 h1 {
 	font-size: 18px;
-	padding:0;
+	line-height: 10px;
 }
 
 button {
@@ -38,7 +38,7 @@ button {
 	background-color: #ffe8dc;
 }
 
-#moveButtons button {
+.move {
 	width: 50px;
 	height: 30px;
 }
@@ -86,12 +86,16 @@ button {
 	height: 30px;
 }
 
-#inputScramble {
-	font-size: 13px;
-	width: 150px;
-	height: 25px;
+#leftMenu {
+	width: 200px;
 	top: 20%;
 	position: absolute;
+}
+
+#leftMenu button {
+	width: 150px;
+	font-size: 13px;
+	height: 25px;
 	text-align: left;
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
@@ -110,4 +114,9 @@ button {
 	text-align: center;
 	left: 25%;
 	right: 25%;
+}
+
+#disabled {
+	background-color: #e1e1e2;
+	color: grey;
 }
