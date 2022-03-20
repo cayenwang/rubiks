@@ -550,10 +550,11 @@ function doSolve() {
     (function loop(i) {
         setTimeout(function () {
             if (startStop && solutionIndex < solution.length) {
-                console.log(solution[solutionIndex])
                 completeTurn(solution[solutionIndex])
+                //setTimeout(function () {
+                updateNotationText(solution[solutionIndex])
+                //}, 500)
                 solutionIndex += 1
-                console.log(solutionIndex)
                 let progressBarWidth = document.getElementById('bar').offsetWidth
                 progressBarWidth = (progressBarWidth - 20) * solutionIndex / solution.length + 20
                 document.getElementById("progress").style.width = progressBarWidth + 'px';
@@ -565,8 +566,56 @@ function doSolve() {
                 play()
                 return
             } else { loop(i) }
-        }, 500)
+        }, 1000)
     })(1000)
+}
+
+function updateNotationText(move) {
+    let faceToText = {
+        "R": "<b>right</b> face",
+        "L": "<b>left</b> face",
+        "U": "<b>top</b> face",
+        "D": "<b>bottom</b> face",
+        "F": "<b>front</b> face",
+        "B": "<b>back</b> face",
+        "M": "<b>middle</b> slice",
+        "E": "<b>equatorial</b> slice",
+        "S": "<b>standing</b> slice",
+        "X": "<b>whole cube</b>",
+        "Y": "<b>whole cube</b>",
+        "Z": "<b>whole cube</b>",
+        "r": "<b>two right</b> layers",
+        "l": "<b>two left</b> layers",
+        "u": "<b>two top</b> layers",
+        "d": "<b>two bottom</b> layers",
+        "f": "<b>two front</b> layers",
+        "b": "<b>two back</b> layers",
+    }
+    let angleToText = {
+        "1": "<b>90</b> degrees <b>clockwise</b>",
+        "'": "<b>90</b> degrees <b>anticlockwise</b>",
+        "2": "<b>180</b> degrees",
+    }
+    let face = move[0]
+    let angle
+    if (move.length == 1) { angle = 1 }
+    else { angle = move[1] }
+    let text = "Turn the " + faceToText[face] + " " + angleToText[angle]
+    document.getElementById("solutionExplanation").innerHTML = text
+}
+
+let notationToggle = false
+document.getElementById("solutionExplanation").style.display = "none";
+document.getElementById("longInstruction").addEventListener("click", displayLong);
+function displayLong() {
+    notationToggle = !notationToggle
+    if (notationToggle) {
+        document.getElementById("solutionExplanation").style.display = "block";
+        document.getElementById("solutionText").style.display = "none";
+    } else {
+        document.getElementById("solutionExplanation").style.display = "none";
+        document.getElementById("solutionText").style.display = "block";
+    }
 }
 
 document.getElementById("playPause").style.display = "none";
@@ -647,15 +696,15 @@ function play() {
     startStop = !startStop
     if (startStop) {
         document.getElementById("playPause").innerHTML = "Pause"
-        for (var i = 1; i < document.getElementById("basicMoves").children.length; i++) {
+        for (var i = 0; i < document.getElementById("basicMoves").children.length; i++) {
             document.getElementById("basicMoves").children[i].style.backgroundColor = "#e1e1e2"
             document.getElementById("basicMoves").children[i].disabled = true;
         }
-        for (var i = 1; i < document.getElementById("leftMoves").children.length; i++) {
+        for (var i = 0; i < document.getElementById("leftMoves").children.length; i++) {
             document.getElementById("leftMoves").children[i].style.backgroundColor = "#e1e1e2"
             document.getElementById("leftMoves").children[i].disabled = true;
         }
-        for (var i = 1; i < document.getElementById("bottomMoves").children.length; i++) {
+        for (var i = 0; i < document.getElementById("bottomMoves").children.length; i++) {
             document.getElementById("bottomMoves").children[i].style.backgroundColor = "#e1e1e2"
             document.getElementById("bottomMoves").children[i].disabled = true;
         }
@@ -667,15 +716,15 @@ function play() {
         document.getElementById("randomScramble").disabled = true;
     } else {
         document.getElementById("playPause").innerHTML = "Play"
-        for (var i = 1; i < document.getElementById("basicMoves").children.length; i++) {
+        for (var i = 0; i < document.getElementById("basicMoves").children.length; i++) {
             document.getElementById("basicMoves").children[i].style.backgroundColor = "#ffe8dc"
             document.getElementById("basicMoves").children[i].disabled = false;
         }
-        for (var i = 1; i < document.getElementById("leftMoves").children.length; i++) {
+        for (var i = 0; i < document.getElementById("leftMoves").children.length; i++) {
             document.getElementById("leftMoves").children[i].style.backgroundColor = "#fcd1b8"
             document.getElementById("leftMoves").children[i].disabled = false;
         }
-        for (var i = 1; i < document.getElementById("bottomMoves").children.length; i++) {
+        for (var i = 0; i < document.getElementById("bottomMoves").children.length; i++) {
             document.getElementById("bottomMoves").children[i].style.backgroundColor = "#fcd1b8"
             document.getElementById("bottomMoves").children[i].disabled = false;
         }
@@ -693,6 +742,7 @@ document.getElementById("stepForward").addEventListener("click", forwardOneMove)
 function forwardOneMove() {
     let solution = exportSolution["moves"];
     console.log(solution[solutionIndex])
+    updateNotationText(solution[solutionIndex])
     completeTurn(solution[solutionIndex])
     solutionIndex += 1
     console.log(solutionIndex)
@@ -724,6 +774,7 @@ function backwardOneMove() {
     let inverseDirection = inverse[direction]
     inverseMove = inverseMove + inverseDirection
     console.log(inverseMove)
+    updateNotationText(solution[solutionIndex])
     completeTurn(inverseMove)
     let progressBarWidth = document.getElementById('bar').offsetWidth
     progressBarWidth = (progressBarWidth - 20) * solutionIndex / solution.length + 20
