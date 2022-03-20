@@ -509,6 +509,14 @@ Page
 
 let cubeState
 let solutionIndex = 0
+let solution
+
+function updates() {
+    console.log(solution)
+    updateNotationText(solution[solutionIndex])
+    updateHighlighting()
+    updateProgressBar()
+}
 
 document.getElementById("submitCubeScramble").addEventListener("click", submit);
 function submit() {
@@ -545,14 +553,12 @@ function validateScramble(scramble) {
 }
 
 function doSolve() {
-    let solution = exportSolution["moves"];
     (function loop(i) {
         setTimeout(function () {
             if (startStop && solutionIndex < solution.length) {
                 completeTurn(solution[solutionIndex])
-                updateNotationText(solution[solutionIndex])
+                updates()
                 solutionIndex += 1
-                updateProgressBar()
                 if (--i) loop(i)
             } else if (solutionIndex == solution.length) {
                 document.getElementById("wholeSolve").style.display = "inline"
@@ -565,8 +571,14 @@ function doSolve() {
     })(1000)
 }
 
+function updateHighlighting() {
+    solution[solutionIndex] = '<mark>' + solution[solutionIndex] + "</mark>"
+    showSolution(solution)
+    solution[solutionIndex] = solution[solutionIndex].replace("<mark>", "")
+    solution[solutionIndex] = solution[solutionIndex].replace("</mark>", "")
+}
+
 function updateProgressBar() {
-    let solution = exportSolution["moves"];
     let progressBarWidth = document.getElementById('bar').offsetWidth
     progressBarWidth = (progressBarWidth - 20) * solutionIndex / solution.length + 20
     document.getElementById("progress").style.width = progressBarWidth + 'px';
@@ -627,14 +639,18 @@ function overallSolve() {
     document.getElementById("playPause").style.display = "inline"
     setTimeout(() => {
         doSolve();
-        let showSolution = ""
-        let solution = exportSolution["moves"]
-        for (var move in solution) {
-            showSolution = showSolution.concat(solution[move], " ")
-        }
-        document.getElementById("solutionText").innerHTML = showSolution
+        solution = exportSolution["moves"];
+        showSolution(solution)
         document.getElementById("solutionText").style.display = "inline";
     }, 2000)
+}
+
+function showSolution(solution) {
+    let showSolution = ""
+    for (var move in solution) {
+        showSolution = showSolution.concat(solution[move], " ")
+    }
+    document.getElementById("solutionText").innerHTML = showSolution
 }
 
 function randomScramble() {
@@ -735,16 +751,11 @@ function play() {
     }
 }
 
-
 document.getElementById("stepForward").addEventListener("click", forwardOneMove);
 function forwardOneMove() {
-    let solution = exportSolution["moves"];
-    console.log(solution[solutionIndex])
-    updateNotationText(solution[solutionIndex])
     completeTurn(solution[solutionIndex])
+    updates()
     solutionIndex += 1
-    console.log(solutionIndex)
-    updateProgressBar()
     if (solutionIndex == solution.length) {
         document.getElementById("wholeSolve").style.display = "inline"
         document.getElementById("playPause").style.display = "none"
@@ -754,8 +765,6 @@ function forwardOneMove() {
 document.getElementById("stepBackward").addEventListener("click", backwardOneMove);
 function backwardOneMove() {
     solutionIndex -= 1
-    console.log(solutionIndex)
-    let solution = exportSolution["moves"];
     let move = solution[solutionIndex]
     let inverseMove = move[0]
     let direction
@@ -769,10 +778,8 @@ function backwardOneMove() {
     } else { direction = 1 }
     let inverseDirection = inverse[direction]
     inverseMove = inverseMove + inverseDirection
-    console.log(inverseMove)
-    updateNotationText(solution[solutionIndex])
     completeTurn(inverseMove)
-    updateProgressBar()
+    updates()
 }
 
 let backToggle = false
