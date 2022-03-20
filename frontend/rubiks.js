@@ -281,7 +281,7 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
     var textMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
     let labelText = ["U", "L", "F", "R", "B", "D"]
     let labelPosition = [[-5, -34, -5], [-34, 5, 5], [-5, 5, -34], [34, 5, -5], [5, 5, 34], [-5, 34, 5]]
-
+    let labelRotation = [[1, 0, 0], [2, 3, 0], [2, 0, 0], [2, 1, 0], [2, 2, 0], [3, 0, 0]]
     loader.load('./three.js-dev/examples/fonts/helvetiker_bold.typeface.json', function (font) {
         for (var i in labelText) {
             var textGeometry = new TextGeometry(labelText[i], {
@@ -294,6 +294,9 @@ function buildCube(state = "wwwwwwwwwooooooooogggggggggrrrrrrrrrbbbbbbbbbyyyyyyy
             label.position.x = labelPosition[i][0];
             label.position.y = labelPosition[i][1];
             label.position.z = labelPosition[i][2];
+            label.rotation.x = labelRotation[i][0] * Math.PI / 2;
+            label.rotation.y = labelRotation[i][1] * Math.PI / 2;
+            label.rotation.z = labelRotation[i][2] * Math.PI / 2;
 
             scene.add(label);
         };
@@ -461,10 +464,22 @@ function completeTurn(face) {
     document.getElementById("TurnM").addEventListener("click", function () { completeTurn("M") });
     document.getElementById("TurnE").addEventListener("click", function () { completeTurn("E") });
     document.getElementById("TurnS").addEventListener("click", function () { completeTurn("S") });
+    document.getElementById("TurnM'").addEventListener("click", function () { completeTurn("M'") });
+    document.getElementById("TurnE'").addEventListener("click", function () { completeTurn("E'") });
+    document.getElementById("TurnS'").addEventListener("click", function () { completeTurn("S'") });
+    document.getElementById("TurnM2").addEventListener("click", function () { completeTurn("M2") });
+    document.getElementById("TurnE2").addEventListener("click", function () { completeTurn("E2") });
+    document.getElementById("TurnS2").addEventListener("click", function () { completeTurn("S2") });
 
     document.getElementById("TurnX").addEventListener("click", function () { completeTurn("X") });
     document.getElementById("TurnY").addEventListener("click", function () { completeTurn("Y") });
     document.getElementById("TurnZ").addEventListener("click", function () { completeTurn("Z") });
+    document.getElementById("TurnX'").addEventListener("click", function () { completeTurn("X'") });
+    document.getElementById("TurnY'").addEventListener("click", function () { completeTurn("Y'") });
+    document.getElementById("TurnZ'").addEventListener("click", function () { completeTurn("Z'") });
+    document.getElementById("TurnX2").addEventListener("click", function () { completeTurn("X2") });
+    document.getElementById("TurnY2").addEventListener("click", function () { completeTurn("Y2") });
+    document.getElementById("TurnZ2").addEventListener("click", function () { completeTurn("Z2") });
 
     document.getElementById("Turnr").addEventListener("click", function () { completeTurn("r") });
     document.getElementById("Turnl").addEventListener("click", function () { completeTurn("l") });
@@ -472,6 +487,18 @@ function completeTurn(face) {
     document.getElementById("Turnu").addEventListener("click", function () { completeTurn("u") });
     document.getElementById("Turnb").addEventListener("click", function () { completeTurn("b") });
     document.getElementById("Turnf").addEventListener("click", function () { completeTurn("f") });
+    document.getElementById("Turnr'").addEventListener("click", function () { completeTurn("r'") });
+    document.getElementById("Turnl'").addEventListener("click", function () { completeTurn("l'") });
+    document.getElementById("Turnd'").addEventListener("click", function () { completeTurn("d'") });
+    document.getElementById("Turnu'").addEventListener("click", function () { completeTurn("u'") });
+    document.getElementById("Turnb'").addEventListener("click", function () { completeTurn("b'") });
+    document.getElementById("Turnf'").addEventListener("click", function () { completeTurn("f'") });
+    document.getElementById("Turnr2").addEventListener("click", function () { completeTurn("r2") });
+    document.getElementById("Turnl2").addEventListener("click", function () { completeTurn("l2") });
+    document.getElementById("Turnd2").addEventListener("click", function () { completeTurn("d2") });
+    document.getElementById("Turnu2").addEventListener("click", function () { completeTurn("u2") });
+    document.getElementById("Turnb2").addEventListener("click", function () { completeTurn("b2") });
+    document.getElementById("Turnf2").addEventListener("click", function () { completeTurn("f2") });
 }
 
 /*
@@ -507,19 +534,14 @@ function validateScramble(scramble) {
     let allowedAngles = ["'", "2"]
     for (var i in scrambleList) {
         let temp = scrambleList[i]
-        console.log(temp)
         if (allowedFaces.includes(temp[0]) == false) {
-            console.log("in 1")
             result = false
         } else if (temp.length > 2) {
-            console.log("in 2")
             result = false
         } else if (temp.length == 2 && allowedAngles.includes(temp[1]) == false) {
-            console.log("in 3")
             result = false
         }
     }
-    console.log(result)
     return result
 }
 
@@ -625,9 +647,17 @@ function play() {
     startStop = !startStop
     if (startStop) {
         document.getElementById("playPause").innerHTML = "Pause"
-        for (var i = 1; i < document.getElementById("moveButtons").children.length; i++) {
-            document.getElementById("moveButtons").children[i].style.backgroundColor = "#e1e1e2"
-            document.getElementById("moveButtons").children[i].disabled = true;
+        for (var i = 1; i < document.getElementById("basicMoves").children.length; i++) {
+            document.getElementById("basicMoves").children[i].style.backgroundColor = "#e1e1e2"
+            document.getElementById("basicMoves").children[i].disabled = true;
+        }
+        for (var i = 1; i < document.getElementById("leftMoves").children.length; i++) {
+            document.getElementById("leftMoves").children[i].style.backgroundColor = "#e1e1e2"
+            document.getElementById("leftMoves").children[i].disabled = true;
+        }
+        for (var i = 1; i < document.getElementById("bottomMoves").children.length; i++) {
+            document.getElementById("bottomMoves").children[i].style.backgroundColor = "#e1e1e2"
+            document.getElementById("bottomMoves").children[i].disabled = true;
         }
         document.getElementById("stepForward").style.backgroundColor = "#e1e1e2"
         document.getElementById("stepForward").disabled = true;
@@ -637,9 +667,17 @@ function play() {
         document.getElementById("randomScramble").disabled = true;
     } else {
         document.getElementById("playPause").innerHTML = "Play"
-        for (var i = 1; i < document.getElementById("moveButtons").children.length; i++) {
-            document.getElementById("moveButtons").children[i].style.backgroundColor = "#fcd1b8"
-            document.getElementById("moveButtons").children[i].disabled = false;
+        for (var i = 1; i < document.getElementById("basicMoves").children.length; i++) {
+            document.getElementById("basicMoves").children[i].style.backgroundColor = "#ffe8dc"
+            document.getElementById("basicMoves").children[i].disabled = false;
+        }
+        for (var i = 1; i < document.getElementById("leftMoves").children.length; i++) {
+            document.getElementById("leftMoves").children[i].style.backgroundColor = "#fcd1b8"
+            document.getElementById("leftMoves").children[i].disabled = false;
+        }
+        for (var i = 1; i < document.getElementById("bottomMoves").children.length; i++) {
+            document.getElementById("bottomMoves").children[i].style.backgroundColor = "#fcd1b8"
+            document.getElementById("bottomMoves").children[i].disabled = false;
         }
         document.getElementById("stepForward").style.backgroundColor = "#fcd1b8"
         document.getElementById("stepForward").disabled = false;
@@ -704,6 +742,43 @@ function showBack() {
         for (var square in allFloats) {
             allFloats[square].visible = false
         }
+    }
+}
+
+let howToToggle = false
+document.getElementById("howTo").style.display = "none";
+document.getElementById("showHowTo").addEventListener("click", showHowTo);
+function showHowTo() {
+    howToToggle = !howToToggle
+    if (howToToggle) {
+        document.getElementById("howTo").style.display = "block";
+    } else {
+        document.getElementById("howTo").style.display = "none";
+    }
+}
+
+let moreMovesToggle = false
+document.getElementById("bottomMoves").style.display = "none";
+document.getElementById("leftMoves").style.display = "none";
+document.getElementById("moreMoves").addEventListener("click", showMoreMoves);
+function showMoreMoves() {
+    moreMovesToggle = !moreMovesToggle
+    if (moreMovesToggle) {
+        document.getElementById("bottomMoves").style.display = "block";
+        document.getElementById("leftMoves").style.display = "block";
+        document.getElementById("moveButtons").style.width = "320px";
+        document.getElementById("moveButtons").style.height = "350px";
+        document.getElementById("movesTitle").innerHTML = "All Moves";
+        document.getElementById("moreMoves").style.top = "20px";
+        document.getElementById("moreMoves").innerHTML = "Show Fewer Moves";
+    } else {
+        document.getElementById("bottomMoves").style.display = "none";
+        document.getElementById("leftMoves").style.display = "none";
+        document.getElementById("moveButtons").style.width = "160px";
+        document.getElementById("moveButtons").style.height = "240px";
+        document.getElementById("movesTitle").innerHTML = "Basic Moves";
+        document.getElementById("moreMoves").style.top = "225px";
+        document.getElementById("moreMoves").innerHTML = "Show More Moves";
     }
 }
 
