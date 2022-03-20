@@ -517,7 +517,6 @@ function submit() {
         getCubeState(cubeScramble)
         setTimeout(() => {
             cubeState = exportCubeState["cubeState"]
-            console.log("cubestate", cubeState)
             for (let i = scene.children.length - 1; i >= 0; i--) {
                 if (scene.children[i].type === "Mesh")
                     scene.remove(scene.children[i]);
@@ -551,13 +550,9 @@ function doSolve() {
         setTimeout(function () {
             if (startStop && solutionIndex < solution.length) {
                 completeTurn(solution[solutionIndex])
-                //setTimeout(function () {
                 updateNotationText(solution[solutionIndex])
-                //}, 500)
                 solutionIndex += 1
-                let progressBarWidth = document.getElementById('bar').offsetWidth
-                progressBarWidth = (progressBarWidth - 20) * solutionIndex / solution.length + 20
-                document.getElementById("progress").style.width = progressBarWidth + 'px';
+                updateProgressBar()
                 if (--i) loop(i)
             } else if (solutionIndex == solution.length) {
                 document.getElementById("wholeSolve").style.display = "inline"
@@ -568,6 +563,13 @@ function doSolve() {
             } else { loop(i) }
         }, 1000)
     })(1000)
+}
+
+function updateProgressBar() {
+    let solution = exportSolution["moves"];
+    let progressBarWidth = document.getElementById('bar').offsetWidth
+    progressBarWidth = (progressBarWidth - 20) * solutionIndex / solution.length + 20
+    document.getElementById("progress").style.width = progressBarWidth + 'px';
 }
 
 function updateNotationText(move) {
@@ -605,7 +607,6 @@ function updateNotationText(move) {
 }
 
 let notationToggle = false
-document.getElementById("solutionExplanation").style.display = "none";
 document.getElementById("longInstruction").addEventListener("click", displayLong);
 function displayLong() {
     notationToggle = !notationToggle
@@ -618,8 +619,6 @@ function displayLong() {
     }
 }
 
-document.getElementById("playPause").style.display = "none";
-document.getElementById("solutionText").style.display = "none";
 document.getElementById("wholeSolve").addEventListener("click", overallSolve);
 function overallSolve() {
     solveCube(exportCubeState["cubeState"])
@@ -678,7 +677,6 @@ function randomAndSubmit() {
     submit()
 }
 
-document.getElementById("scrambleForm").style.display = "none";
 let displayForm = false
 document.getElementById("inputScramble").addEventListener("click", showForm);
 function showForm() {
@@ -746,9 +744,7 @@ function forwardOneMove() {
     completeTurn(solution[solutionIndex])
     solutionIndex += 1
     console.log(solutionIndex)
-    let progressBarWidth = document.getElementById('bar').offsetWidth
-    progressBarWidth = (progressBarWidth - 20) * solutionIndex / solution.length + 20
-    document.getElementById("progress").style.width = progressBarWidth + 'px';
+    updateProgressBar()
     if (solutionIndex == solution.length) {
         document.getElementById("wholeSolve").style.display = "inline"
         document.getElementById("playPause").style.display = "none"
@@ -776,9 +772,7 @@ function backwardOneMove() {
     console.log(inverseMove)
     updateNotationText(solution[solutionIndex])
     completeTurn(inverseMove)
-    let progressBarWidth = document.getElementById('bar').offsetWidth
-    progressBarWidth = (progressBarWidth - 20) * solutionIndex / solution.length + 20
-    document.getElementById("progress").style.width = progressBarWidth + 'px';
+    updateProgressBar()
 }
 
 let backToggle = false
@@ -797,7 +791,6 @@ function showBack() {
 }
 
 let howToToggle = false
-document.getElementById("howTo").style.display = "none";
 document.getElementById("showHowTo").addEventListener("click", showHowTo);
 function showHowTo() {
     howToToggle = !howToToggle
@@ -809,8 +802,6 @@ function showHowTo() {
 }
 
 let moreMovesToggle = false
-document.getElementById("bottomMoves").style.display = "none";
-document.getElementById("leftMoves").style.display = "none";
 document.getElementById("moreMoves").addEventListener("click", showMoreMoves);
 function showMoreMoves() {
     moreMovesToggle = !moreMovesToggle
