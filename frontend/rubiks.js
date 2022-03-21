@@ -512,6 +512,7 @@ let solutionIndex = 0
 let solution
 
 function updates() {
+    console.log(solution)
     updateNotationText(solution[solutionIndex])
     updateHighlighting()
     updateProgressBar()
@@ -573,8 +574,6 @@ function doSolve() {
 function updateHighlighting() {
     solution[solutionIndex] = '<mark>' + solution[solutionIndex] + "</mark>"
     showSolution(solution)
-    solution[solutionIndex] = solution[solutionIndex].replace("<mark>", "")
-    solution[solutionIndex] = solution[solutionIndex].replace("</mark>", "")
 }
 
 function updateProgressBar() {
@@ -633,6 +632,7 @@ function displayLong() {
 document.getElementById("wholeSolve").addEventListener("click", overallSolve);
 function overallSolve() {
     solveCube(exportCubeState["cubeState"])
+    console.log(exportCubeState["cubeState"])
     document.getElementById("wholeSolve").style.display = "none"
     document.getElementById("playPause").style.display = "inline"
     setTimeout(() => {
@@ -679,6 +679,7 @@ function randomScramble() {
         scramble = scramble.concat(indexToMove[index], " ")
     }
     scramble = scramble.slice(0, -1)
+    console.log(scramble)
 
     return scramble
 }
