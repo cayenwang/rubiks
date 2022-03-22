@@ -362,6 +362,7 @@ function onWindowResize() {
 Functionality
 =========================================================================================
 */
+let speed = 50
 
 function findSquaresToTurn() {
     let resultSquaresToTurn = []
@@ -397,7 +398,7 @@ function turnSquares() {
     let targetAxis = exportAxis
     let targetAngle = exportAngle
 
-    let divider = 30
+    let divider = 100 - speed // determines speed of the turn itself
     //rotates the layer
     function rotator() {
         //define the axis and angle of rotation
@@ -512,7 +513,6 @@ let solutionIndex = 0
 let solution
 
 function updates() {
-    console.log(solution)
     updateNotationText(solution[solutionIndex])
     updateHighlighting()
     updateProgressBar()
@@ -567,13 +567,15 @@ function doSolve() {
                 play()
                 return
             } else { loop(i) }
-        }, 1000)
+        }, 5000) // MIN 500 determines time between when the move starts
     })(1000)
 }
 
 function updateHighlighting() {
     solution[solutionIndex] = '<mark>' + solution[solutionIndex] + "</mark>"
     showSolution(solution)
+    solution[solutionIndex] = solution[solutionIndex].replace("<mark>", "")
+    solution[solutionIndex] = solution[solutionIndex].replace("</mark>", "")
 }
 
 function updateProgressBar() {
@@ -632,14 +634,13 @@ function displayLong() {
 document.getElementById("wholeSolve").addEventListener("click", overallSolve);
 function overallSolve() {
     solveCube(exportCubeState["cubeState"])
-    console.log(exportCubeState["cubeState"])
-    document.getElementById("wholeSolve").style.display = "none"
-    document.getElementById("playPause").style.display = "inline"
     setTimeout(() => {
         doSolve();
         solution = exportSolution["moves"];
         showSolution(solution)
         document.getElementById("solutionText").style.display = "inline";
+        document.getElementById("wholeSolve").style.display = "none"
+        document.getElementById("playPause").style.display = "inline"
     }, 2000)
 }
 
@@ -679,7 +680,6 @@ function randomScramble() {
         scramble = scramble.concat(indexToMove[index], " ")
     }
     scramble = scramble.slice(0, -1)
-    console.log(scramble)
 
     return scramble
 }
@@ -829,3 +829,8 @@ function showMoreMoves() {
     }
 }
 
+document.getElementById("speedSlider").addEventListener("input", updateSpeed);
+function updateSpeed() {
+    speed = document.getElementById("speedSlider").value;
+    console.log(speed)
+}

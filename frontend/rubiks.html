@@ -81,10 +81,17 @@
 		<p id=solutionExplanation>longInstruction</p>
 	</div>
 
-	<div id="progressBar">
-		<div id="progress">&nbsp</div>
-		<div id="bar">&nbsp</div>
+	<div id="bottomBars">
+		<div id="progressBar">
+			<div id="progress">&nbsp</div>
+			<div id="bar">&nbsp</div>
+		</div>
+
+		<div>
+			<input type="range" min="1" max="100" value="50" class="slider" id="speedSlider">
+		</div>
 	</div>
+
 	<div id="scrambleSolve">
 		<button type="button" id="stepBackward" class="stepButton">&#60;</button>
 		<button type="button" id="randomScramble">Scramble</button>
