@@ -398,7 +398,7 @@ function turnSquares() {
     let targetAxis = exportAxis
     let targetAngle = exportAngle
 
-    let divider = 100 - speed // determines speed of the turn itself
+    let divider = speed // determines speed of the turn itself
     //rotates the layer
     function rotator() {
         //define the axis and angle of rotation
@@ -567,7 +567,7 @@ function doSolve() {
                 play()
                 return
             } else { loop(i) }
-        }, 5000) // MIN 500 determines time between when the move starts
+        }, speed * 20) // MIN 500 determines time between when the move starts
     })(1000)
 }
 
@@ -831,6 +831,6 @@ function showMoreMoves() {
 
 document.getElementById("speedSlider").addEventListener("input", updateSpeed);
 function updateSpeed() {
-    speed = document.getElementById("speedSlider").value;
+    speed = 100 - document.getElementById("speedSlider").value;
     console.log(speed)
 }
