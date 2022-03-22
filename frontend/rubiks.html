@@ -82,11 +82,12 @@
 	</div>
 
 	<div id="bottomBars">
+		Progress:
 		<div id="progressBar">
 			<div id="progress">&nbsp</div>
 			<div id="bar">&nbsp</div>
 		</div>
-
+		Animation Speed:
 		<div>
 			<input type="range" min="2" max="80" value="40" step="2" class="slider" id="speedSlider">
 		</div>
@@ -102,6 +103,7 @@
 
 	<div id="leftMenu">
 		<button type="button" id="showHowTo">&nbsp&nbspHow to use this &nbsp&nbspprogram</button>
+		<button type="button" id="showNotation">&nbsp&nbspNotation Definitions</button>
 		<button type="button" id="inputScramble">&nbsp&nbspType Scramble</button>
 		<button type="button" id="showBackSides">&nbsp&nbspShow Back Sides</button>
 		<button type="button" id="longInstruction">&nbsp&nbspDisplay Long &nbsp&nbspInstructions</button>
@@ -116,13 +118,63 @@
 	<div id=howTo>
 		<h1>How to use:</h1>
 		<ul>
-			<li>"All Moves" on the right hand side contains a menu of all the moves that are
-				possible to carry out on a Rubik's Cube. Click one to see the move in action!</li>
-			<li>The left hand side shows some helpful features. Clicking "Input Scramble" will
-				bring up an input box where you can type in a scramble. Click "Submit" to apply
-				your typed scramble to the cube!</li>
-			<li>CARRY ON HERE :)</li>
+			<li>The "Basic Moves" menu on the right hand side contains a list of moves that are
+				possible to carry out on a Rubik's Cube. You can expand this menu by clicking
+				"Show More Moves". Click one to see the move in action!</li>
+			<li>You can drag about the centre cube to have a look at all its sides</li>
+			<li>Click "Scramble" at the bottom of the page to apply a random scramble to the cube.</li>
+			<li>Then, click "Solve" and a calculated solution will appear on the screen</li>
+			<li>Pressing "Play" will show you the solution to the scramble and you can pause it at
+				any time. You can also use the arrow buttons to step forwards or backwards a step
+				in case you get lost.</li>
+			<li>There are two bars at the bottom. The top bar is a progress bar and shows you how far
+				through the solution you are. The second controls the speed of the animation so you
+				can slow it down or speed it up as you like.</li>
+			<li>The left hand side shows some helpful features.
+				<ul>
+					<li>"How to use this program" will bring up this box for if you ever need a
+						reminder of the features</li>
+					<li>"Notation Definitions" will display a popup with the definitions of all
+						the notations you see</li>
+					<li>Clicking "Type Scramble" will bring up an input box where you can type
+						in a scramble. Click "Submit" to apply it to the cube</li>
+					<li>"Show back sides" will show you a projection of the back sides of the cube
+						so you always know what is going on on the other side. Click the button to
+						see and click the button again to toggle it off.</li>
+					<li>If the notation format of the solution is hard to understand, you can click
+						"Display Long Instructions" to replace the notation format solution with
+						easier to understand instructions</li>
+				</ul>
+			</li>
 		</ul>
+		<button type="button" id="closePopup">Close</button>
+	</div>
+
+	<div id=notationPopup>
+		<h1>Notation Definitions:</h1>
+		<ul>
+			<li>Cubing notation involves the letters R, U, L, D, B and F (and this list can be
+				extended to include M, E, S, X, Y, Z) where each letter refers to a different face
+				of the cube.
+				<ul>
+					<li>R : right</li>
+					<li>L : left</li>
+					<li>U : up (top)</li>
+					<li>D : down (bottom)</li>
+					<li>F : front</li>
+					<li>B : back</li>
+				</ul>
+			</li>
+			<li>Each of these letters can come in three forms (R, R', R2).
+				<ul>
+					<li>A letter on its own refers to a 90 degree clockwise rotation of that layer</li>
+					<li>An apostrophe refers to the inverse of the move, and hence a 90 degree
+						anticlockwise rotation</li>
+					<li>The number 2 refers to a double rotation, and hence a 180 degree rotation</li>
+				</ul>
+			</li>
+		</ul>
+		<button type="button" id="closeNotation">Close</button>
 	</div>
 
 

@@ -797,12 +797,25 @@ function showBack() {
 
 let howToToggle = false
 document.getElementById("showHowTo").addEventListener("click", showHowTo);
+document.getElementById("closePopup").addEventListener("click", showHowTo);
 function showHowTo() {
     howToToggle = !howToToggle
     if (howToToggle) {
         document.getElementById("howTo").style.display = "block";
     } else {
         document.getElementById("howTo").style.display = "none";
+    }
+}
+
+let notationPopupToggle = false
+document.getElementById("closeNotation").addEventListener("click", showNotation);
+document.getElementById("showNotation").addEventListener("click", showNotation);
+function showNotation() {
+    notationPopupToggle = !notationPopupToggle
+    if (notationPopupToggle) {
+        document.getElementById("notationPopup").style.display = "block";
+    } else {
+        document.getElementById("notationPopup").style.display = "none";
     }
 }
 

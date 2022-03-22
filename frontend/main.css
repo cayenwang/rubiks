@@ -82,7 +82,7 @@ button {
 	text-align: center;
 	left: 30%;
 	right: 30%;
-	line-height: 50px;
+	line-height: 30px;
 }
 
 #progressBar {
@@ -189,10 +189,23 @@ button {
 #howTo {
 	position: absolute;
 	top: 10%;
-	text-align: center;
+	text-align: left;
 	left: 10%;
 	right: 10%;
-	background-color: #fcd1b8;
+	background-color: #ffe8dc ;
+	border: 2px solid #e8b295;
+	border-radius: 20px;
+	padding: 15px;
+	display: inline;
+}
+
+#notationPopup {
+	position: absolute;
+	top: 10%;
+	right: 10%;
+	text-align: left;
+	left: 10%;
+	background-color: #ffe8dc;
 	border: 2px solid #e8b295;
 	border-radius: 20px;
 	padding: 15px;
