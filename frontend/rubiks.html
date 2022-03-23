@@ -2,182 +2,192 @@
 <html lang="en">
 
 <head>
-	<title>rubiks</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	<script type="module" type="text/javascript" src="./rubiks.js"></script>
-	<script type="module" type="text/javascript" src="./networking.js"></script>
-	<link type="text/css" rel="stylesheet" href="./main.css">
+<title>rubiks</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<!--External files-->
+<script type="module" type="text/javascript" src="./rubiks.js"></script>
+<script type="module" type="text/javascript" src="./networking.js"></script>
+<link type="text/css" rel="stylesheet" href="./main.css">
 </head>
 
 <body>
-	<div id=moveButtons>
-		<h1 id="movesTitle">Basic Moves:</h1>
-		<div id=basicMoves>
-			<button type="button" id="TurnR" class="move">R</button>
-			<button type="button" id="TurnR'" class="move">R'</button>
-			<button type="button" id="TurnR2" class="move">R2</button>
-			<button type="button" id="TurnL" class="move">L</button>
-			<button type="button" id="TurnL'" class="move">L'</button>
-			<button type="button" id="TurnL2" class="move">L2</button>
-			<button type="button" id="TurnD" class="move">D</button>
-			<button type="button" id="TurnD'" class="move">D'</button>
-			<button type="button" id="TurnD2" class="move">D2</button>
-			<button type="button" id="TurnU" class="move">U</button>
-			<button type="button" id="TurnU'" class="move">U'</button>
-			<button type="button" id="TurnU2" class="move">U2</button>
-			<button type="button" id="TurnB" class="move">B</button>
-			<button type="button" id="TurnB'" class="move">B'</button>
-			<button type="button" id="TurnB2" class="move">B2</button>
-			<button type="button" id="TurnF" class="move">F</button>
-			<button type="button" id="TurnF'" class="move">F'</button>
-			<button type="button" id="TurnF2" class="move">F2</button>
-		</div>
-		<div id="leftMoves">
-			<button type="button" id="Turnr" class="move">r</button>
-			<button type="button" id="Turnr'" class="move">r'</button>
-			<button type="button" id="Turnr2" class="move">r2</button>
-			<button type="button" id="Turnl" class="move">l</button>
-			<button type="button" id="Turnl'" class="move">l'</button>
-			<button type="button" id="Turnl2" class="move">l2</button>
-			<button type="button" id="Turnd" class="move">d</button>
-			<button type="button" id="Turnd'" class="move">d'</button>
-			<button type="button" id="Turnd2" class="move">d2</button>
-			<button type="button" id="Turnu" class="move">u</button>
-			<button type="button" id="Turnu'" class="move">u'</button>
-			<button type="button" id="Turnu2" class="move">u2</button>
-			<button type="button" id="Turnb" class="move">b</button>
-			<button type="button" id="Turnb'" class="move">b'</button>
-			<button type="button" id="Turnb2" class="move">b2</button>
-			<button type="button" id="Turnf" class="move">f</button>
-			<button type="button" id="Turnf'" class="move">f'</button>
-			<button type="button" id="Turnf2" class="move">f2</button>
-		</div>
-		<div id=bottomMoves>
-			<button type="button" id="TurnM" class="move">M</button>
-			<button type="button" id="TurnM'" class="move">M'</button>
-			<button type="button" id="TurnM2" class="move">M2</button>
-			<button type="button" id="TurnX" class="move">X</button>
-			<button type="button" id="TurnX'" class="move">X'</button>
-			<button type="button" id="TurnX2" class="move">X2</button>
-			<button type="button" id="TurnE" class="move">E</button>
-			<button type="button" id="TurnE'" class="move">E'</button>
-			<button type="button" id="TurnE2" class="move">E2</button>
-			<button type="button" id="TurnY" class="move">Y</button>
-			<button type="button" id="TurnY'" class="move">Y'</button>
-			<button type="button" id="TurnY2" class="move">Y2</button>
-			<button type="button" id="TurnS" class="move">S</button>
-			<button type="button" id="TurnS'" class="move">S'</button>
-			<button type="button" id="TurnS2" class="move">S2</button>
-			<button type="button" id="TurnZ" class="move">Z</button>
-			<button type="button" id="TurnZ'" class="move">Z'</button>
-			<button type="button" id="TurnZ2" class="move">Z2</button>
-		</div>
-		<button type="button" id="moreMoves">Show More Moves</button>
+<!--All the move buttons at the right of the page-->
+<div id=moveButtons>
+	<h1 id="movesTitle">Basic Moves:</h1>
+	<div id=basicMoves>
+		<button type="button" id="TurnR" class="move">R</button>
+		<button type="button" id="TurnR'" class="move">R'</button>
+		<button type="button" id="TurnR2" class="move">R2</button>
+		<button type="button" id="TurnL" class="move">L</button>
+		<button type="button" id="TurnL'" class="move">L'</button>
+		<button type="button" id="TurnL2" class="move">L2</button>
+		<button type="button" id="TurnD" class="move">D</button>
+		<button type="button" id="TurnD'" class="move">D'</button>
+		<button type="button" id="TurnD2" class="move">D2</button>
+		<button type="button" id="TurnU" class="move">U</button>
+		<button type="button" id="TurnU'" class="move">U'</button>
+		<button type="button" id="TurnU2" class="move">U2</button>
+		<button type="button" id="TurnB" class="move">B</button>
+		<button type="button" id="TurnB'" class="move">B'</button>
+		<button type="button" id="TurnB2" class="move">B2</button>
+		<button type="button" id="TurnF" class="move">F</button>
+		<button type="button" id="TurnF'" class="move">F'</button>
+		<button type="button" id="TurnF2" class="move">F2</button>
 	</div>
-
-	<div id="solutionDisplay">
-		<p id=solutionText>shortNotation</p>
-		<p id=solutionExplanation>longInstruction</p>
+	<div id="leftMoves">
+		<button type="button" id="Turnr" class="move">r</button>
+		<button type="button" id="Turnr'" class="move">r'</button>
+		<button type="button" id="Turnr2" class="move">r2</button>
+		<button type="button" id="Turnl" class="move">l</button>
+		<button type="button" id="Turnl'" class="move">l'</button>
+		<button type="button" id="Turnl2" class="move">l2</button>
+		<button type="button" id="Turnd" class="move">d</button>
+		<button type="button" id="Turnd'" class="move">d'</button>
+		<button type="button" id="Turnd2" class="move">d2</button>
+		<button type="button" id="Turnu" class="move">u</button>
+		<button type="button" id="Turnu'" class="move">u'</button>
+		<button type="button" id="Turnu2" class="move">u2</button>
+		<button type="button" id="Turnb" class="move">b</button>
+		<button type="button" id="Turnb'" class="move">b'</button>
+		<button type="button" id="Turnb2" class="move">b2</button>
+		<button type="button" id="Turnf" class="move">f</button>
+		<button type="button" id="Turnf'" class="move">f'</button>
+		<button type="button" id="Turnf2" class="move">f2</button>
 	</div>
-
-	<div id="bottomBars">
-		Progress:
-		<div id="progressBar">
-			<div id="progress">&nbsp</div>
-			<div id="bar">&nbsp</div>
-		</div>
-		Animation Speed:
-		<div>
-			<input type="range" min="2" max="80" value="40" step="2" class="slider" id="speedSlider">
-		</div>
+	<div id=bottomMoves>
+		<button type="button" id="TurnM" class="move">M</button>
+		<button type="button" id="TurnM'" class="move">M'</button>
+		<button type="button" id="TurnM2" class="move">M2</button>
+		<button type="button" id="TurnX" class="move">X</button>
+		<button type="button" id="TurnX'" class="move">X'</button>
+		<button type="button" id="TurnX2" class="move">X2</button>
+		<button type="button" id="TurnE" class="move">E</button>
+		<button type="button" id="TurnE'" class="move">E'</button>
+		<button type="button" id="TurnE2" class="move">E2</button>
+		<button type="button" id="TurnY" class="move">Y</button>
+		<button type="button" id="TurnY'" class="move">Y'</button>
+		<button type="button" id="TurnY2" class="move">Y2</button>
+		<button type="button" id="TurnS" class="move">S</button>
+		<button type="button" id="TurnS'" class="move">S'</button>
+		<button type="button" id="TurnS2" class="move">S2</button>
+		<button type="button" id="TurnZ" class="move">Z</button>
+		<button type="button" id="TurnZ'" class="move">Z'</button>
+		<button type="button" id="TurnZ2" class="move">Z2</button>
 	</div>
+	<button type="button" id="moreMoves">Show More Moves</button>
+</div>
 
-	<div id="scrambleSolve">
-		<button type="button" id="stepBackward" class="stepButton">&#60;</button>
-		<button type="button" id="randomScramble">Scramble</button>
-		<button type="button" id="wholeSolve">Solve</button>
-		<button type="button" id="playPause">Play</button>
-		<button type="button" id="stepForward" class="stepButton">&#62;</button>
+<!--Bars at the bottom of page above buttons-->
+<div id="bottomBars">
+	Progress:
+	<!--Progress bar-->
+	<div id="progressBar">
+		<div id="progress">&nbsp</div>
+		<div id="bar">&nbsp</div>
 	</div>
-
-	<div id="leftMenu">
-		<button type="button" id="showHowTo">&nbsp&nbspHow to use this &nbsp&nbspprogram</button>
-		<button type="button" id="showNotation">&nbsp&nbspNotation Definitions</button>
-		<button type="button" id="inputScramble">&nbsp&nbspType Scramble</button>
-		<button type="button" id="showBackSides">&nbsp&nbspShow Back Sides</button>
-		<button type="button" id="longInstruction">&nbsp&nbspDisplay Long &nbsp&nbspInstructions</button>
+	Animation Speed:
+	<!--Speed slider-->
+	<div>
+		<input type="range" min="2" max="80" value="40" step="2" class="slider" id="speedSlider">
 	</div>
+</div>
 
-	<form id=scrambleForm>
-		<label for="cubeScramble">Cube Scramble</label>
-		<input type="text" id="cubeScramble" value="cubeScramble" size=60>
-		<input type="button" value="Submit" id="submitCubeScramble">
-	</form>
+<!--Buttons at the bottom of page under bars-->
+<div id="scrambleSolve">
+	<button type="button" id="stepBackward" class="stepButton">&#60;</button>
+	<button type="button" id="randomScramble">Scramble</button>
+	<button type="button" id="wholeSolve">Solve</button>
+	<button type="button" id="playPause">Play</button>
+	<button type="button" id="stepForward" class="stepButton">&#62;</button>
+</div>
 
-	<div id=howTo>
-		<h1>How to use:</h1>
-		<ul>
-			<li>The "Basic Moves" menu on the right hand side contains a list of moves that are
-				possible to carry out on a Rubik's Cube. You can expand this menu by clicking
-				"Show More Moves". Click one to see the move in action!</li>
-			<li>You can drag about the centre cube to have a look at all its sides</li>
-			<li>Click "Scramble" at the bottom of the page to apply a random scramble to the cube.</li>
-			<li>Then, click "Solve" and a calculated solution will appear on the screen</li>
-			<li>Pressing "Play" will show you the solution to the scramble and you can pause it at
-				any time. You can also use the arrow buttons to step forwards or backwards a step
-				in case you get lost.</li>
-			<li>There are two bars at the bottom. The top bar is a progress bar and shows you how far
-				through the solution you are. The second controls the speed of the animation so you
-				can slow it down or speed it up as you like.</li>
-			<li>The left hand side shows some helpful features.
-				<ul>
-					<li>"How to use this program" will bring up this box for if you ever need a
-						reminder of the features</li>
-					<li>"Notation Definitions" will display a popup with the definitions of all
-						the notations you see</li>
-					<li>Clicking "Type Scramble" will bring up an input box where you can type
-						in a scramble. Click "Submit" to apply it to the cube</li>
-					<li>"Show back sides" will show you a projection of the back sides of the cube
-						so you always know what is going on on the other side. Click the button to
-						see and click the button again to toggle it off.</li>
-					<li>If the notation format of the solution is hard to understand, you can click
-						"Display Long Instructions" to replace the notation format solution with
-						easier to understand instructions</li>
-				</ul>
-			</li>
-		</ul>
-		<button type="button" id="closePopup">Close</button>
-	</div>
+<!--Bottom of page-->
+<div id="leftMenu">
+	<button type="button" id="showHowTo">&nbsp&nbspHow to use this &nbsp&nbspprogram</button>
+	<button type="button" id="showNotation">&nbsp&nbspNotation Definitions</button>
+	<button type="button" id="inputScramble">&nbsp&nbspType Scramble</button>
+	<button type="button" id="showBackSides">&nbsp&nbspShow Back Sides</button>
+	<button type="button" id="longInstruction">&nbsp&nbspDisplay Long &nbsp&nbspInstructions</button>
+</div>
 
-	<div id=notationPopup>
-		<h1>Notation Definitions:</h1>
-		<ul>
-			<li>Cubing notation involves the letters R, U, L, D, B and F (and this list can be
-				extended to include M, E, S, X, Y, Z) where each letter refers to a different face
-				of the cube.
-				<ul>
-					<li>R : right</li>
-					<li>L : left</li>
-					<li>U : up (top)</li>
-					<li>D : down (bottom)</li>
-					<li>F : front</li>
-					<li>B : back</li>
-				</ul>
-			</li>
-			<li>Each of these letters can come in three forms (R, R', R2).
-				<ul>
-					<li>A letter on its own refers to a 90 degree clockwise rotation of that layer</li>
-					<li>An apostrophe refers to the inverse of the move, and hence a 90 degree
-						anticlockwise rotation</li>
-					<li>The number 2 refers to a double rotation, and hence a 180 degree rotation</li>
-				</ul>
-			</li>
-		</ul>
-		<button type="button" id="closeNotation">Close</button>
-	</div>
+<!--Initially hidden elements-->
+<!--Input scramble-->
+<form id=scrambleForm>
+	<label for="cubeScramble">Cube Scramble</label>
+	<input type="text" id="cubeScramble" value="cubeScramble" size=60>
+	<input type="button" value="Submit" id="submitCubeScramble">
+</form>
 
+<!--Solution output-->
+<div id="solutionDisplay">
+	<p id=solutionText>shortNotation</p>
+	<p id=solutionExplanation>longInstruction</p>
+</div>
 
+<!--How to use the program-->
+<div id=howTo>
+	<h1>How to use:</h1>
+	<ul>
+		<li>The "Basic Moves" menu on the right hand side contains a list of moves that are
+			possible to carry out on a Rubik's Cube. You can expand this menu by clicking
+			"Show More Moves". Click one to see the move in action!</li>
+		<li>You can drag about the centre cube to have a look at all its sides</li>
+		<li>Click "Scramble" at the bottom of the page to apply a random scramble to the cube.</li>
+		<li>Then, click "Solve" and a calculated solution will appear on the screen</li>
+		<li>Pressing "Play" will show you the solution to the scramble and you can pause it at
+			any time. You can also use the arrow buttons to step forwards or backwards a step
+			in case you get lost.</li>
+		<li>There are two bars at the bottom. The top bar is a progress bar and shows you how far
+			through the solution you are. The second controls the speed of the animation so you
+			can slow it down or speed it up as you like.</li>
+		<li>The left hand side shows some helpful features.
+			<ul>
+				<li>"How to use this program" will bring up this box for if you ever need a
+					reminder of the features</li>
+				<li>"Notation Definitions" will display a popup with the definitions of all
+					the notations you see</li>
+				<li>Clicking "Type Scramble" will bring up an input box where you can type
+					in a scramble. Click "Submit" to apply it to the cube</li>
+				<li>"Show back sides" will show you a projection of the back sides of the cube
+					so you always know what is going on on the other side. Click the button to
+					see and click the button again to toggle it off.</li>
+				<li>If the notation format of the solution is hard to understand, you can click
+					"Display Long Instructions" to replace the notation format solution with
+					easier to understand instructions</li>
+			</ul>
+		</li>
+	</ul>
+	<button type="button" id="closePopup">Close</button>
+</div>
+
+<!--Notation Definitions-->
+<div id=notationPopup>
+	<h1>Notation Definitions:</h1>
+	<ul>
+		<li>Cubing notation involves the letters R, U, L, D, B and F (and this list can be
+			extended to include M, E, S, X, Y, Z) where each letter refers to a different face
+			of the cube.
+			<ul>
+				<li>R : right</li>
+				<li>L : left</li>
+				<li>U : up (top)</li>
+				<li>D : down (bottom)</li>
+				<li>F : front</li>
+				<li>B : back</li>
+			</ul>
+		</li>
+		<li>Each of these letters can come in three forms (R, R', R2).
+			<ul>
+				<li>A letter on its own refers to a 90 degree clockwise rotation of that layer</li>
+				<li>An apostrophe refers to the inverse of the move, and hence a 90 degree
+					anticlockwise rotation</li>
+				<li>The number 2 refers to a double rotation, and hence a 180 degree rotation</li>
+			</ul>
+		</li>
+	</ul>
+	<button type="button" id="closeNotation">Close</button>
+</div>
 </body>
 
 </html>

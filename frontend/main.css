@@ -1,3 +1,9 @@
+/*
+=========================================================================================
+Whole page rules
+=========================================================================================
+*/
+
 body {
 	margin: 0;
 	background-color: #fcd1b8;
@@ -19,7 +25,7 @@ mark {
 	font: bold;
 	border-radius: 2px;
 	padding: 5px;
-  }
+}
 
 button {
 	font-size: 15px;
@@ -32,6 +38,14 @@ button {
 	text-align: center;
 	display: inline-block;
 }
+
+/*
+=========================================================================================
+Things that appear on the right of the page
+=========================================================================================
+*/
+
+/* move button menu */
 
 #moveButtons {
 	width: 160px;
@@ -76,6 +90,14 @@ button {
 	height: 30px;
 }
 
+/*
+=========================================================================================
+Things that appear at the bottom of the page
+=========================================================================================
+*/
+
+/* two bars (progress and slider)'s div container */
+
 #bottomBars {
 	position: absolute;
 	bottom: 15%;
@@ -84,6 +106,8 @@ button {
 	right: 30%;
 	line-height: 30px;
 }
+
+/* progress bar */
 
 #progressBar {
 	border-radius:10px;
@@ -106,6 +130,8 @@ button {
 	width: 100%;
 }
 
+/* speed slider */
+
 .slider {
 	appearance: none;
 	width: 100%;
@@ -122,6 +148,8 @@ button {
 	background: #e8b295;
 	border-radius: 10px;
 }
+
+/* buttons at the bottom */
 
 #scrambleSolve {
 	position: absolute;
@@ -142,6 +170,16 @@ button {
 	height: 30px;
 }
 
+#playPause {
+	display: none;
+}
+
+/*
+=========================================================================================
+Things that appear on the left of the page
+=========================================================================================
+*/
+
 #leftMenu {
 	width: 200px;
 	top: 20%;
@@ -157,6 +195,14 @@ button {
 	border-bottom-left-radius: 0;
 }
 
+/*
+=========================================================================================
+Pop ups
+=========================================================================================
+*/
+
+/* scramble input */
+
 #scrambleForm {
 	position: absolute;
 	top: 10%;
@@ -164,6 +210,8 @@ button {
 	width: 100%;
 	display: none;
 }
+
+/* solution that appears in the middle */
 
 #solutionDisplay {
 	position: absolute;
@@ -182,9 +230,7 @@ button {
 	font-size: 18px;
 }
 
-#playPause {
-	display: none;
-}
+/* help static pop ups */
 
 #howTo {
 	position: absolute;
